@@ -36,17 +36,19 @@ var layout = [{
         colClass: 'td-manage',
         style: 'width: 20%',
         render: function (row) {
+            var jsonData=JSON.stringify(row);
             if (row.levelnum == 3) {
                 //3级菜单不予许有子菜单
-                return '<a onclick="menu_stop(this,' + row.id + ')" href="javascript:;" title="启用"><i class="layui-icon">&#xe601;</i></a>' +
-                    // '<a title="添加" onclick="WeAdminShow(\'添加\',\'./MenuAdd.html\')" href="javascript:;"><i class="layui-icon">&#xe654;</i></a>' +
-                    '<a title="编辑" onclick="WeAdminEdit(\'编辑\',\'./MenuEdit.html\',' + row + ')" href="javascript:;"><i class="layui-icon">&#xe642;</i></a>';
+
+                return  "<a onclick='menu_stop(this," + row.id + ")' href='javascript:;' title='启用'><i class='layui-icon'>&#xe601;</i></a>" +
+                    // "<a title='添加' onclick='WeAdminShow(\"添加\",\"./MenuAdd.html\","+ jsonData+")' href='javascript:;'><i class='layui-icon'>&#xe654;</i></a>" +
+                    "<a title='编辑' onclick='WeAdminEdit(\"编辑\",\"./MenuEdit.html\","+ jsonData+")' href='javascript:;'><i class='layui-icon'>&#xe642;</i></a>";
                 //  这里都不能删除
             } else {
 
-                return '<a onclick="menu_stop(this,' + row.id + ')" href="javascript:;" title="启用"><i class="layui-icon">&#xe601;</i></a>' +
-                    '<a title="添加" onclick="WeAdminShow(\'添加\',\'./MenuAdd.html\',' + row + ')" href="javascript:;"><i class="layui-icon">&#xe654;</i></a>' +
-                    '<a title="编辑" onclick="WeAdminEdit(\'编辑\',\'./MenuEdit.html\',' + row + ')" href="javascript:;"><i class="layui-icon">&#xe642;</i></a>';
+                return "<a onclick='menu_stop(this," + row.id + ")' href='javascript:;' title='启用'><i class='layui-icon'>&#xe601;</i></a>" +
+                    "<a title='添加' onclick='WeAdminShow(\"添加\",\"./MenuAdd.html\","+ jsonData+")' href='javascript:;'><i class='layui-icon'>&#xe654;</i></a>" +
+                    "<a title='编辑' onclick='WeAdminEdit(\"编辑\",\"./MenuEdit.html\","+ jsonData+")' href='javascript:;'><i class='layui-icon'>&#xe642;</i></a>";
 
             } //  这里都不能删除
             // '<a title="删除" onclick="del(' + row.id + ')" href="javascript:;">\<i class="layui-icon">&#xe640;</i></a>';
@@ -55,7 +57,7 @@ var layout = [{
     },
 ];
 
-layui.use(['treeGird', 'jquery', 'request', 'layer','from'], function () {
+layui.use(['treeGird', 'jquery', 'request', 'layer','form'], function () {
     var layer = layui.layer;
     var $ = layui.jquery;
     var request = layui.request;
@@ -173,9 +175,11 @@ layui.use(['treeGird', 'jquery', 'request', 'layer','from'], function () {
             var menu = new Object();
             menu.menuId = data.id;
             menu.levelnum = data.levelnum;
-            menu.menuName = data.menuName;
+            menu.menuName = data.name;
             menu.status = data.status;
-            data = new Array().push(menu);
+            var list=new Array();
+            list.push(menu);
+            data =list;
         }
         if (title == null || title == '') {
             title = false;

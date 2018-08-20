@@ -1,16 +1,25 @@
 layui.extend({
     request: '{/}../../../static/js/network/request',
 });
-layui.use(['layer', 'request', 'jquery', 'from'], function () {
+layui.use(['layer', 'request', 'jquery', 'form'], function () {
     var layer = layui.layer;
     var $ = layui.jquery;
     var form = layui.form;
     var request = layui.request;
 //监听提交
     form.on('submit(add)', function (data) {
+        var levelnum = parseInt($("#pid-select").find("option:selected").attr("data-level")) + 1;
         console.log(data.field);
         //发异步，把数据提交给php
-        request.doPost("MenuOperation/addMenu", {}, function (data) {
+        request.doPost("MenuOperation/addMenu", {
+            parentid: data.field.pid,
+            levelnum: levelnum,
+            menuname: data.field.menuname,
+            menuurl: data.field.menuurl,
+            menuicon: data.field.menuicon,
+            menusort:data.field.sort,
+            state: data.field.status
+        }, function (data) {
             layer.alert("增加成功", {
                 icon: 6
             }, function () {
