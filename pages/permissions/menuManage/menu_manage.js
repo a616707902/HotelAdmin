@@ -7,7 +7,7 @@ var tree_node = {
     name: "",
     children: ""
 }
-
+var MenuData = new Array();
 //自定义的render渲染输出多列表格
 var layout = [{
     name: '菜单名称',
@@ -36,24 +36,32 @@ var layout = [{
         colClass: 'td-manage',
         style: 'width: 20%',
         render: function (row) {
-            return '<a onclick="menu_stop(this,'+row.id+')" href="javascript:;" title="启用"><i class="layui-icon">&#xe601;</i></a>' +
-                '<a title="添加" onclick="WeAdminShow(\'添加\',\'./MenuAdd.html\')" href="javascript:;"><i class="layui-icon">&#xe654;</i></a>' +
-                '<a title="编辑" onclick="WeAdminShow(\'编辑\',\'./MenuEdit.html\')" href="javascript:;"><i class="layui-icon">&#xe642;</i></a>' +
-                '<a title="删除" onclick="del(' + row.id + ')" href="javascript:;">\<i class="layui-icon">&#xe640;</i></a>';
+            if (row.levelnum == 3) {
+                //3级菜单不予许有子菜单
+                return '<a onclick="menu_stop(this,' + row.id + ')" href="javascript:;" title="启用"><i class="layui-icon">&#xe601;</i></a>' +
+                    // '<a title="添加" onclick="WeAdminShow(\'添加\',\'./MenuAdd.html\')" href="javascript:;"><i class="layui-icon">&#xe654;</i></a>' +
+                    '<a title="编辑" onclick="WeAdminEdit(\'编辑\',\'./MenuEdit.html\',' + row + ')" href="javascript:;"><i class="layui-icon">&#xe642;</i></a>';
+                //  这里都不能删除
+            } else {
+
+                return '<a onclick="menu_stop(this,' + row.id + ')" href="javascript:;" title="启用"><i class="layui-icon">&#xe601;</i></a>' +
+                    '<a title="添加" onclick="WeAdminShow(\'添加\',\'./MenuAdd.html\',' + row + ')" href="javascript:;"><i class="layui-icon">&#xe654;</i></a>' +
+                    '<a title="编辑" onclick="WeAdminEdit(\'编辑\',\'./MenuEdit.html\',' + row + ')" href="javascript:;"><i class="layui-icon">&#xe642;</i></a>';
+
+            } //  这里都不能删除
+            // '<a title="删除" onclick="del(' + row.id + ')" href="javascript:;">\<i class="layui-icon">&#xe640;</i></a>';
             //return '<a class="layui-btn layui-btn-danger layui-btn-mini" onclick="del(' + row.id + ')"><i class="layui-icon">&#xe640;</i> 删除</a>'; //列渲染
         }
     },
 ];
 
-layui.use(['treeGird', 'jquery', 'request', 'layer'], function () {
+layui.use(['treeGird', 'jquery', 'request', 'layer','from'], function () {
     var layer = layui.layer;
     var $ = layui.jquery;
-
-
-    var treeGird = layui.treeGird;
     var request = layui.request;
     $(function () {
         request.doGet("MenuOperation/getAllMenuList", {username: layui.data("user").user.username}, function (data) {
+            MenuData = data;
             var nodes = new Array();
 
             for (var i = 0; i < data.length; i++) {
@@ -64,6 +72,7 @@ layui.use(['treeGird', 'jquery', 'request', 'layer'], function () {
                     menuOne.id = data[i].menuId;
                     menuOne.name = data[i].menuName;
                     menuOne.status = data[i].status;
+                    menuOne.levelnum = data[i].levelnum;
                     for (var j = 0; j < data.length; j++) {
                         if (data[j].pareMenuId == data[i].menuId && data[j].levelnum == 2) {
                             var list3 = new Array();
@@ -71,12 +80,14 @@ layui.use(['treeGird', 'jquery', 'request', 'layer'], function () {
                             menuTwo.id = data[j].menuId;
                             menuTwo.name = data[j].menuName;
                             menuTwo.status = data[j].status;
+                            menuTwo.levelnum = data[j].levelnum;
                             for (var k = 0; k < data.length; k++) {
                                 if (data[k].pareMenuId == data[j].menuId && data[k].levelnum == 3) {
                                     var menuThree = new Object();
                                     menuThree.id = data[k].menuId;
                                     menuThree.name = data[k].menuName;
                                     menuThree.status = data[k].status;
+                                    menuThree.levelnum = data[k].levelnum;
                                     list3.push(menuThree);
                                 }
                             }
@@ -107,42 +118,165 @@ layui.use(['treeGird', 'jquery', 'request', 'layer'], function () {
 
 
     });
+    /*分类-停用*/
+    window.menu_stop = function (obj, id) {
+        var confirmTip;
+        if ($(obj).attr('title') == '启用') {
+            confirmTip = '确认要停用吗？';
+        } else {
+            confirmTip = '确认要启用吗？';
+        }
+        layer.confirm(confirmTip, function (index) {
+            if ($(obj).attr('title') == '启用') {
+                //发异步把用户状态进行更改
+                request.doPost("MenuOperation/changeMenuStatus", {
+                    menuId: id,
+                    status: 0
+                }, function (data) {
+                    $(obj).attr('title', '停用')
+                    $(obj).find('i').html('&#xe62f;');
+                    $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
+                    layer.msg('已停用!', {
+                        icon: 5,
+                        time: 1000
+                    });
+                });
 
+            } else {
+                request.doPost("MenuOperation/changeMenuStatus", {
+                    menuId: id,
+                    status: 1
+                }, function (data) {
+                    $(obj).attr('title', '启用')
+                    $(obj).find('i').html('&#xe601;');
+
+                    $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
+                    layer.msg('已启用!', {
+                        icon: 6,
+                        time: 1000
+                    });
+                });
+
+            }
+        });
+    }
+    window.reflush = function () {
+        location.replace(location.href);
+    }
+    window.del = function (nodeId) {
+        alert(nodeId);
+    }
+    window.WeAdminShow = function (title, url, data, w, h) {
+        if (data == null || data == undefined) {
+            data = MenuData;
+        } else {
+            var menu = new Object();
+            menu.menuId = data.id;
+            menu.levelnum = data.levelnum;
+            menu.menuName = data.menuName;
+            menu.status = data.status;
+            data = new Array().push(menu);
+        }
+        if (title == null || title == '') {
+            title = false;
+        }
+        ;
+        if (url == null || url == '') {
+            url = "/HotelAdmin/pages/404.html";
+        }
+        ;
+        if (w == null || w == '') {
+            w = ($(window).width() * 0.9);
+        }
+        ;
+        if (h == null || h == '') {
+            h = ($(window).height() - 50);
+        }
+        ;
+        layer.open({
+            type: 2,
+            area: [w + 'px', h + 'px'],
+            fix: false, //不固定
+            maxmin: true,
+            shadeClose: true,
+            shade: 0.4,
+            title: title,
+            content: url,
+            success: function (layero, index) {
+                var body = layui.layer.getChildFrame('body', index);
+
+                if (data) {
+                    var selectHtml = '';
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].levelnum != 3 && data[i].status != 0) {
+                            // <option value="0" data-level="0">顶级分类</option>
+                            selectHtml += "<option value=\"" + data[i].menuId + "\" data-level=\"" + data[i].levelnum + "\">" + data[i].menuName + "</option>"
+                        }
+                    }
+                    body.find("#pid-select").html(selectHtml);
+
+                }
+            }
+        });
+    }
+    window.WeAdminEdit = function (title, url, data, w, h) {
+
+
+        if (title == null || title == '') {
+            title = false;
+        }
+        ;
+        if (url == null || url == '') {
+            url = "/HotelAdmin/pages/404.html";
+        }
+        ;
+        if (w == null || w == '') {
+            w = ($(window).width() * 0.9);
+        }
+        ;
+        if (h == null || h == '') {
+            h = ($(window).height() - 50);
+        }
+        ;
+        layer.open({
+            type: 2,
+            area: [w + 'px', h + 'px'],
+            fix: false, //不固定
+            maxmin: true,
+            shadeClose: true,
+            shade: 0.4,
+            title: title,
+            content: url,
+            success: function (layero, index) {
+                var body = layui.layer.getChildFrame('body', index);
+
+                if (MenuData) {
+                    var selectHtml = '';
+                    for (var i = 0; i < MenuData.length; i++) {
+                        if (MenuData[i].levelnum != 3 && MenuData[i].status != 0) {
+                            // <option value="0" data-level="0">顶级分类</option>
+                            selectHtml += "<option value=\"" + MenuData[i].menuId + "\" data-level=\"" + MenuData[i].levelnum + "\">" + MenuData[i].menuName + "</option>"
+                        }
+                    }
+                    body.find("#pid-select").html(selectHtml);
+                    layui.form.render('select'); //刷新select选择框渲染
+                    body.find("#pid-select").val(data.menuId);
+                    body.find("#menuName").val(data.menuName);
+                    body.find("#menuUrl").val(data.menuUrl);
+                    body.find("#menuSort").val(data.menuSort);
+
+                    if (data.menuStatus == 1) {
+                        $("#radio1").attr("checked", "checked");
+                        $("#radio2").removeAttr("checked");
+                    } else {
+                        //  $('input:radio:checked').val()；
+                        $("#radio2").attr("checked", "checked");
+                        $("#radio1").removeAttr("checked");
+                    }
+
+                }
+            }
+        });
+    }
 });
 
-/*分类-停用*/
-function menu_stop(obj, id) {
-    var $ = layui.jquery;
-    var confirmTip;
-    if ($(obj).attr('title') == '启用') {
-        confirmTip = '确认要停用吗？';
-    } else {
-        confirmTip = '确认要启用吗？';
-    }
-    layer.confirm(confirmTip, function (index) {
-        if ($(obj).attr('title') == '启用') {
-            //发异步把用户状态进行更改
-            $(obj).attr('title', '停用')
-            $(obj).find('i').html('&#xe62f;');
-            $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-            layer.msg('已停用!', {
-                icon: 5,
-                time: 1000
-            });
-        } else {
-            $(obj).attr('title', '启用')
-            $(obj).find('i').html('&#xe601;');
-
-            $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-            layer.msg('已启用!', {
-                icon: 6,
-                time: 1000
-            });
-        }
-    });
-}
-
-function del(nodeId) {
-  var $= layui.jquery;
-  alert(nodeId);
-}

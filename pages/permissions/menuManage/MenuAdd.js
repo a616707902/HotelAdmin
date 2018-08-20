@@ -1,0 +1,54 @@
+layui.extend({
+    request: '{/}../../../static/js/network/request',
+});
+layui.use(['layer', 'request', 'jquery', 'from'], function () {
+    var layer = layui.layer;
+    var $ = layui.jquery;
+    var form = layui.form;
+    var request = layui.request;
+//监听提交
+    form.on('submit(add)', function (data) {
+        console.log(data.field);
+        //发异步，把数据提交给php
+        request.doPost("MenuOperation/addMenu", {}, function (data) {
+            layer.alert("增加成功", {
+                icon: 6
+            }, function () {
+                parent.reflush();
+                // 获得frame索引
+                var index = parent.layer.getFrameIndex(window.name);
+                //关闭当前frame
+                parent.layer.close(index);
+            });
+        });
+        return false;
+    });
+    // $("#reset").click(function () {
+    //     $("#pid-select option:first").prop("selected", 'selected');
+    //     $("#form1").find('input[type=text],input[type=hidden]').each(function () {
+    //         $(this).val('');
+    //     });
+    //
+    // });
+    //遍历select option
+    $(function () {
+        $("#pid-select option").each(function (text) {
+            var level = $(this).attr('data-level');
+            var text = $(this).text();
+            console.log(text);
+            if (level > 1) {
+                text = "├　" + text;
+                for (var i = 0; i < level; i++) {
+                    text = "　　" + text;　//js中连续显示多个空格，需要使用全角的空格
+                    //console.log(i+"text:"+text);
+                }
+            }
+            $(this).text(text);
+
+        });
+
+        form.render('select'); //刷新select选择框渲染
+    });
+
+
+});
