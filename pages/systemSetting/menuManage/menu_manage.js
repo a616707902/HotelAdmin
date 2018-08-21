@@ -176,6 +176,7 @@ layui.use(['treeGird', 'jquery', 'request', 'layer','form'], function () {
         });
     }
     window.reflush = function () {
+        window.parent.location.reload(); //刷新父页面
         location.replace(location.href);
     }
     window.del = function (nodeId) {
