@@ -63,7 +63,7 @@ layui.use(['treeGird', 'jquery', 'request', 'layer','form'], function () {
     var request = layui.request;
     $(function () {
         request.doGet("MenuOperation/getAllMenuList", {username: layui.data("user").user.username}, function (data) {
-            MenuData = data;
+
             var nodes = new Array();
 
             for (var i = 0; i < data.length; i++) {
@@ -75,6 +75,10 @@ layui.use(['treeGird', 'jquery', 'request', 'layer','form'], function () {
                     menuOne.name = data[i].menuName;
                     menuOne.status = data[i].status;
                     menuOne.levelnum = data[i].levelnum;
+                    menuOne.menuUrl=data[i].menuUrl;
+                    menuOne.menuSort=data[i].menuSort;
+                    menuOne.menuIcon=data[i].menuIcon;
+                    menuOne.pid=data[i].pareMenuId;
                     for (var j = 0; j < data.length; j++) {
                         if (data[j].pareMenuId == data[i].menuId && data[j].levelnum == 2) {
                             var list3 = new Array();
@@ -83,6 +87,10 @@ layui.use(['treeGird', 'jquery', 'request', 'layer','form'], function () {
                             menuTwo.name = data[j].menuName;
                             menuTwo.status = data[j].status;
                             menuTwo.levelnum = data[j].levelnum;
+                            menuTwo.menuUrl=data[j].menuUrl;
+                            menuTwo.menuIcon=data[j].menuIcon;
+                            menuTwo.menuSort=data[j].menuSort;
+                            menuTwo.pid=data[j].pareMenuId;
                             for (var k = 0; k < data.length; k++) {
                                 if (data[k].pareMenuId == data[j].menuId && data[k].levelnum == 3) {
                                     var menuThree = new Object();
@@ -90,6 +98,10 @@ layui.use(['treeGird', 'jquery', 'request', 'layer','form'], function () {
                                     menuThree.name = data[k].menuName;
                                     menuThree.status = data[k].status;
                                     menuThree.levelnum = data[k].levelnum;
+                                    menuThree.menuUrl=data[k].menuUrl;
+                                    menuThree.menuIcon=data[k].menuIcon;
+                                    menuThree.menuSort=data[k].menuSort;
+                                    menuThree.pid=data[k].pareMenuId;
                                     list3.push(menuThree);
                                 }
                             }
@@ -100,6 +112,7 @@ layui.use(['treeGird', 'jquery', 'request', 'layer','form'], function () {
                     }
                     menuOne.children = list2;
                     nodes.push(menuOne);
+                    MenuData = nodes;
                 }
 
             }
@@ -173,9 +186,9 @@ layui.use(['treeGird', 'jquery', 'request', 'layer','form'], function () {
             data = MenuData;
         } else {
             var menu = new Object();
-            menu.menuId = data.id;
+            menu.id = data.id;
             menu.levelnum = data.levelnum;
-            menu.menuName = data.name;
+            menu.name = data.name;
             menu.status = data.status;
             var list=new Array();
             list.push(menu);
@@ -214,10 +227,20 @@ layui.use(['treeGird', 'jquery', 'request', 'layer','form'], function () {
                     for (var i = 0; i < data.length; i++) {
                         if (data[i].levelnum != 3 && data[i].status != 0) {
                             // <option value="0" data-level="0">顶级分类</option>
-                            selectHtml += "<option value=\"" + data[i].menuId + "\" data-level=\"" + data[i].levelnum + "\">" + data[i].menuName + "</option>"
+                            selectHtml += "<option value=\"" + data[i].id + "\" data-level=\"" + data[i].levelnum + "\">" + data[i].name + "</option>"
+                        }
+                        if (data[i].children!=null&&data[i].children.length>0){
+                            var children= data[i].children;
+                            for (var j=0;j<children.length;j++){
+
+                                selectHtml += "<option value=\"" + children[j].id + "\" data-level=\"" +children[j].levelnum + "\">" + children[j].name + "</option>"
+
+                            }
+
                         }
                     }
                     body.find("#pid-select").html(selectHtml);
+                    layui.form.render('select'); //刷新select选择框渲染
 
                 }
             }
@@ -255,21 +278,32 @@ layui.use(['treeGird', 'jquery', 'request', 'layer','form'], function () {
                 var body = layui.layer.getChildFrame('body', index);
 
                 if (MenuData) {
-                    var selectHtml = '';
+                    var selectHtml = ' <option value="0" data-level="0">顶级菜单</option>';
                     for (var i = 0; i < MenuData.length; i++) {
                         if (MenuData[i].levelnum != 3 && MenuData[i].status != 0) {
                             // <option value="0" data-level="0">顶级分类</option>
-                            selectHtml += "<option value=\"" + MenuData[i].menuId + "\" data-level=\"" + MenuData[i].levelnum + "\">" + MenuData[i].menuName + "</option>"
+                            selectHtml += "<option value=\"" + MenuData[i].id + "\" data-level=\"" + MenuData[i].levelnum + "\">" + MenuData[i].name + "</option>"
+                        }
+                        if (MenuData[i].children!=null&&MenuData[i].children.length>0){
+                            var children= MenuData[i].children;
+                            for (var j=0;j<children.length;j++){
+
+                                selectHtml += "<option value=\"" + children[j].id + "\" data-level=\"" +children[j].levelnum + "\">" + children[j].name + "</option>"
+
+                            }
+
                         }
                     }
                     body.find("#pid-select").html(selectHtml);
                     layui.form.render('select'); //刷新select选择框渲染
-                    body.find("#pid-select").val(data.menuId);
-                    body.find("#menuName").val(data.menuName);
+                    body.find("#pid-select").val(data.pid);
+                    body.find("#menuName").val(data.name);
+                    body.find("#menuIcon").val(data.menuIcon);
                     body.find("#menuUrl").val(data.menuUrl);
                     body.find("#menuSort").val(data.menuSort);
+                    body.find("#menuid").val(data.id);
 
-                    if (data.menuStatus == 1) {
+                    if (data.status == 1) {
                         $("#radio1").attr("checked", "checked");
                         $("#radio2").removeAttr("checked");
                     } else {

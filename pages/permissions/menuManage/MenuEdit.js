@@ -11,7 +11,8 @@ layui.use(['layer', 'request', 'jquery', 'form'], function () {
         var levelnum = parseInt($("#pid-select").find("option:selected").attr("data-level")) + 1;
         console.log(data.field);
         //发异步，把数据提交给php
-        request.doPost("MenuOperation/addMenu", {
+        request.doPost("MenuOperation/changeMenu", {
+            menuid: data.field.menuid,
             parentid: data.field.pid,
             levelnum: levelnum,
             menuname: data.field.menuname,
@@ -19,8 +20,9 @@ layui.use(['layer', 'request', 'jquery', 'form'], function () {
             menuicon: data.field.menuicon,
             menusort: data.field.sort,
             state: data.field.status
+
         }, function (data) {
-            layer.alert("增加成功", {
+            layer.alert("修改成功", {
                 icon: 6
             }, function () {
                 parent.reflush();
@@ -32,6 +34,8 @@ layui.use(['layer', 'request', 'jquery', 'form'], function () {
         });
         return false;
     });
+
+
     // $("#reset").click(function () {
     //     $("#pid-select option:first").prop("selected", 'selected');
     //     $("#form1").find('input[type=text],input[type=hidden]').each(function () {
@@ -47,7 +51,7 @@ layui.use(['layer', 'request', 'jquery', 'form'], function () {
                 var level = $(this).attr('data-level');
                 var text = $(this).text();
                 console.log(text);
-                if (level > 1) {
+                if (level > 0) {
                     text = "├　" + text;
                     for (var i = 0; i < level; i++) {
                         text = "　　" + text;　//js中连续显示多个空格，需要使用全角的空格
@@ -58,8 +62,10 @@ layui.use(['layer', 'request', 'jquery', 'form'], function () {
 
             });
 
-            form.render('select'); //刷新select选择框渲染
-        }, 100)
+            form.render(); //刷新select选择框渲染
+
+        }, 100);
+
     });
 
 
