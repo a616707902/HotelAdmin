@@ -56,7 +56,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'authtree'], function () {
 
     });
     // 异步提交表单信息
-    form.on('submit()', function(obj){
+    form.on('submit(add)', function(obj){
         // 注意如果直接通过layui的obj.field可能会出现问题，layuiAdmin请使用admin.req();
         var authids = authtree.getAll('#LAY-auth-tree-index');
         console.log('Choosed authids is', authids);
@@ -72,5 +72,6 @@ layui.use(['layer', 'request', 'jquery', 'form', 'authtree'], function () {
             //关闭当前frame
             parent.layer.close(index);
         });
+        return false;
     });
 });

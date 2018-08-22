@@ -1,7 +1,9 @@
-/**
+/**http://api.gaoshiwang.cn/docs/
  扩展一个网络请求模块
  **/
-var urlPrefix = 'http://localhost:8080/HotelManage/';
+// var urlPrefix = 'http://localhost:8080/HotelManage/';
+var urlPrefix = 'http://api.gaoshiwang.cn/';
+
 /**
  * 用法如下：
 
