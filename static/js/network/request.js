@@ -2,7 +2,7 @@
  扩展一个网络请求模块
  **/
 // var urlPrefix = 'http://localhost:8080/HotelManage/';
-var urlPrefix = 'http://api.gaoshiwang.cn/';
+var urlPrefix = 'http://api.gaoshiwang.cn';
 
 /**
  * 用法如下：
@@ -51,6 +51,12 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
          */
         doPost: function (url, data, callback) {
             doRequest('POST', url, JSON.stringify(data), callback);
+        },
+        doPatch: function (url, data, callback) {
+            doRequest('PATCH', url, JSON.stringify(data), callback);
+        },
+        doPut: function (url, data, callback) {
+            doRequest('PUT', url, JSON.stringify(data), callback);
         }
     };
 
