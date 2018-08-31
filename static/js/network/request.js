@@ -57,6 +57,12 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
         },
         doPut: function (url, data, callback) {
             doRequest('PUT', url, JSON.stringify(data), callback);
+        },
+        getQueryString: function (name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null;
         }
     };
 

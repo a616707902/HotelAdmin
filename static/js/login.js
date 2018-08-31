@@ -15,7 +15,7 @@ layui.use(['form', 'request'], function () {
 
 
                 //登录成功将登录返回的数据写入本地存储
-                layui.data('user', {
+                layui.sessionData('user', {
                     key: 'user',
                     value: {
                         isLogin: true,

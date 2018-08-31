@@ -34,14 +34,31 @@ layui.use(['layer', 'jquery', 'request', 'form','table'], function () {
             search: search
         }, function (data) {
             //第一个实例
+            $("#total").html(data.count);
             table.render({
                 elem: '#hotelList'
                 ,page: true //开启分页
                 ,cols: TableHeader
-                ,data:data
+                ,data:data.results
             });
+
         });
     }
+    table.on('tool(hotelList)', function(obj){
+        var data = obj.data;
+        if(obj.event === 'detail'){
+            // layer.msg('ID：'+ data.id + ' 的查看操作');
+            AddHotel("酒店详情","./HotelAdd.html?op='detail'&id="+data.id);
+        } else if(obj.event === 'del'){
+            // layer.confirm('真的删除行么', function(index){
+            //     obj.del();
+            //     layer.close(index);
+            // });
+        } else if(obj.event === 'edit'){
+            // layer.alert('编辑行：<br>'+ JSON.stringify(data))
+            AddHotel("酒店详情","./HotelAdd.html?op='edit'&id="+data.id);
+        }
+    });
     $(function () {
         getAllHotel($("#hotelname").val())
 

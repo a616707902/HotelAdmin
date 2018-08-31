@@ -11,7 +11,7 @@ layui.use(['layer', 'jquery', 'request', 'element'], function () {
      *@todo 模拟登录
      * 判断初次登录时，跳转到登录页
      */
-    var usertable = layui.data('user');
+    var usertable = layui.sessionData('user');
     var user = usertable.user;
 
     if (usertable == undefined || user == undefined || !user.isLogin) {
