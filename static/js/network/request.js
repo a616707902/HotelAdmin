@@ -80,10 +80,12 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
             data: data,
             dataType: 'json',
             success: function (response) {
+                layer.close(index);
                 if (!Boolean(response.meta.success)) {
                     layer.msg(response.meta.message, {icon: 5});
                     return false;
                 } else {
+
                     callback(response.data);
                 }
 
@@ -94,6 +96,7 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
                 layer.close(index);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
+                layer.close(index);
                 if (XMLHttpRequest.status == 403) {
                     layer.msg('登录失效，请重新登录', 5);
                     setTimeout(function () {
