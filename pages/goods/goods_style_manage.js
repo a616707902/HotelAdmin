@@ -47,7 +47,7 @@ layui.use(['layer', 'jquery', 'request', 'form','table'], function () {
         var data = obj.data;
         if(obj.event === 'detail'){
             // layer.msg('ID：'+ data.id + ' 的查看操作');
-            AddHotel("详情","./goods_styleAdd.html?op='detail'&id="+data.id);
+            WeAdminShow("详情","./goods_styleAdd.html?op='detail'&id="+data.id);
         } else if(obj.event === 'del'){
             // layer.confirm('真的删除行么', function(index){
             //     obj.del();
@@ -55,45 +55,15 @@ layui.use(['layer', 'jquery', 'request', 'form','table'], function () {
             // });
         } else if(obj.event === 'edit'){
             // layer.alert('编辑行：<br>'+ JSON.stringify(data))
-            AddHotel("编辑","./goods_styleAdd.html?op='edit'&id="+data.id);
+            WeAdminShow("编辑","./goods_styleAdd.html?op='edit'&id="+data.id);
         }
     });
     $(function () {
         getAllGoodsStyle($("#goodsstyle").val());
         $('#add').click(function () {
-            AddHotel("添加","./goods_styleAdd.html?");
+            WeAdminShow("添加","./goods_styleAdd.html?");
         });
     });
-    window.AddHotel=function (title, url,  w, h) {
-        if (title == null || title == '') {
-            title = false;
-        }
-        ;
-        if (url == null || url == '') {
-            url = "/HotelAdmin/pages/404.html";
-        }
-        ;
-        if (w == null || w == '') {
-            w = ($(window).width() * 0.9);
-        }
-        ;
-        if (h == null || h == '') {
-            h = ($(window).height() - 50);
-        }
-        ;
-        layer.open({
-            type: 2,
-            area: [w + 'px', h + 'px'],
-            fix: false, //不固定
-            maxmin: true,
-            shadeClose: true,
-            shade: 0.4,
-            title: title,
-            content: url,
-            success: function (layero, index) {
-            }
-        });
-    }
 
 
 })

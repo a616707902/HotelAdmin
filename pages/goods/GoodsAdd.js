@@ -1,13 +1,6 @@
 layui.extend({
     request: '{/}../../../static/js/network/request',
 });
-/*var usertable = layui.sessionData('user');
-var user = usertable.user;
-if (usertable == undefined || user == undefined || !user.isLogin) {
-    window.parent.location.href = "/HotelAdmin/login.html";
-}
-var hotel = user.hotelID;*/
-var hotel = '1';
 layui.use(['layer', 'request', 'jquery', 'form'], function () {
     var layer = layui.layer;
     var $ = layui.jquery;
@@ -19,9 +12,9 @@ layui.use(['layer', 'request', 'jquery', 'form'], function () {
         var id = request.getQueryString("id");
 
         if ("edit" == op) {
-            editRoom(data, id);
+            editGoods(data, id);
         } else {
-            addRoom(data);
+            addGoods(data);
         }
 
         return false;
@@ -29,62 +22,39 @@ layui.use(['layer', 'request', 'jquery', 'form'], function () {
     $(function () {
         var op = request.getQueryString("op");
         var id = request.getQueryString("id");
-        getHotelSelect(hotel);
-        getStyleSelect(hotel);
+        getStyleSelect();
         if ("detail" == op || "edit" == op) {
             if ("detail" == op) {
                 $(".layui-form-item button").addClass("layui-hide");
             }
-            getRoomDetail(id)
+            getGoodsDetail(id)
         }
     });
-
-    /**
-     * 获取当前账号下能管理的所有酒店
-     * @param hotel
-     */
-    function getHotelSelect(hotel) {
-        var url = "/admin/hotel/"
-        if (hotel != null || hotel != '') {
-            url = "/admin/hotel/" + hotel + "/";
-        }
-        var htmlselect = "";
-        request.doGet(url, {}, function (response) {
-
-            if (data != null && data.length > 0) {
-                for (var i = 0; i < data.length; i++) {
-                    htmlselect += "<option value=\"" + data[i].id + "\">" + data[i].name + "</option>";
-                }
-            }
-            $('#hotel_select').html(htmlselect);
-            form.render('select'); //刷新select选择框渲染
-        });
-    }
 
     /**
      * 根据当前的酒店获取房间类型
      * @param hotel
      */
-    function getStyleSelect(hotel) {
+    function getStyleSelect() {
         var htmlselect = "";
-        request.doGet("/admin/room_style/", {
-            search: hotel
+        request.doGet("/admin/goods_category/", {
+            search: ''
         }, function (data) {
             if (data != null && data.length > 0) {
                 for (var i = 0; i < data.length; i++) {
                     htmlselect += "<option value=\"" + data[i].id + "\">" + data[i].name + "</option>";
                 }
             }
-            $('#style_select').html(htmlselect);
+            $('#category_name').html(htmlselect);
             form.render('select'); //刷新select选择框渲染
         });
     }
 
-    function editRoom(data, id) {
-        request.doPatch("/admin/room/" + id + "/", {
-            style_name: data.field.style_name,
-            room_nums: data.field.room_nums
-
+    function editGoods(data, id) {
+        request.doPut("/admin/goods/" + id + "/", {
+            goods_price: data.field.goods_price,
+            is_active: data.field.is_active=='1'?true:false,
+            goods_name:data.field.goods_name
         }, function (data) {
             layer.alert("修改成功", {
                 icon: 6
@@ -98,10 +68,11 @@ layui.use(['layer', 'request', 'jquery', 'form'], function () {
         });
     }
 
-    function addRoom(data) {
-        request.doPost("/admin/room/", {
-            style_name: data.field.style_name,
-            room_nums: data.field.room_nums
+    function addGoods(data) {
+        request.doPost("/admin/goods/", {
+            goods_price: data.field.goods_price,
+            is_active: data.field.is_active=='1'?true:false,
+            goods_name:data.field.goods_name
         }, function (data) {
             layer.alert("增加成功", {
                 icon: 6
@@ -115,8 +86,8 @@ layui.use(['layer', 'request', 'jquery', 'form'], function () {
         });
     }
 
-    function getRoomDetail(id) {
-        request.doGet("/admin/room/" + id + "/", {}, function (response) {
+    function getGoodsDetail(id) {
+        request.doGet("//admin/goods/" + id + "/", {}, function (response) {
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
             });

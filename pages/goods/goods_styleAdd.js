@@ -20,9 +20,9 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
         var id = request.getQueryString("id");
 
         if ("edit" == op) {
-            editRoomStyle(data, id);
+            editGoodsStyle(data, id);
         } else {
-            addRoomStyle(data);
+            addGoodsStyle(data);
         }
 
         return false;
@@ -44,48 +44,19 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     $(function () {
         var op = request.getQueryString("op");
         var id = request.getQueryString("id");
-
-
-        getHotelSelect(hotel);
         if ("detail" == op || "edit" == op) {
             if ("detail" == op) {
                 $(".layui-form-item button").addClass("layui-hide");
             }
-            getRoomStyleDetail(id)
+            getGoodsStyleDetail(id)
         }
     });
 
-    /**
-     * 获取当前账号下能管理的所有酒店
-     * @param hotel
-     */
-    function getHotelSelect(hotel) {
-        var url = "/admin/hotel/"
-        if (hotel != null || hotel != '') {
-            url = "/admin/hotel/" + hotel + "/";
-        }
-        var htmlselect="";
-        request.doGet(url, {}, function (response) {
 
-            if (data!=null&&data.length>0){
-                for (var i=0;i<data.length;i++){
-                    htmlselect+="<option value=\""+data[i].id+"\">"+data[i].name+"</option>";
-                }
-            }
-            $('#hotel-select').html(htmlselect);
-            form.render('select'); //刷新select选择框渲染
-        });
-    }
-
-    function editRoomStyle(data, id) {
-        request.doPut("/admin/room_style/" + id + "/", {
-            price: data.field.price,
+    function editGoodsStyle(data, id) {
+        request.doPut("/admin/goods_category/" + id + "/", {
             is_active: data.field.is_active=='1'?true:false,
-            style_name: data.field.style_name,
-            room_profile: data.field.room_profile,
-            images: [
-                "string"
-            ]
+            category_name: data.field.category_name,
         }, function (data) {
             layer.alert("修改成功", {
                 icon: 6
@@ -99,16 +70,11 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
         });
     }
 
-    function addRoomStyle(data) {
-        request.doPost("/admin/room_style/", {
-            price: data.field.price,
-            hotel: data.field.hotel,
+    function addGoodsStyle(data) {
+        request.doPost("/admin/goods_category/", {
             is_active: data.field.is_active=='1'?true:false,
-            style_name: data.field.style_name,
-            room_profile: data.field.room_profile,
-            images: [
-                "string"
-            ]
+            category_name: data.field.category_name,
+
         }, function (data) {
             layer.alert("增加成功", {
                 icon: 6
@@ -122,14 +88,14 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
         });
     }
 
-    function getRoomStyleDetail(id) {
-        request.doGet("/admin/room_style/" + id + "/", {}, function (response) {
+    function getGoodsStyleDetail(id) {
+        request.doGet("/admin/goods_category/" + id + "/", {}, function (response) {
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
             });
             var images = response.images;
             for (var i = 0; i < images.length; i++) {
-                $('#demo2').append('<img src="' + images[i] + '" alt="房间参考照片" class="layui-upload-img">')
+                $('#demo2').append('<img src="' + images[i] + '" alt="商品类型参考照片" class="layui-upload-img">')
             }
         })
     }

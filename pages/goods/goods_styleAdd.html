@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>创建房间类型</title>
+    <title>创建商品类型</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -24,18 +24,10 @@
 
     <form id="form1" class="layui-form">
 
-
-        <div class="layui-form-item">
-            <label class="layui-form-label"><span class="we-red">*</span>酒店名称</label>
-            <div class="layui-input-block">
-                <select  name="hotel" id="hotel-select" lay-verify="required" lay-filter="pid-select">
-                </select>
-            </div>
-        </div>
         <div class="layui-form-item">
             <label class="layui-form-label"><span class="we-red">*</span>类型名称</label>
             <div class="layui-input-block">
-                <input  id="style_name" lay-verType="tips" type="text" name="style_name" lay-verify="required"  placeholder="请输入房间类型名称，如‘豪华双人套房’" autocomplete="off" class="layui-input ">
+                <input  id="category_name" lay-verType="tips" type="text" name="category_name" lay-verify="required"  placeholder="请输入商品类型名称，如‘饮料’" autocomplete="off" class="layui-input ">
             </div>
         </div>
 
@@ -45,12 +37,12 @@
                 <textarea  id="hotel_profile" name="hotel_profile" placeholder="房间类型简介" class="layui-textarea"></textarea>
             </div>
         </div>
-        <div class="layui-form-item">
+     <!--   <div class="layui-form-item">
             <label class="layui-form-label">价格</label>
             <div class="layui-input-inline">
                 <input  id="price" lay-verType="tips" type="number" name="price" lay-verify="required"  placeholder="价格" autocomplete="off" class="layui-input ">
             </div>
-        </div>
+        </div>-->
         <div class="layui-form-item">
             <div class="layui-input-block layui-upload">
                 <button type="button" class="layui-btn" id="test2">选择图片</button>
