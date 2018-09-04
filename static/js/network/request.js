@@ -1,4 +1,5 @@
-/**http://api.gaoshiwang.cn/docs/
+/**
+ http://api.gaoshiwang.cn/docs/
  扩展一个网络请求模块
  **/
 // var urlPrefix = 'http://localhost:8080/HotelManage/';

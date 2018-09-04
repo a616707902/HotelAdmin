@@ -15,7 +15,7 @@ layui.use(['layer', 'jquery', 'request', 'form','table'], function () {
     var form = layui.form;
     var requset = layui.request;
     var table=layui.table;
-    form.on('submit(sreach)', function (data) {
+    form.on('submit(search)', function (data) {
         getAllGoodsStyle(data.field.search);
     });
     window.reflush = function () {
