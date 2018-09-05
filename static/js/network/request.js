@@ -80,8 +80,11 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
             },
             data: data,
             dataType: 'json',
-            success: function (response) {
+            //success(result,status,xhr)
+            success: function (response,status,xhr) {
                 layer.close(index);
+                console.log(status);
+                console.log(xhr.status);
                 if (!Boolean(response.meta.success)) {
                     layer.msg(response.meta.message, {icon: 5});
                     return false;
@@ -93,9 +96,11 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
             },
             beforeSend: function (xhr) {
             },
+            //complete(xhr,status)
             complete: function () {
                 layer.close(index);
             },
+            //error(xhr,status,error)
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 layer.close(index);
                 if (XMLHttpRequest.status == 403) {
