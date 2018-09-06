@@ -86,7 +86,6 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
                     layer.msg(response.meta.message, {icon: 5});
                     return false;
                 } else {
-
                     callback(response.data);
                 }
 
