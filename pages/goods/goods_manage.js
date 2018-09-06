@@ -49,7 +49,7 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table'], function () {
         var data = obj.data;
         if (obj.event === 'detail') {
             // layer.msg('ID：'+ data.id + ' 的查看操作');
-            WeAdminShow("详情", "./GoodsAdd.html?op='detail'&id=" + data.id);
+            WeAdminShow("详情", "./GoodsAdd.html?op=detail&id=" + data.id);
         } else if (obj.event === 'del') {
             // layer.confirm('真的删除行么', function(index){
             //     obj.del();
@@ -57,7 +57,7 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table'], function () {
             // });
         } else if (obj.event === 'edit') {
             // layer.alert('编辑行：<br>'+ JSON.stringify(data))
-            WeAdminShow("编辑", "./GoodsAdd.html?op='edit'&id=" + data.id);
+            WeAdminShow("编辑", "./GoodsAdd.html?op=edit&id=" + data.id);
         }
     });
     $(function () {

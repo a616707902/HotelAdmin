@@ -22,7 +22,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
         var op = request.getQueryString("op");
         var id = request.getQueryString("id");
 
-        if ("edit" == op) {
+        if ("edit"=== op) {
             editHotel(data, id);
         } else {
             addHotel(data);
@@ -47,8 +47,8 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     $(function () {
         var op = request.getQueryString("op");
         var id = request.getQueryString("id");
-        if ("detail" == op || "edit" == op) {
-            if ("detail" == op) {
+        if ("detail" === op || "edit" === op) {
+            if ("detail" === op) {
                 $(".layui-form-item button").addClass("layui-hide");
 
             }
