@@ -1,12 +1,23 @@
 layui.extend({
     request: '{/}../../../static/js/network/request',
+    // address:'{/}../../../static/js/extends/address'
 });
+var defaults = {
+    s1: 'province',
+    s2: 'city',
+    s3: 'area',
+    v1: null,
+    v2: null,
+    v3: null
+};
 layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     var layer = layui.layer;
     var $ = layui.jquery;
     var form = layui.form;
     var request = layui.request;
     var upload = layui.upload;
+  //  var address = layui.address();
+
     form.on('submit(address)', function (data) {
         //发异步，把数据提交给php
 
@@ -22,7 +33,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
         var op = request.getQueryString("op");
         var id = request.getQueryString("id");
 
-        if ("edit"=== op) {
+        if ("edit" === op) {
             editHotel(data, id);
         } else {
             addHotel(data);
@@ -100,11 +111,16 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
         request.doGet("/admin/hotel/" + id + "/", {}, function (response) {
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
+
             });
-            var images = response.images;
-            for (var i = 0; i < images.length; i++) {
-                $('#demo2').append('<img src="' + images[i] + '" alt="酒店照片" class="layui-upload-img">')
-            }
+            defaults.v1 = response.province;
+            defaults.v2 = response.city;
+            defaults.v3 = response.area;
+            treeSelect(defaults);
+            var images = response.cover_images;
+            // for (var i = 0; i < images.length; i++) {
+            $('#demo2').append('<img src="' + images + '" alt="酒店照片" class="layui-upload-img">')
+            // }
         })
     }
 })
