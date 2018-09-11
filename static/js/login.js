@@ -8,7 +8,7 @@ layui.use(['form', 'request'], function () {
     //监听提交
     form.on('submit(login)', function (data) {
         // alert(888)
-        requset.doPost('UserOperation/login', {
+        requset.doPost('/auth/', {
             username: data.field.username,
             password: data.field.password
         }, function (response) {
@@ -24,6 +24,10 @@ layui.use(['form', 'request'], function () {
                     }
 
                 });
+            layui.data('token', {
+                key: 'token',
+                value:'jwt '+ response.token
+            });
                 window.location.href="/HotelAdmin/pages/home/home.html";
 
         });

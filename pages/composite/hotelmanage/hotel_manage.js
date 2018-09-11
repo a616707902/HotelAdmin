@@ -6,8 +6,8 @@ var TableHeader=[[ //表头
     {field: 'id',align:'center', title: 'ID'}
     ,{field: 'name',align:'center', title: '酒店名称' }
     ,{field: 'address',align:'center', title: '酒店地址'}
-    ,{field: 'createtime',align:'center', title: '创建时间'}
-    ,{field: 'state', align:'center',title: '状态' }
+    // ,{field: 'createtime',align:'center', title: '创建时间'}
+    // ,{field: 'state', align:'center',title: '状态' }
     ,{ title: '操作',  align:'center', toolbar: '#barDemo'}
 
 ]];
