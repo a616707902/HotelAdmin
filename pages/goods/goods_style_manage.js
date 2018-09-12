@@ -5,7 +5,7 @@ var TableHeader=[[ //表头
     // {type:'checkbox',align:'center'},
     {field: 'id',align:'center', title: 'ID'}
     ,{field: 'category_name',align:'center', title: '商品类型名称' }
-    ,{field: 'is_active', align:'center',title: '状态' }
+    ,{field: 'is_active', align:'center',title: '状态',templet: '#switchTpl', unresize: true }
     ,{field: 'create_time', align:'center',title: '创建时间' }
     ,{ title: '操作',  align:'center', toolbar: '#barDemo'}
 
@@ -17,6 +17,10 @@ layui.use(['layer', 'jquery', 'request', 'form','table'], function () {
     var table=layui.table;
     form.on('submit(search)', function (data) {
         getAllGoodsStyle(data.field.search);
+    });
+    //监听性别操作
+    form.on('switch(is_active)', function(obj){
+        layer.tips(this.value + ' ' + this.name + '：'+ obj.elem.checked, obj.othis);
     });
     window.reflush = function () {
         //  window.parent.location.reload(); //刷新父页面

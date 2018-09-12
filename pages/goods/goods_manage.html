@@ -44,8 +44,8 @@
         </form>
     </div>
     <div class="weadmin-block">
-        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <!--onclick="AddHotel('创建酒店','./HotelAdd.html',800,600)"-->
+        <!--<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+        --><!--onclick="AddHotel('创建酒店','./HotelAdd.html',800,600)"-->
         <button class="layui-btn" id="add" ><i class="layui-icon"></i>添加
         </button>
         <span   class="fr" style="line-height:40px">共有数据： <span  id ="total">0</span> 条</span>
@@ -66,6 +66,10 @@
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script type="text/html" id="switchTpl">
+    <input type="checkbox" disabled="disabled" name="is_active" value="{{d.is_active}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="is_active" {{ d.is_active? 'checked' : '' }}>
 </script>
 </body>
 
