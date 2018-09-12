@@ -1,5 +1,5 @@
 layui.extend({
-    request: '{/}../../../static/js/network/request',
+    request: '{/}../../static/js/network/request',
 });
 layui.use(['layer', 'request', 'jquery', 'form'], function () {
     var layer = layui.layer;

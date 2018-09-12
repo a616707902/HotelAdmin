@@ -1,5 +1,5 @@
 layui.extend({
-    request: '{/}../../../static/js/network/request',
+    request: '{/}../../static/js/network/request',
 });
 /*var usertable = layui.sessionData('user');
 var user = usertable.user;

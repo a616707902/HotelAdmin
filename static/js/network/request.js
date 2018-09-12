@@ -77,7 +77,7 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
             url: urlPrefix + url,
             headers: {
                 "Content-Type": "application/json;charset=UTF-8",
-                "Authorization": layui.sessionData('token')
+                "Authorization": layui.data('token').token
             },
             data: data,
             dataType: 'json',
@@ -86,7 +86,7 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
                 layer.close(index);
                 console.log(status);//success
                 console.log(xhr.status);//200
-                if (xhr.status!=200) {
+                if (300<xhr.status||xhr.status<200) {
                     layer.msg(response.detail, {icon: 5});
                     return false;
                 } else {
@@ -107,7 +107,7 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
                     layer.msg(XMLHttpRequest.responseText,{icon: 5})
                 }else
                 if (XMLHttpRequest.status == 403||XMLHttpRequest.status ==401) {
-                    layer.msg('登录失效，请重新登录', 5);
+                    layer.msg('登录失效，请重新登录', {icon: 5});
                     setTimeout(function () {
                         window.location.href = "/HotelAdmin/login.html";
                     }, 2000);

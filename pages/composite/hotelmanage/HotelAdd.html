@@ -118,10 +118,10 @@
         <div class="layui-form-item">
             <div class="layui-input-block layui-upload">
                 <button type="button" class="layui-btn" id="test2">选择酒店图片</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-                    酒店图片：
-                    <div class="layui-upload-list" id="demo2"></div>
-                </blockquote>
+                <div class="layui-upload-list">
+                    <img  style="width: 300px;height: 300px" class="layui-upload-img" id="demo1">
+                    <p id="demoText"></p>
+                </div>
             </div>
         </div>
         <div class="layui-form-item">
@@ -138,7 +138,7 @@
             </div>
         </div>
         <input type="hidden" name="hotelnum" value="0"/>
-        <input type="hidden" id="cover_images" value=""/>
+        <input type="hidden" name="cover_images" id="cover_images" value=""/>
     </form>
 </div>
 

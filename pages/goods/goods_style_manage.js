@@ -1,5 +1,5 @@
 layui.extend({
-    request: '{/}../../../static/js/network/request' // {/}的意思即代表采用自有路径，即不跟随 base 路径
+    request: '{/}../../static/js/network/request' // {/}的意思即代表采用自有路径，即不跟随 base 路径
 });
 var TableHeader=[[ //表头
     // {type:'checkbox',align:'center'},
@@ -29,7 +29,7 @@ layui.use(['layer', 'jquery', 'request', 'form','table'], function () {
         ,data:[]
     });
     window.getAllGoodsStyle = function (search) {
-        requset.doGet("admin/goods_category/", {
+        requset.doGet("/admin/goods_category/", {
             search: search
         }, function (data) {
             //第一个实例
