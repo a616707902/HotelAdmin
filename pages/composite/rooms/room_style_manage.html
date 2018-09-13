@@ -34,7 +34,7 @@
             房间类型搜索：
 
             <div class="layui-inline">
-                <input id="roomstyle" type="text" name="hotelname" placeholder="请输入房间类型名称" autocomplete="off" class="layui-input">
+                <input id="roomstyle" type="text" name="search" placeholder="请输入房间类型名称" autocomplete="off" class="layui-input">
             </div>
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
@@ -60,6 +60,9 @@
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script type="text/html" id="switchTpl">
+    <input type="checkbox" disabled="disabled" name="is_active" value="{{d.is_active}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="is_active" {{ d.is_active? 'checked' : '' }}>
 </script>
 </body>
 

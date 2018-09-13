@@ -61,15 +61,15 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
      */
     function getHotelSelect(hotel) {
         var url = "/admin/hotel/"
-        if (hotel != null || hotel != '') {
+        if (hotel != null && hotel != '') {
             url = "/admin/hotel/" + hotel + "/";
         }
         var htmlselect="";
         request.doGet(url, {}, function (response) {
 
-            if (data!=null&&data.length>0){
-                for (var i=0;i<data.length;i++){
-                    htmlselect+="<option value=\""+data[i].id+"\">"+data[i].name+"</option>";
+            if (data!=null&&data.results.length>0){
+                for (var i=0;i<data.results.length;i++){
+                    htmlselect+="<option value=\""+data.results[i].id+"\">"+data.results[i].name+"</option>";
                 }
             }
             $('#hotel-select').html(htmlselect);

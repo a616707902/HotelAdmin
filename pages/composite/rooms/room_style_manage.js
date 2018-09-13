@@ -7,11 +7,12 @@ var TableHeader=[[ //表头
     ,{field: 'style_name',align:'center', title: '类型名称' }
     ,{field: 'room_profile',align:'center', title: '房间类型简介'}
     ,{field: 'room_count',align:'center', title: '总数量'}
-    ,{field: 'is_active', align:'center',title: '状态' }
+    ,{field: 'is_active', align:'center',title: '状态' ,templet: '#switchTpl', unresize: true}
     ,{field: 'left_room_count', align:'center',title: '剩余房间数' }
     ,{ title: '操作',  align:'center', toolbar: '#barDemo'}
 
 ]];
+// unresize 是否禁用拖拽列宽
 layui.use(['layer', 'jquery', 'request', 'form','table'], function () {
     var $ = layui.jquery;
     var form = layui.form;
@@ -19,6 +20,7 @@ layui.use(['layer', 'jquery', 'request', 'form','table'], function () {
     var table=layui.table;
     form.on('submit(sreach)', function (data) {
         getAllRoomStyle(data.field.search);
+        return false;
     });
     window.reflush = function () {
         //  window.parent.location.reload(); //刷新父页面
@@ -51,10 +53,6 @@ layui.use(['layer', 'jquery', 'request', 'form','table'], function () {
             // layer.msg('ID：'+ data.id + ' 的查看操作');
             WeAdminShow("详情","./room_styleAdd.html?op=detail&id="+data.id);
         } else if(obj.event === 'del'){
-            // layer.confirm('真的删除行么', function(index){
-            //     obj.del();
-            //     layer.close(index);
-            // });
         } else if(obj.event === 'edit'){
             // layer.alert('编辑行：<br>'+ JSON.stringify(data))
             WeAdminShow("编辑","./room_styleAdd.html?op=edit&id="+data.id);
