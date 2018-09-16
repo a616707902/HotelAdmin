@@ -49,13 +49,17 @@ layui.use(['layer', 'request', 'jquery', 'form'], function () {
             url = "/admin/hotel/" + hotel + "/";
         }
         var htmlselect = "";
-        request.doGet(url, {}, function (response) {
-
-            if (data != null && data.length > 0) {
-                for (var i = 0; i < data.length; i++) {
-                    htmlselect += "<option value=\"" + data[i].id + "\">" + data[i].name + "</option>";
+        request.doGet(url, {}, function (data) {
+            if (hotel != null || hotel != '') {
+                htmlselect += "<option value=\"" + data.id + "\" selected>" + data.name + "</option>";
+            }else{
+                if (data != null && data.results.length > 0) {
+                    for (var i = 0; i < data.results.length; i++) {
+                        htmlselect += "<option value=\"" + data.results[i].id + "\">" + data.results[i].name + "</option>";
+                    }
                 }
             }
+
             $('#hotel_select').html(htmlselect);
             form.render('select'); //刷新select选择框渲染
         });
@@ -68,11 +72,11 @@ layui.use(['layer', 'request', 'jquery', 'form'], function () {
     function getStyleSelect(hotel) {
         var htmlselect = "";
         request.doGet("/admin/room_style/", {
-            search: hotel
+            search: ''
         }, function (data) {
-            if (data != null && data.length > 0) {
-                for (var i = 0; i < data.length; i++) {
-                    htmlselect += "<option value=\"" + data[i].id + "\">" + data[i].name + "</option>";
+            if (data != null && data.results.length > 0) {
+                for (var i = 0; i < data.results.length; i++) {
+                    htmlselect += "<option value=\"" + data.results[i].id + "\">" + data.results[i].name + "</option>";
                 }
             }
             $('#style_select').html(htmlselect);

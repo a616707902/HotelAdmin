@@ -619,3 +619,6 @@ table td {
 .weadmin-notice .layui-carousel-ind ul li.layui-this {
   background-color: #999;
 }
+.con_img{position: relative; width: 300px; height: 300px;}
+/* IE6和部分IE7内核的浏览器(如QQ浏览器)会读懂，但解析为透明 */
+.ms{ background-color:rgba(0,0,0,0.2); position: absolute; bottom: 0;left: 0; width: 300px; height: 25px;line-height: 25px}

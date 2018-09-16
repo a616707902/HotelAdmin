@@ -3,10 +3,10 @@ layui.extend({
 });
 var TableHeader=[[ //表头
     // {type:'checkbox',align:'center'},
-    {field: 'id',align:'center', title: 'ID'}
-    ,{field: 'room_style',align:'center', title: '房间类型' }
+    // {field: 'id',align:'center', title: 'ID'}
+    {field: 'style_name',align:'center', title: '房间类型' }
     ,{field: 'room_nums',align:'center', title: '房间号'}
-    ,{field: 'room_status',align:'center', title: '房间状态'}
+    // ,{field: 'room_status',align:'center', title: '房间状态'}
     ,{field: 'room_status_display', align:'center',title: '入住状态' }
     ,{field: 'reserve_time', align:'center',title: '入住时间' }
     ,{field: 'reserve_out_time', align:'center',title: '退房时间' }
