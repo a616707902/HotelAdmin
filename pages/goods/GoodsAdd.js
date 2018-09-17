@@ -37,7 +37,7 @@ layui.use(['layer', 'request', 'jquery', 'form'], function () {
             if ("detail" == op) {
                 $(".layui-form-item button").addClass("layui-hide");
             }
-            getGoodsDetail(id)
+            getGoodsDetail(id,op);
         }
 
     });
@@ -103,7 +103,7 @@ layui.use(['layer', 'request', 'jquery', 'form'], function () {
         });
     }
 
-    function getGoodsDetail(id) {
+    function getGoodsDetail(id,op) {
         request.doGet("/admin/goods/" + id + "/", {}, function (response) {
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
@@ -113,6 +113,15 @@ layui.use(['layer', 'request', 'jquery', 'form'], function () {
                     $(this).attr('selected', true);
                 }
             });
+            if ("detail" == op) {
+                if (response.is_active) {
+                    $("#radio1").attr("checked", "checked");
+                    $("#radio2").attr("disabled", "disabled");
+                } else {
+                    $("#radio2").attr("checked", "checked");
+                    $("#radio1").attr("disabled", "disabled");
+                }
+            }
 
             //$('#category').val('2');
             form.render('select'); //刷新select选择框渲染

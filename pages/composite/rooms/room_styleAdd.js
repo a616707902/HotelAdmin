@@ -27,6 +27,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
 
         return false;
     });
+
     upload.render({
         elem: '#test2'
         , url: '/upload/'
@@ -112,12 +113,12 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     function editRoomStyle(data, id) {
         request.doPut("/admin/room_style/" + id + "/", {
             price: data.field.price,
+            belong_hotel: data.field.hotel,
+            cover_image: data.field.cover_image,
             is_active: data.field.is_active == '1' ? true : false,
             style_name: data.field.style_name,
             room_profile: data.field.room_profile,
-            images: [
-                "string"
-            ]
+            images: getImages()
         }, function (data) {
             layer.alert("修改成功", {
                 icon: 6
@@ -132,15 +133,15 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     }
 
     function addRoomStyle(data) {
+
         request.doPost("/admin/room_style/", {
             price: data.field.price,
-            hotel: data.field.hotel,
+            belong_hotel: data.field.hotel,
+            cover_image: data.field.cover_image,
             is_active: data.field.is_active == '1' ? true : false,
             style_name: data.field.style_name,
             room_profile: data.field.room_profile,
-            images: [
-                "string"
-            ]
+            images: getImages()
         }, function (data) {
             layer.alert("增加成功", {
                 icon: 6
@@ -154,20 +155,72 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
         });
     }
 
+    var demoListView = $('#layer-photos-demo')
+
     function getRoomStyleDetail(id) {
+        var op = request.getQueryString("op");
+
         request.doGet("/admin/room_style/" + id + "/", {}, function (response) {
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
             });
+            response.is_active ? $("#radio1").attr("checked", "checked") : $("#radio2").attr("checked", "checked");
+            $("#room_count_div").removeClass("layui-hide");
+            $("#left_room_count_div").removeClass("layui-hide");
             var images = response.images;
             for (var i = 0; i < images.length; i++) {
-                $('#demo2').append('<img src="' + images[i] + '" alt="房间参考照片" class="layui-upload-img">')
+                if ("detail" == op) {
+                    var tr = $([' <div class="layui-upload-list ">\n' +
+                    '<span class="con_img" >' +
+                    '                    <img id="image_' + i + '" style="width: 300px;height: 300px" layer-src=' + images[i] + ' src=' + images[i] + ' class="layui-upload-img image_path" >\n' +
+                    '</span>' +
+                    '                    <span >' +
+                    '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>' +
+                    '</span>\n' +
+                    '                </div>'
+                    ].join(''));
+
+                } else if ("edit" == op) {
+                    var tr = $([' <div class="layui-upload-list ">\n' +
+                    '<span class="con_img" >' +
+                    '                    <img id="image_' + i + '" style="width: 300px;height: 300px" layer-src=' + images[i] + ' src=' + images[i] + ' class="layui-upload-img image_path" >\n' +
+                    '</span>' +
+                    '                    <span >' +
+                    '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>' +
+                    '</span>\n' +
+                    '                </div>'
+                    ].join(''));
+                    //删除
+                    tr.find('.demo-delete').on('click', function () {
+                        delete files[index]; //删除对应的文件
+                        tr.remove();
+                        //tr.find('.uploadSucceed').removeAttr("imgpath");
+                    });
+                    demoListView.append(tr);
+                }
             }
+            if ("detail" == op) {
+                if (response.is_active) {
+                    $("#radio1").attr("checked", "checked");
+                    $("#radio2").attr("disabled", "disabled");
+                } else {
+                    $("#radio2").attr("checked", "checked");
+                    $("#radio1").attr("disabled", "disabled");
+                }
+                layer.photos({
+                    photos: '#layer-photos-demo'
+                    , anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+                    , full: true
+                });
+            } else {
+
+            }
+
         })
     }
 
-    var demoListView = $('#demoList')
-        , uploadListIns = upload.render({
+
+    var uploadListIns = upload.render({
         elem: '#testList'
         , url: 'http://api.gaoshiwang.cn/admin/image/'
         , accept: 'file'
@@ -183,8 +236,8 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
 
                 var tr = $([' <div class="layui-upload-list ">\n' +
                 '<span class="con_img" >' +
-                '                    <img style="width: 300px;height: 300px" src=' + result + ' class="layui-upload-img" >\n' +
-                '<span id="upload_' + index + '" class="ms "style="color: rgb(248,253,253);text-align: center">上传成功</span></span>' +
+                '                    <img id="image_' + index + '" style="width: 300px;height: 300px" layer-src=' + file + ' src=' + result + ' class="layui-upload-img image_path" >\n' +
+                '<span id="upload_' + index + '" class="ms layui-hide"style="color: rgb(248,253,253);text-align: center;">上传成功</span></span>' +
                 '                    <span ><button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>' +
                 '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>' +
                 '</span>\n' +
@@ -205,6 +258,11 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
                 });
 
                 demoListView.append(tr);
+                // layer.photos({
+                //     photos: '#layer-photos-demo'
+                //     ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+                //     ,full:true
+                // });
             });
         }, before: function (obj) { //obj参数包含的信息，跟choose回调完全一致
             layer.load(); //上传loading
@@ -216,6 +274,8 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
                 var span = demoListView.find('#upload_' + index);
                 // ,tds = tr.children();
                 span.removeClass('layui-hide');
+                var img = demoListView.find('#image' + index);
+                img.attr("imageUrl", res.image);
                 // tds.eq(3).html(''); //清空操作
                 return delete this.files[index]; //删除文件队列已经上传成功的文件
             }
@@ -228,4 +288,13 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             tds.eq(2).find('.demo-reload').removeClass('layui-hide'); //显示重传
         }
     });
+
+    var getImages = function () {
+        var images = new Array();
+        var spans = $(".image_path");
+        for (var i = 0; i < spans.length; i++) {
+            images.push($(spans[i]).attr("imageUrl"))
+        }
+        return images;
+    }
 })

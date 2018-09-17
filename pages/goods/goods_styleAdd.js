@@ -48,7 +48,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             if ("detail" == op) {
                 $(".layui-form-item button").addClass("layui-hide");
             }
-            getGoodsStyleDetail(id)
+            getGoodsStyleDetail(id,op)
         }
     });
 
@@ -88,11 +88,20 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
         });
     }
 
-    function getGoodsStyleDetail(id) {
+    function getGoodsStyleDetail(id,op) {
         request.doGet("/admin/goods_category/" + id + "/", {}, function (response) {
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
             });
+            if ("detail" == op) {
+                if (response.is_active) {
+                    $("#radio1").attr("checked", "checked");
+                    $("#radio2").attr("disabled", "disabled");
+                } else {
+                    $("#radio2").attr("checked", "checked");
+                    $("#radio1").attr("disabled", "disabled");
+                }
+            }
             var images = response.images;
             for (var i = 0; i < images.length; i++) {
                 $('#demo2').append('<img src="' + images[i] + '" alt="商品类型参考照片" class="layui-upload-img">')

@@ -45,8 +45,22 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">类型简介</label>
             <div class="layui-input-block">
-                <textarea id="hotel_profile" name="hotel_profile" placeholder="房间类型简介"
+                <textarea id="room_profile" name="room_profile" placeholder="房间类型简介"
                           class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item layui-hide" id="room_count_div">
+            <label class="layui-form-label">房间总数</label>
+            <div class="layui-input-inline">
+                <input id="room_count" lay-verType="tips" type="number" name="room_count"  placeholder="房间总数"
+                       value="0" autocomplete="off" class="layui-input ">
+            </div>
+        </div>
+        <div class="layui-form-item layui-hide" id="left_room_count_div">
+            <label class="layui-form-label">剩余房间数</label>
+            <div class="layui-input-inline">
+                <input id="left_room_count" lay-verType="tips" type="number" name="left_room_count"  placeholder="剩余房间数"
+                       value="0" autocomplete="off" class="layui-input ">
             </div>
         </div>
         <div class="layui-form-item">
@@ -65,12 +79,13 @@
                 </div>
             </div>
         </div>
+        <input type="hidden" id="cover_images" name="cover_images" lay-verType="tips" type="text" lay-verify="required"/>
         <div class="layui-form-item">
             <div class=" layui-input-block layui-upload">
                 <button type="button" class="layui-btn " id="testList">选择详情图片</button>
                 <div class="layui-upload-list" >
 
-                        <div id="demoList"></div>
+                        <div id="layer-photos-demo" class="layer-photos-demo"></div>
                 </div>
                 <button type="button" class="layui-btn" id="testListAction">开始上传</button>
             </div>
@@ -88,7 +103,6 @@
                 <button id="reset" type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
-        <input type="hidden" name="cover_images"/>
         <input type="hidden" name="hotelnum" value="0"/>
     </form>
 </div>

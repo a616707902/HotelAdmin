@@ -36,7 +36,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload', 'address'], function 
 
         return false;
     });
-    upload.render({
+    var uploadInst = upload.render({
         elem: '#test2'
         , url: 'http://api.gaoshiwang.cn/admin/image/'
         , field: 'image'
@@ -57,10 +57,10 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload', 'address'], function 
 
         }
         , error: function (res) {
-            layer.msg(res,{icon:5});
+            layer.msg(res, {icon: 5});
             var demoText = $('#demoText');
             demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
-            demoText.find('.demo-reload').on('click', function(){
+            demoText.find('.demo-reload').on('click', function () {
                 uploadInst.upload();
             });
         }
@@ -130,11 +130,20 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload', 'address'], function 
     }
 
     function getHotalDetail(id) {
+        var op = request.getQueryString("op");
         request.doGet("/admin/hotel/" + id + "/", {}, function (response) {
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
-
             });
+            if ("detail" === op) {
+                if (response.is_active){
+                    $("#radio1").attr("checked", "checked");
+                    $("#radio2").attr("disabled","disabled");
+                }else{
+                    $("#radio2").attr("checked", "checked");
+                    $("#radio1").attr("disabled","disabled");
+                }
+            }
             address.provinces(response.province, response.city, response.area);
             var images = response.cover_images;
             // for (var i = 0; i < images.length; i++) {
