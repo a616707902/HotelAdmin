@@ -5,7 +5,7 @@ layui.extend({
 var TableHeader = [[ //表头
     // {type:'checkbox',align:'center'},
     // {field: 'phone', align: 'center', title: '电话'}
-     {field: 'user_name', align: 'center', title: '会员姓名'}
+    {field: 'user_name', align: 'center', title: '会员姓名'}
     , {field: 'user_account', align: 'center', title: '会员账号'}
     , {field: 'sex_display', align: 'center', title: '性别'}
     // , {field: 'contact_addr', align: 'center', title: '联系地址'}
@@ -45,7 +45,7 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laydate'], function () 
         return false;
     });
     window.getConsumer = function () {
-        requset.doGet("/admin/consumer/", {
+        requset.doGet("/admin/hotel_order/", {
             // user_name__contains:$("#user_name__contains").val(),
             search:""
             // user__date_joined__range:$("#start").val()+""+$("#end").val(),

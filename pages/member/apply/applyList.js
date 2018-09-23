@@ -5,7 +5,7 @@ layui.extend({
 var TableHeader = [[ //表头
     // {type:'checkbox',align:'center'},
     // {field: 'phone', align: 'center', title: '电话'}
-     {field: 'user_name', align: 'center', title: '会员姓名'}
+    {field: 'user_name', align: 'center', title: '会员姓名'}
     , {field: 'user_account', align: 'center', title: '会员账号'}
     , {field: 'sex_display', align: 'center', title: '性别'}
     // , {field: 'contact_addr', align: 'center', title: '联系地址'}
@@ -45,7 +45,7 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laydate'], function () 
         return false;
     });
     window.getConsumer = function () {
-        requset.doGet("/admin/consumer/", {
+        requset.doGet("/admin/apply/", {
             // user_name__contains:$("#user_name__contains").val(),
             search:""
             // user__date_joined__range:$("#start").val()+""+$("#end").val(),
@@ -59,8 +59,6 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laydate'], function () 
                 ,cols: TableHeader
                 ,data:data.results
             });
-
-
         });
     }
 
@@ -68,7 +66,7 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laydate'], function () 
         var data = obj.data;
         if(obj.event === 'detail'){
             // layer.msg('ID：'+ data.id + ' 的查看操作');
-            WeAdminShow("详情","./consumerDetail.html?op=detail&id="+data.id);
+            WeAdminShow("详情","./applyDetail.html?op=detail&id="+data.id);
         }
     });
     $(function () {
