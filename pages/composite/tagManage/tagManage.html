@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
-    <title>商品管理</title>
+    <title>标签管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -21,7 +20,7 @@
 <div class="weadmin-nav">
 			<span class="layui-breadcrumb">
         <a>
-          <cite>商品管理</cite></a>
+          <cite>标签管理</cite></a>
       </span>
     <a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right"
        href="javascript:location.replace(location.href);" title="刷新">
@@ -31,14 +30,10 @@
 <div class="weadmin-body">
     <div class="layui-row">
         <form class="layui-form layui-col-md12 we-search">
-            商品类型：
-            <div class="layui-input-inline">
-                <select name="category" id="goodsStyle_select">
-                </select>
-            </div>
-            商品搜索：
+
+            标签搜索：
             <div class="layui-inline">
-                <input id="goodsname" type="text" name="search" placeholder="请输入商品名称" autocomplete="off" class="layui-input">
+                <input id="tagsname" type="text" name="search" placeholder="请输入标签名字" autocomplete="off" class="layui-input">
             </div>
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
@@ -63,14 +58,10 @@
 <script src="../../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
 <script src="../../../static/js/showPOP.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
-<script type="text/html" id="switchTpl">
-    <input type="checkbox" disabled="disabled" name="is_active" value="{{d.is_active}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="is_active" {{ d.is_active? 'checked' : '' }}>
-</script>
 </body>
 
 </html>

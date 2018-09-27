@@ -24,7 +24,7 @@
 <body>
 <div class="weadmin-body">
 
-    <form id="form1" class="layui-form">
+    <form id="form1" class="layui-form" lay-filter="hotel" >
 
 
         <div class="layui-form-item">
@@ -106,6 +106,12 @@
                 <input id="tel" lay-verType="tips" type="tel" name="tel" lay-verify="required"
                        jq-error="请输入酒店联系电话" placeholder="请输入酒店联系电话" autocomplete="off"
                        class="layui-input ">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="we-red">*</span>标签</label>
+            <div class="layui-input-block" id="tag_div">
+
             </div>
         </div>
         <div class="layui-form-item layui-form-text">

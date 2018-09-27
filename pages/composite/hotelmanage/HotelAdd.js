@@ -71,9 +71,11 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload', 'address'], function 
         if ("detail" === op || "edit" === op) {
             if ("detail" === op) {
                 $(".layui-form-item button").addClass("layui-hide");
-
+                getHotalDetail(id);
+            } else {
+                getAllTag(id);
             }
-            getHotalDetail(id)
+
         }
     });
 
@@ -129,6 +131,34 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload', 'address'], function 
         });
     }
 
+    function getAllTag(id) {
+        request.doGet("/admin/tags/", {}, function (data) {
+            var alltag = data.results;
+            if (alltag != null) {
+                var html = "";
+                for (var i = 0; i < alltag.length; i++) {
+                    html += " <input type=\"checkbox\" name=\"tags\" tagid=" + alltag[i].id + "title=\"" + alltag[i].name + "\">"
+                }
+                $("#tag_div").html(html);
+                form.render();
+            }
+            getHotalDetail(id);
+        });
+    }
+
+    function getHotelTags() {
+        var tags = new Array();
+        var checks = document.getElementsByName("tags")
+        if (checks != null) {
+            for (var i = 0; i < checks.length; i++) {
+                if (checks[i].checked) {
+                    tags.push(checks[i].value);
+                }
+            }
+        }
+        return tags;
+    }
+
     function getHotalDetail(id) {
         var op = request.getQueryString("op");
         request.doGet("/admin/hotel/" + id + "/", {}, function (response) {
@@ -136,19 +166,43 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload', 'address'], function 
                 $('#' + key).val(value);
             });
             if ("detail" === op) {
-                if (response.is_active){
+                if (response.is_active) {
                     $("#radio1").attr("checked", "checked");
-                    $("#radio2").attr("disabled","disabled");
-                }else{
+                    $("#radio2").attr("disabled", "disabled");
+                } else {
                     $("#radio2").attr("checked", "checked");
-                    $("#radio1").attr("disabled","disabled");
+                    $("#radio1").attr("disabled", "disabled");
                 }
             }
             address.provinces(response.province, response.city, response.area);
             var images = response.cover_images;
-            // for (var i = 0; i < images.length; i++) {
             $('#demo1').attr('src', images); //图片链接（base64）
-            // }
+            var tags = response.tags;
+            if ("detail" === op) {
+                if (tags != null) {
+                    var html = "";
+                    for (var i = 0; i < tags.length; i++) {
+                        html += " <input type=\"checkbox\" name=\"tags\"  title=\"" + tags[i] + "\" disabled=\"\">"
+                    }
+                    $("#tag_div").html(html);
+                }
+            } else {
+                var checks = document.getElementsByName("tags")
+                if (tags != null && checks != null) {
+                    for (var i = 0; i < checks.length; i++) {
+                        for (var j = 0; j < tags.length; j++) {
+                            if (checks[i].value == tags[i]) {
+                                checks[i].checked = true;
+                            }
+
+                        }
+
+                    }
+                    form.render();
+                }
+
+
+            }
         })
     }
 })
