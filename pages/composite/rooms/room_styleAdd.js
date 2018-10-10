@@ -175,11 +175,10 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
                     '                    <img id="image_' + i + '" style="width: 300px;height: 300px" layer-src=' + images[i] + ' src=' + images[i] + ' class="layui-upload-img image_path" >\n' +
                     '</span>' +
                     '                    <span >' +
-                    '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>' +
                     '</span>\n' +
                     '                </div>'
                     ].join(''));
-
+                    demoListView.append(tr);
                 } else if ("edit" == op) {
                     var tr = $([' <div class="layui-upload-list ">\n' +
                     '<span class="con_img" >' +
@@ -192,7 +191,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
                     ].join(''));
                     //删除
                     tr.find('.demo-delete').on('click', function () {
-                        delete files[index]; //删除对应的文件
+                        // delete files[index]; //删除对应的文件
                         tr.remove();
                         //tr.find('.uploadSucceed').removeAttr("imgpath");
                     });
@@ -222,21 +221,21 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
 
     var uploadListIns = upload.render({
         elem: '#testList'
-        , url: 'http://api.gaoshiwang.cn/admin/image/'
-        , accept: 'file'
-        , field: 'image'
-        , headers: {"Authorization": layui.data('token').token}
-        , multiple: true
-        , auto: false
-        , bindAction: '#testListAction'
-        , choose: function (obj) {
+            , url: 'http://api.gaoshiwang.cn/admin/image/'
+            , accept: 'file'
+            , field: 'image'
+            , headers: {"Authorization": layui.data('token').token}
+    , multiple: true
+            , auto: false
+            , bindAction: '#testListAction'
+            , choose: function (obj) {
             var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
             //读取本地文件
             obj.preview(function (index, file, result) {
 
                 var tr = $([' <div class="layui-upload-list ">\n' +
                 '<span class="con_img" >' +
-                '                    <img id="image_' + index + '" style="width: 300px;height: 300px" layer-src=' + file + ' src=' + result + ' class="layui-upload-img image_path" >\n' +
+                '                    <img id="image_' + index + '" style="width: 200px;height: 200px" layer-src=' + file + ' src=' + result + ' class="layui-upload-img image_path" >\n' +
                 '<span id="upload_' + index + '" class="ms layui-hide"style="color: rgb(248,253,253);text-align: center;">上传成功</span></span>' +
                 '                    <span ><button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>' +
                 '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>' +
@@ -268,20 +267,20 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             layer.load(); //上传loading
 
         }
-        , done: function (res, index, upload) {
+    , done: function (res, index, upload) {
             layer.closeAll('loading');
             if (res.id > 0) { //上传成功
                 var span = demoListView.find('#upload_' + index);
                 // ,tds = tr.children();
                 span.removeClass('layui-hide');
-                var img = demoListView.find('#image' + index);
+                var img = demoListView.find('#image_' + index);
                 img.attr("imageUrl", res.image);
                 // tds.eq(3).html(''); //清空操作
                 return delete this.files[index]; //删除文件队列已经上传成功的文件
             }
             this.error(index, upload);
         }
-        , error: function (index, upload) {
+    , error: function (index, upload) {
             var tr = demoListView.find('tr#upload-' + index)
                 , tds = tr.children();
             // tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');

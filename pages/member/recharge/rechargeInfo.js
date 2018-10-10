@@ -1,17 +1,23 @@
 layui.extend({
-    request: '{/}../../static/js/network/request' // {/}的意思即代表采用自有路径，即不跟随 base 路径
+    request: '{/}../../../static/js/network/request' // {/}的意思即代表采用自有路径，即不跟随 base 路径
 });
-
+// "id": 1,
+//     "consumer_name": "aaa",
+//     "pick_status": 10,
+//     "pick_status_display": "提交申请",
+//     "pick_money": "100.00",
+//     "pick_time": "2018-09-25T21:29:36.443111",
+//     "success_time": null
 var TableHeader = [[ //表头
     // {type:'checkbox',align:'center'},
     // {field: 'phone', align: 'center', title: '电话'}
-    {field: 'user_name', align: 'center', title: '会员姓名'}
-    , {field: 'user_account', align: 'center', title: '会员账号'}
-    , {field: 'sex_display', align: 'center', title: '性别'}
-    // , {field: 'contact_addr', align: 'center', title: '联系地址'}
-    // , {field: 'is_distribution', align: 'center', title: '是否分销人员' ,templet: '#switchTpl', unresize: true}
-    // , {field: 'sell_user_name', align: 'center', title: '分销用户名'}
-    // , {field: 'bonus', align: 'center', title: '金额'}
+    {field: 'id', align: 'center', title: 'ID'},
+    {field: 'order_id', align: 'center', title: '流水号'},
+    {field: 'consumer_name', align: 'center', title: '会员姓名'}
+    , {field: 'recharge_status_display', align: 'center', title: '充值状态'}
+    , {field: 'recharge_money', align: 'center', title: '充值金额'}
+    , {field: 'free_money', align: 'center', title: '剩余金额'}
+    , {field: 'pay_time', align: 'center', title: '充值时间'}
     , {title: '操作', align: 'center', toolbar: '#barDemo'}
 
 ]];
@@ -22,19 +28,11 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laydate'], function () 
     var table=layui.table;
     var laydate = layui.laydate;
 
-    //执行一个laydate实例
-    laydate.render({
-        elem: '#start' //指定元素
-    });
     table.render({
         elem: '#memberList'
         ,page: true //开启分页
         ,cols:TableHeader
         ,data:[]
-    });
-    //执行一个laydate实例
-    laydate.render({
-        elem: '#end' //指定元素
     });
     window.reflush = function () {
         //  window.parent.location.reload(); //刷新父页面
@@ -45,11 +43,8 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laydate'], function () 
         return false;
     });
     window.getConsumer = function () {
-        requset.doGet("/admin/hotel_order/", {
-            // user_name__contains:$("#user_name__contains").val(),
+        requset.doGet("/admin/recharge_info/", {
             search:""
-            // user__date_joined__range:$("#start").val()+""+$("#end").val(),
-            // phone__contains:$("#phone__contains").val()
         }, function (data) {
             //第一个实例
             $("#total").html(data.count);
@@ -59,16 +54,13 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laydate'], function () 
                 ,cols: TableHeader
                 ,data:data.results
             });
-
-
         });
     }
 
     table.on('tool(memberList)', function(obj){
         var data = obj.data;
         if(obj.event === 'detail'){
-            // layer.msg('ID：'+ data.id + ' 的查看操作');
-            WeAdminShow("详情","./consumerDetail.html?op=detail&id="+data.id);
+            WeAdminShow("详情","./rechargeInfoDetail.html?op=detail&id="+data.id);
         }
     });
     $(function () {

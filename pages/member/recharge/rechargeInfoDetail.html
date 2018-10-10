@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../../../static/css/font.css">
     <link rel="stylesheet" href="../../../static/css/weadmin.css">
     <script src="../../../lib/layui/layui.js" charset="utf-8"></script>
-    <script src="pickDetail.js" type="text/javascript" charset="utf-8"></script>
+    <script src="rechargeInfoDetail.js" type="text/javascript" charset="utf-8"></script>
 
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
@@ -32,35 +32,49 @@
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">提取状态</label>
+            <label class="layui-form-label">用户账号</label>
             <div class="layui-input-inline">
-                <input  id="pick_status_display"  class="layui-input ">
+                <input  id="consumer"  class="layui-input ">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">提取金额</label>
+            <label class="layui-form-label">充值金额</label>
             <div class="layui-input-inline">
-                <input  id="pick_money"  class="layui-input ">
+                <input  id="recharge_money"  class="layui-input ">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">支付方式</label>
-            <div class="layui-input-block">
-                <input  id="transfer_type_display"  class="layui-input ">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">提取账户</label>
-            <div class="layui-input-block">
-                <input  id="bank"  class="layui-input ">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">申请时间</label>
+            <label class="layui-form-label">剩余金额</label>
             <div class="layui-input-inline">
-                <input  id="pick_time"  class="layui-input ">
+                <input  id="free_money"  class="layui-input ">
             </div>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">充值状态</label>
+            <div class="layui-input-inline">
+                <input  id="recharge_status_display"  text="number" class="layui-input ">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">创建时间</label>
+            <div class="layui-input-inline">
+                <input  id="create_time"  text="number" class="layui-input ">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">支付时间</label>
+            <div class="layui-input-inline">
+                <input  id="pay_time"  text="number" class="layui-input ">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">更新时间</label>
+            <div class="layui-input-inline">
+                <input  id="update_time"  text="number" class="layui-input ">
+            </div>
+        </div>
+
+
 
         <div class="layui-form-item">
             <div class="layui-input-block">

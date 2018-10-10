@@ -24,7 +24,7 @@
 <body>
 <div class="weadmin-body">
 
-    <form id="form1" class="layui-form" lay-filter="hotel" >
+    <form id="form1" class="layui-form" lay-filter="hotel">
 
 
         <div class="layui-form-item">
@@ -40,24 +40,24 @@
             <div class="layui-inline citys">
                 <label class="layui-form-label"><span class="we-red">*</span>所属地区</label>
                 <div class="layui-input-inline">
-                    <select  id='province' name="province" lay-filter="province" class="province">
+                    <select id='province' name="province" lay-filter="province" class="province">
                         <option value="">请选择省</option>
                     </select>
                 </div>
                 <div class="layui-input-inline">
-                    <select name="city"  id="city" lay-filter="city" >
+                    <select name="city" id="city" lay-filter="city">
                         <option value="">请选择市</option>
                     </select>
                 </div>
                 <div class="layui-input-inline">
-                    <select name="area" id="area"lay-filter="area" >
+                    <select name="area" id="area" lay-filter="area">
                         <option value="">请选择县/区</option>
                     </select>
                 </div>
                 <!--<div class="layui-input-inline">-->
-                    <!--<select name="town" id="town"lay-filter="town" >-->
-                        <!--<option value="">请选择街道</option>-->
-                    <!--</select>-->
+                <!--<select name="town" id="town"lay-filter="town" >-->
+                <!--<option value="">请选择街道</option>-->
+                <!--</select>-->
                 <!--</div>-->
             </div>
         </div>
@@ -77,7 +77,7 @@
                        class="layui-input ">
             </div>
         </div>
-        <div class="layui-form-item">
+        <div class="layui-form-item" id="address_div">
             <div class="layui-input-block">
                 <button class="layui-btn" lay-submit="" lay-filter="address">查询经纬度</button>
             </div>
@@ -95,7 +95,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">纬度</label>
                 <div class="layui-input-inline" style="width: 100px;">
-                    <input type="text" name="latitude"  id="latitude" autocomplete="off" class="layui-input">
+                    <input type="text" name="latitude" id="latitude" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
@@ -109,7 +109,7 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label"><span class="we-red">*</span>标签</label>
+            <label class="layui-form-label">标签</label>
             <div class="layui-input-block" id="tag_div">
 
             </div>
@@ -122,12 +122,23 @@
         </div>
 
         <div class="layui-form-item">
+            <label class="layui-form-label">展示照片</label>
             <div class="layui-input-block layui-upload">
-                <button type="button" class="layui-btn" id="test2">选择酒店图片</button>
                 <div class="layui-upload-list">
-                    <img  style="width: 300px;height: 300px" class="layui-upload-img" id="demo1">
+                    <img style="width: 300px;height: 300px" class="layui-upload-img" id="demo1">
                     <p id="demoText"></p>
+                    <button type="button" style="margin-top: 5px" class="layui-btn" id="test2">选择酒店图片</button>
                 </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class=" layui-input-block layui-upload">
+                <button type="button" class="layui-btn " id="testList">酒店详情图片</button>
+                <div class="layui-upload-list" >
+
+                    <div id="layer-photos-demo" class="layer-photos-demo"></div>
+                </div>
+               <!-- <button type="button" class="layui-btn" id="testListAction">开始上传</button>-->
             </div>
         </div>
         <div class="layui-form-item">

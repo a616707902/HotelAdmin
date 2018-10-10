@@ -1,5 +1,5 @@
 layui.extend({
-    request: '{/}../../static/js/network/request',
+    request: '{/}../../../static/js/network/request',
 });
 /*var usertable = layui.sessionData('user');
 var user = usertable.user;
@@ -26,7 +26,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     });
 
     function getConsumerDetail(id, op) {
-        request.doGet("/admin/hotel_order/" + id + "/", {}, function (response) {
+        request.doGet("/admin/recharge_info/" + id+ "/", {}, function (response) {
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
             });
