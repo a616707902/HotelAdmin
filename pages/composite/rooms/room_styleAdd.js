@@ -7,7 +7,7 @@ if (usertable == undefined || user == undefined || !user.isLogin) {
     window.parent.location.href = "/HotelAdmin/login.html";
 }
 var hotel = user.hotelID;*/
-var hotel = '1';
+var hotel = '';
 layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     var layer = layui.layer;
     var $ = layui.jquery;
@@ -27,44 +27,50 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
 
         return false;
     });
+    var uploadData = null;
+    form.on('submit(add)', function (data) {
+        //发异步，把数据提交给php
+        uploadData = data;
+        if (getJsonLength(Instfiles) > 0) {
+            uploadInst.upload();
+        } else if (getJsonLength(files) > 0) {
+            uploadListIns.upload();
+        } else {
+            loadData();
+        }
 
-    upload.render({
-        elem: '#test2'
-        , url: '/upload/'
-        , multiple: true
-        , before: function (obj) {
-            //预读本地文件示例，不支持ie8
-            obj.preview(function (index, file, result) {
-                $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
-            });
-        }
-        , done: function (res) {
-            //上传完毕
-        }
+
+        return false;
     });
-    $(function () {
+    function loadData() {
         var op = request.getQueryString("op");
         var id = request.getQueryString("id");
 
-
-        getHotelSelect(hotel);
-        if ("detail" == op || "edit" == op) {
-            if ("detail" == op) {
-                $(".layui-form-item button").addClass("layui-hide");
-            }
-            getRoomStyleDetail(id)
+        if ("edit" == op) {
+            editRoomStyle(uploadData, id);
+        } else {
+            addRoomStyle(uploadData);
         }
+
+    }
+    $(function () {
+        var op = request.getQueryString("op");
+        var id = request.getQueryString("id");
+        getHotelSelect(hotel,op,id);
+
     });
-    upload.render({
+    var Instfiles;
+    var uploadInst =upload.render({
         elem: '#test1'
         , url: 'http://api.gaoshiwang.cn/admin/image/'
         , field: 'image'
         , multiple: true
         , headers: {"Authorization": layui.data('token').token}
-        // ,auto: false
+         ,auto: false
         // ,bindAction: '#add'
-        , before: function (obj) {
+        , choose: function (obj) {
             //预读本地文件示例，不支持ie8
+            Instfiles = obj.pushFile()
             obj.preview(function (index, file, result) {
                 $('#demo1').attr('src', result); //图片链接（base64）
             });
@@ -74,6 +80,11 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             if (res.id > 0) {
                 console.log(res);
                 $('#cover_images').val(res.image);
+                if (getJsonLength(files) > 0) {
+                    uploadListIns.upload();
+                } else {
+                    loadData();
+                }
             }
         }
         , error: function (res) {
@@ -90,7 +101,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
      * 获取当前账号下能管理的所有酒店
      * @param hotel
      */
-    function getHotelSelect(hotel) {
+    function getHotelSelect(hotel,op,id) {
         var url = "/admin/hotel/"
         if (hotel != null && hotel != '') {
             url = "/admin/hotel/" + hotel + "/";
@@ -107,6 +118,9 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             }
             $('#hotel-select').html(htmlselect);
             form.render('select'); //刷新select选择框渲染
+            if ( "edit" == op) {
+                getRoomStyleDetail(id)
+            }
         });
     }
 
@@ -164,25 +178,18 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
             });
-            response.is_active ? $("#radio1").attr("checked", "checked") : $("#radio2").attr("checked", "checked");
+            $("input[name=is_active]").each(function () {
+                if ($(this).val() == response.is_active) {
+                    $(this).attr('checked', true);
+                }
+            });
             $("#room_count_div").removeClass("layui-hide");
             $("#left_room_count_div").removeClass("layui-hide");
             var images = response.images;
             for (var i = 0; i < images.length; i++) {
-                if ("detail" == op) {
                     var tr = $([' <div class="layui-upload-list ">\n' +
                     '<span class="con_img" >' +
-                    '                    <img id="image_' + i + '" style="width: 300px;height: 300px" layer-src=' + images[i] + ' src=' + images[i] + ' class="layui-upload-img image_path" >\n' +
-                    '</span>' +
-                    '                    <span >' +
-                    '</span>\n' +
-                    '                </div>'
-                    ].join(''));
-                    demoListView.append(tr);
-                } else if ("edit" == op) {
-                    var tr = $([' <div class="layui-upload-list ">\n' +
-                    '<span class="con_img" >' +
-                    '                    <img id="image_' + i + '" style="width: 300px;height: 300px" layer-src=' + images[i] + ' src=' + images[i] + ' class="layui-upload-img image_path" >\n' +
+                    '                    <img id="image_' + i + '" imageUrl="'+images[i]+'" style="width: 200px;height: 200px" layer-src=' + images[i] + ' src=' + images[i] + ' class="layui-upload-img image_path" >\n' +
                     '</span>' +
                     '                    <span >' +
                     '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>' +
@@ -192,50 +199,37 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
                     //删除
                     tr.find('.demo-delete').on('click', function () {
                         // delete files[index]; //删除对应的文件
-                        tr.remove();
-                        //tr.find('.uploadSucceed').removeAttr("imgpath");
+                        $(this).parent("span").parent(".layui-upload-list").remove();
                     });
                     demoListView.append(tr);
-                }
             }
-            if ("detail" == op) {
-                if (response.is_active) {
-                    $("#radio1").attr("checked", "checked");
-                    $("#radio2").attr("disabled", "disabled");
-                } else {
-                    $("#radio2").attr("checked", "checked");
-                    $("#radio1").attr("disabled", "disabled");
+            $("input[name=is_active]").each(function () {
+                if ($(this).val() == response.is_active) {
+                    $(this).attr('checked', true);
                 }
-                layer.photos({
-                    photos: '#layer-photos-demo'
-                    , anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
-                    , full: true
-                });
-            } else {
-
-            }
-
+            });
+            form.render();
         })
     }
 
-
+    var files;
     var uploadListIns = upload.render({
         elem: '#testList'
-            , url: 'http://api.gaoshiwang.cn/admin/image/'
-            , accept: 'file'
-            , field: 'image'
-            , headers: {"Authorization": layui.data('token').token}
-    , multiple: true
-            , auto: false
-            , bindAction: '#testListAction'
-            , choose: function (obj) {
-            var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+        , url: 'http://api.gaoshiwang.cn/admin/image/'
+        , accept: 'file'
+        , field: 'image'
+        , headers: {"Authorization": layui.data('token').token}
+        , multiple: true
+        , auto: false
+
+        , choose: function (obj) {
+             files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
             //读取本地文件
             obj.preview(function (index, file, result) {
 
                 var tr = $([' <div class="layui-upload-list ">\n' +
                 '<span class="con_img" >' +
-                '                    <img id="image_' + index + '" style="width: 200px;height: 200px" layer-src=' + file + ' src=' + result + ' class="layui-upload-img image_path" >\n' +
+                '                    <img id="image_' + index + '"  style="width: 200px;height: 200px" layer-src=' + file + ' src=' + result + ' class="layui-upload-img image_path" >\n' +
                 '<span id="upload_' + index + '" class="ms layui-hide"style="color: rgb(248,253,253);text-align: center;">上传成功</span></span>' +
                 '                    <span ><button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>' +
                 '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>' +
@@ -267,7 +261,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             layer.load(); //上传loading
 
         }
-    , done: function (res, index, upload) {
+        , done: function (res, index, upload) {
             layer.closeAll('loading');
             if (res.id > 0) { //上传成功
                 var span = demoListView.find('#upload_' + index);
@@ -280,12 +274,23 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             }
             this.error(index, upload);
         }
-    , error: function (index, upload) {
+        , error: function (index, upload) {
             var tr = demoListView.find('tr#upload-' + index)
                 , tds = tr.children();
             // tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
             tds.eq(2).find('.demo-reload').removeClass('layui-hide'); //显示重传
+        },
+        allDone: function (obj) { //当文件全部被提交后，才触发
+        console.log(obj.total); //得到总文件数
+        console.log(obj.successful); //请求成功的文件数
+        console.log(obj.aborted); //请求失败的文件数
+        if (obj.total == obj.successful) {
+            loadData();
+        } else {
+            layer.msg("有文件未上传成功，请重新上传", {icon: 5});
         }
+
+    }
     });
 
     var getImages = function () {
@@ -295,5 +300,17 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             images.push($(spans[i]).attr("imageUrl"))
         }
         return images;
+    }
+
+    function getJsonLength(jsonData) {
+
+        var jsonLength = 0;
+
+        for (var item in jsonData) {
+
+            jsonLength++;
+
+        }
+        return jsonLength;
     }
 })

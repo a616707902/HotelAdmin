@@ -9,13 +9,12 @@ var Config = {
 var TableHeader = [[ //表头
     // {type:'checkbox',align:'center'},
     {field: 'order_id', align: 'center', title: '订单号'},
-    {field: 'belong_hotel', align: 'center', title: '所属酒店'}
+    {field: 'belong_hotel_name', align: 'center', title: '所属酒店'}
     , {field: 'create_time', align: 'center', title: '下单时间'}
     , {field: 'order_status_display', align: 'center', title: '订单状态'}
     , {field: 'consumer', align: 'center', title: '会员账号'}
-    // , {field: 'is_distribution', align: 'center', title: '是否分销人员' ,templet: '#switchTpl', unresize: true}
-    // , {field: 'sell_user_name', align: 'center', title: '分销用户名'}
-    // , {field: 'bonus', align: 'center', title: '金额'}
+    // , {field: 'room_nums', align: 'center', title: '房间数'}
+    // , {field: 'room_style_name', align: 'center', title: '房间类型'}
     , {title: '操作', align: 'center', toolbar: '#barDemo'}
 
 ]];
@@ -25,14 +24,9 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
     var requset = layui.request;
     var table = layui.table;
     var laydate = layui.laydate;
-    var laypage = layui.laypage
+    var laypage = layui.laypage;
 
-    table.render({
-        elem: '#orderList'
-        , page: true //开启分页
-        , cols: TableHeader
-        , data: []
-    });
+
     window.reflush = function () {
         //  window.parent.location.reload(); //刷新父页面
         location.replace(location.href);
@@ -52,7 +46,7 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
             Config.count = data.count;
             $("#total").html(data.count);
             table.render({
-                elem: '#orderList'
+                elem: '#lists'
                 , limit: Config.pageSize//显示的数量
                 , page: false //开启分页
                 , cols: TableHeader
@@ -63,11 +57,11 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
         });
     }
 
-    table.on('tool(orderList)', function (obj) {
+    table.on('tool(lists)', function (obj) {
         var data = obj.data;
-        if (obj.event === 'detail') {
+        if (obj.event === 'edit') {
             // layer.msg('ID：'+ data.id + ' 的查看操作');
-            WeAdminShow("详情", "./hotelOrderDetail.html?op=detail&id=" + data.id);
+            WeAdminShow("详情", "./hotelOrderDetail.html?op=edit&id=" + data.id);
         }
     });
     $(function () {

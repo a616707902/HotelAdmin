@@ -1,6 +1,11 @@
 layui.extend({
     request: '{/}../../static/js/network/request' // {/}的意思即代表采用自有路径，即不跟随 base 路径
 });
+var Config = {
+    page: 1,
+    pageSize: 10,
+    count: 0
+}
 var TableHeader=[[ //表头
     // {type:'checkbox',align:'center'},
     {field: 'id',align:'center', title: 'ID'}
@@ -10,11 +15,12 @@ var TableHeader=[[ //表头
     ,{ title: '操作',  align:'center', toolbar: '#barDemo'}
 
 ]];
-layui.use(['layer', 'jquery', 'request', 'form','table'], function () {
+layui.use(['layer', 'jquery', 'request', 'form','table','laypage'], function () {
     var $ = layui.jquery;
     var form = layui.form;
     var requset = layui.request;
     var table=layui.table;
+    var laypage=layui.laypage;
     form.on('submit(search)', function (data) {
         getAllGoodsStyle(data.field.search);
     });
@@ -34,16 +40,20 @@ layui.use(['layer', 'jquery', 'request', 'form','table'], function () {
     });
     window.getAllGoodsStyle = function (search) {
         requset.doGet("/admin/goods_category/", {
+            page: Config.page,
+            page_size: Config.pageSize,
             search: search
         }, function (data) {
             //第一个实例
             $("#total").html(data.count);
             table.render({
                 elem: '#goodsstylelist'
-                ,page: true //开启分页
-                ,cols: TableHeader
-                ,data:data.results
+                , limit: Config.pageSize//显示的数量
+                , page: false //开启分页
+                , cols: TableHeader
+                , data: data.results
             });
+            Rflaypage();
 
         });
     }
@@ -68,6 +78,22 @@ layui.use(['layer', 'jquery', 'request', 'form','table'], function () {
             WeAdminShow("添加","./goods_styleAdd.html?");
         });
     });
+    function Rflaypage() {
+        laypage.render({
+            elem: 'page'
+            , count: Config.count
+            , limit: Config.pageSize
+            , curr: Config.page
+            , layout: ['prev', 'page', 'next', 'limit']
+            , jump: function (obj, first) {
+                Config.pageSize = obj.limit
+                Config.page = obj.curr;
+                if (!first) {
+                    getAllGoodsStyle($("#goodsstyle").val());
+                }
+            }
+        });
+    }
 
 
 })

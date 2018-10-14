@@ -59,10 +59,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             }
             $('#belong_hotel').html(htmlselect);
             form.render('select'); //刷新select选择框渲染
-            if ("detail" == op || "edit" == op) {
-                if ("detail" == op) {
-                    $(".layui-form-item button").addClass("layui-hide");
-                }
+            if ( "edit" == op) {
                 getStaffCenterDetail(id)
             } else {
                 $(".hide").removeClass("layui-hide");
@@ -71,12 +68,19 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     }
 
     function editStaff(data, id) {
-
-        request.doPut("/admin/room_style/" + id + "/", {
+        // {
+        //     "is_active": true,
+        //     "belong_hotel": "string",
+        //     "date_joined": "string",
+        //     "user_name": "string",
+        //     "sex": "string"
+        // }
+        request.doPut("/admin/staff_center/" + id + "/", {
             belong_hotel: data.field.hotel,
             username: data.field.username,
             user: data.field.user,
-            sex: data.field.sex
+            sex: data.field.sex,
+            "is_active": true,
         }, function (data) {
             layer.alert("修改成功", {
                 icon: 6
@@ -95,6 +99,13 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             layer.msg("两次输入的密码不一致", {icon: 5});
             return;
         }
+        // {
+        //     "username": "string",
+        //     "belong_hotel": "string",
+        //     "password": "string",
+        //     "user_name": "string",
+        //     "sex": "string"
+        // }
         request.doPost("/admin/room_style/", {
             belong_hotel: data.field.hotel,
             username: data.field.username,
@@ -123,21 +134,17 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
                 $('#' + key).val(value);
 
             });
-            $("#belong_hotel option[value="+response.belong_hotel+"]").attr("selected", true);
-            form.render("select");
-            // $('#belong_hotel').attr("disabled", "disabled");
-            if ("detail" == op) {
-                $('input:radio[name=sex]').attr('checked',false);
-                if (response.sex == 1) {
-                    $('input:radio[name=sex]')[0].checked = true;
-                } else {
-                    $('input:radio[name=sex]')[1].checked = true;
+            // $("#belong_hotel option[value="+response.belong_hotel+"]").attr("selected", true);
+            $("input[name=is_active]").each(function () {
+                if ($(this).val() == response.is_active) {
+                    $(this).attr('checked', true);
                 }
-                // $('.layui-form-item input ').attr("disabled", "disabled");
-
-            } else {
-
-            }
+            });
+            $("input[name=sex]").each(function () {
+                if ($(this).val() == response.sex) {
+                    $(this).attr('checked', true);
+                }
+            });
             form.render();
         })
         return false;

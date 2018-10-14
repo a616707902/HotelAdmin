@@ -28,6 +28,10 @@ layui.use(['form', 'request'], function () {
                 key: 'token',
                 value:'jwt '+ response.token
             });
+            layui.data('perms', {
+                key: 'perms',
+                value:response.perms
+            });
                 window.location.href="/HotelAdmin/pages/home/home.html";
 
         });

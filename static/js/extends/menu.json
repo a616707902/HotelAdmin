@@ -1,0 +1,162 @@
+[
+  {
+    "codename": "banner",
+    "name": "横幅页",
+    "icon": "&#xe6b8;",
+    "menuUrl": "javascript:;",
+    "childs": null
+  },
+  {
+    "codename": "hotel",
+    "name": "宾馆中心",
+    "icon": "&#xe6b8;",
+    "menuUrl": "javascript:;",
+    "childs": [
+      {
+        "name": "酒店管理",
+        "menuUrl": "/HotelAdmin/pages/composite/hotelmanage/hotel_manage.html"
+      },
+      {
+        "name": "房间类型管理",
+        "menuUrl": "/HotelAdmin/pages/composite/rooms/room_style_manage.html"
+      }
+    ]
+  },
+  {
+    "codename": "consumer",
+    "name": "客户中心",
+    "icon": "&#xe6b8;",
+    "menuUrl": "javascript:;",
+    "childs": [
+      {
+        "name": "用户",
+        "menuUrl": "/HotelAdmin/pages/member/consumer.html"
+      },
+      {
+        "name": "会员",
+        "menuUrl": "/HotelAdmin/pages/vip/vip_member.html"
+      }
+    ]
+  },
+  {
+    "codename": "role",
+    "name": "权限中心",
+    "icon": "&#xe6b8;",
+    "menuUrl": "javascript:;",
+    "childs": [
+      {
+        "name": "会员管理",
+        "menuUrl": "/HotelAdmin/pages/composite/hotelmanage/consumer.html"
+      }
+    ]
+  },
+  {
+    "codename": "distribution",
+    "name": "分销中心",
+    "icon": "&#xe6b8;",
+    "menuUrl": "javascript:;",
+    "childs": [
+      {
+        "name": "分销申请管理",
+        "menuUrl": "/HotelAdmin/pages/member/apply/applyList.html"
+      }
+    ]
+  },
+  {
+    "codename": "integral",
+    "name": "积分中心",
+    "icon": "&#xe6b8;",
+    "menuUrl": "javascript:;",
+    "childs": [
+      {
+        "name": "积分管理",
+        "menuUrl": "/HotelAdmin/pages/member/integral/integral.html"
+      }
+    ]
+  },
+  {
+    "codename": "market",
+    "name": "商城中心",
+    "icon": "&#xe6b8;",
+    "menuUrl": "javascript:;",
+    "childs": [
+      {
+        "name": "商品类型管理",
+        "menuUrl": "/HotelAdmin/pages/goods/goods_style_manage.html"
+      },
+      {
+        "name": "商品管理",
+        "menuUrl": "/HotelAdmin/pages/goods/goods_manage.html"
+      }
+    ]
+  },
+  {
+    "codename": "market_order",
+    "name": "商城订单中心",
+    "icon": "&#xe6b8;",
+    "menuUrl": "javascript:;",
+    "childs": [
+
+      {
+        "name": "商城订单",
+        "menuUrl": "/HotelAdmin/pages/order/marketOrderList.html"
+      }
+    ]
+  },
+  {
+    "codename": "tags",
+    "name": "标签中心",
+    "icon": "&#xe6b8;",
+    "menuUrl": "javascript:;",
+    "childs": [
+      {
+        "name": "标签管理",
+        "menuUrl": "/HotelAdmin/pages/composite/tagManage/tagManage.html"
+      }
+    ]
+  },
+  {
+    "codename": "staff",
+    "name": "职员中心",
+    "icon": "&#xe6b8;",
+    "menuUrl": "javascript:;",
+    "childs": [
+      {
+        "name": "职员管理",
+        "menuUrl": "/HotelAdmin/pages/assistant/staff_center.html"
+      }
+    ]
+  },
+  {
+    "codename": "hotel_order",
+    "name": "住宿订单",
+    "icon": "&#xe6b8;",
+    "menuUrl": "javascript:;",
+    "childs": [
+      {
+        "name": "酒店订单",
+        "menuUrl": "/HotelAdmin/pages/order/hotelOrderList.html"
+      }
+    ]
+  },
+  {
+    "codename": "vip_info",
+    "name": "会员中心",
+    "icon": "&#xe6b8;",
+    "menuUrl": "javascript:;",
+    "childs": [
+      {
+        "name": "充值配置",
+        "menuUrl": "/HotelAdmin/pages/member/recharge/rechargeSetting.html"
+      },
+      {
+        "name": "充值信息",
+        "menuUrl": "/HotelAdmin/pages/member/recharge/rechargeInfo.html"
+      },
+      {
+        "name": "会员折扣配置",
+        "menuUrl": "/HotelAdmin/pages/vip/vip_setting.html"
+      }
+    ]
+  }
+]

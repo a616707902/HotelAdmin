@@ -27,14 +27,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label"><span class="we-red">*</span>酒店名称</label>
             <div class="layui-input-inline">
-                <select id="belong_hotel" name="hotel"  lay-verify="required" lay-filter="pid-select">
+                <select id="belong_hotel" name="belong_hotel"  lay-verify="required" lay-filter="pid-select">
                 </select>
             </div>
         </div>
         <div class="layui-form-item " >
             <label class="layui-form-label"><span class="we-red">*</span>登录账号</label>
             <div class="layui-input-inline">
-                <input id="user" lay-verType="tips" type="text" name="user"  placeholder="请输入登录的账号名"
+                <input id="username" lay-verType="tips" type="text" name="username"  placeholder="请输入登录的账号名"
                        autocomplete="off" class="layui-input ">
             </div>
         </div>
@@ -62,13 +62,20 @@
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <input  type="radio" name="sex" title="男" value="20" />
+                <input  type="radio" name="sex" title="女" value="30" checked/>
+                <input  type="radio" name="sex" title="未知" value="10"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否启用</label>
             <div class="layui-input-inline">
-                <input id="radio1" type="radio" name="sex" title="男" value="1" />
-                <input id="radio2" type="radio" name="sex" title="女" value="0"/>
+                <input  type="radio" name="is_active" title="启用" value="1" checked/>
+                <input  type="radio" name="is_active" title="禁用" value="0"/>
             </div>
         </div>
 
-        
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <button class="layui-btn" lay-submit="" lay-filter="add">立即提交</button>

@@ -1,5 +1,5 @@
 layui.extend({
-    request: '{/}../../../static/js/network/request' // {/}的意思即代表采用自有路径，即不跟随 base 路径
+    request: '{/}../../static/js/network/request' // {/}的意思即代表采用自有路径，即不跟随 base 路径
 });
 var Config = {
     page: 1,
@@ -8,49 +8,50 @@ var Config = {
 }
 var TableHeader = [[ //表头
     // {type:'checkbox',align:'center'},
-    // {field: 'phone', align: 'center', title: '电话'}
-    {field: 'user', align: 'center', title: '会员账号'}
-    , {field: 'integral', align: 'center', title: '积分数'}
-    , {field: 'growth_value', align: 'center', title: '成长值'}
-    , {field: 'update_time', align: 'center', title: '更新时间'}
+    {field: 'order_id', align: 'center', title: '订单号'},
+    {field: 'belong_hotel', align: 'center', title: '所属酒店'}
+    , {field: 'create_time', align: 'center', title: '下单时间'}
+    , {field: 'order_status_display', align: 'center', title: '订单状态'}
+    , {field: 'consumer', align: 'center', title: '会员账号'}
+    // , {field: 'is_distribution', align: 'center', title: '是否分销人员' ,templet: '#switchTpl', unresize: true}
+    // , {field: 'sell_user_name', align: 'center', title: '分销用户名'}
+    // , {field: 'bonus', align: 'center', title: '金额'}
     , {title: '操作', align: 'center', toolbar: '#barDemo'}
 
 ]];
-layui.use(['layer', 'jquery', 'request', 'form','table', 'laypage'], function () {
+layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'], function () {
     var $ = layui.jquery;
     var form = layui.form;
     var requset = layui.request;
-    var table=layui.table;
+    var table = layui.table;
+    var laydate = layui.laydate;
     var laypage = layui.laypage
 
     table.render({
-        elem: '#memberList'
-        ,page: true //开启分页
-        ,cols:TableHeader
-        ,data:[]
+        elem: '#orderList'
+        , page: true //开启分页
+        , cols: TableHeader
+        , data: []
     });
     window.reflush = function () {
         //  window.parent.location.reload(); //刷新父页面
         location.replace(location.href);
     }
     form.on('submit(sreach)', function (data) {
-        getIntegral();
+        getOrderList();
         return false;
     });
-    window.getIntegral = function () {
-        requset.doGet("/admin/integral/", {
+    window.getOrderList = function () {
+        requset.doGet("/admin/market_order/", {
             page: Config.page,
             page_size: Config.pageSize,
-            // user_name__contains:$("#user_name__contains").val(),
-            search:""
-            // user__date_joined__range:$("#start").val()+""+$("#end").val(),
-            // phone__contains:$("#phone__contains").val()
+            order_status: $("#order_status").val(),
         }, function (data) {
             //第一个实例
             Config.count = data.count;
             $("#total").html(data.count);
             table.render({
-                elem: '#memberList'
+                elem: '#orderList'
                 , limit: Config.pageSize//显示的数量
                 , page: false //开启分页
                 , cols: TableHeader
@@ -58,20 +59,20 @@ layui.use(['layer', 'jquery', 'request', 'form','table', 'laypage'], function ()
             });
             Rflaypage();
 
-
         });
     }
 
-    table.on('tool(memberList)', function(obj){
+    table.on('tool(orderList)', function (obj) {
         var data = obj.data;
-        if(obj.event === 'detail'){
+        if (obj.event === 'detail') {
             // layer.msg('ID：'+ data.id + ' 的查看操作');
-            WeAdminShow("详情","./integralDetail.html?op=detail&id="+data.id);
+            WeAdminShow("详情", "./marketOrderDetail.html?op=detail&id=" + data.id);
         }
     });
     $(function () {
-        getIntegral();
+        getOrderList();
     });
+
     function Rflaypage() {
         laypage.render({
             elem: 'page'
@@ -88,4 +89,5 @@ layui.use(['layer', 'jquery', 'request', 'form','table', 'laypage'], function ()
             }
         });
     }
+
 })

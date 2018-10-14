@@ -622,3 +622,15 @@ table td {
 .con_img{position: relative; width: 300px; height: 300px;}
 /* IE6和部分IE7内核的浏览器(如QQ浏览器)会读懂，但解析为透明 */
 .ms{ background-color:rgba(0,0,0,0.2); position: absolute; bottom: 0;left: 0; width: 200px; height: 25px;line-height: 25px}
+fieldset legend {
+  margin-left: 20px;
+  padding: 0 10px;
+  font-size: 22px;
+  font-weight: 300;
+}
+.site-title {
+  margin: 30px 0 20px;
+}
+.nochange{
+  ime-mode: disabled
+}

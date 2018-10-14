@@ -29,7 +29,21 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
             });
-
+            var status=response.order_status;
+            if (status>=50){
+                $("#refund_div").removeClass("layui-hide")
+            }
+            if (status!=10){
+                $("#pay_div").removeClass("layui-hide")
+            }
+            var hotel_order_detail = response.hotel_order_detail;
+            var order_pay = response.order_pay;
+            $.each(hotel_order_detail, function (key, value) {
+                $('#hotel_order_detail_' + key).val(value);
+            });
+            $.each(order_pay, function (key, value) {
+                $('#order_pay_' + key).val(value);
+            });
 
         })
     }

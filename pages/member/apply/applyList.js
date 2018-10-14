@@ -1,7 +1,11 @@
 layui.extend({
     request: '{/}../../static/js/network/request' // {/}的意思即代表采用自有路径，即不跟随 base 路径
 });
-
+var Config = {
+    page: 1,
+    pageSize: 10,
+    count: 0
+}
 var TableHeader = [[ //表头
     // {type:'checkbox',align:'center'},
     // {field: 'phone', align: 'center', title: '电话'}
@@ -15,12 +19,13 @@ var TableHeader = [[ //表头
     , {title: '操作', align: 'center', toolbar: '#barDemo'}
 
 ]];
-layui.use(['layer', 'jquery', 'request', 'form','table','laydate'], function () {
+layui.use(['layer', 'jquery', 'request', 'form','table','laydate', 'laypage'], function () {
     var $ = layui.jquery;
     var form = layui.form;
     var requset = layui.request;
     var table=layui.table;
     var laydate = layui.laydate;
+    var laypage = layui.laypage
 
     //执行一个laydate实例
     laydate.render({
@@ -46,19 +51,24 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laydate'], function () 
     });
     window.getConsumer = function () {
         requset.doGet("/admin/apply/", {
+            page: Config.page,
+            page_size: Config.pageSize,
             // user_name__contains:$("#user_name__contains").val(),
             search:""
             // user__date_joined__range:$("#start").val()+""+$("#end").val(),
             // phone__contains:$("#phone__contains").val()
         }, function (data) {
             //第一个实例
+            Config.count = data.count;
             $("#total").html(data.count);
             table.render({
                 elem: '#memberList'
-                ,page: true //开启分页
-                ,cols: TableHeader
-                ,data:data.results
+                , limit: Config.pageSize//显示的数量
+                , page: false //开启分页
+                , cols: TableHeader
+                , data: data.results
             });
+            Rflaypage();
         });
     }
 
@@ -72,5 +82,20 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laydate'], function () 
     $(function () {
         getConsumer();
     });
-
+    function Rflaypage() {
+        laypage.render({
+            elem: 'page'
+            , count: Config.count
+            , limit: Config.pageSize
+            , curr: Config.page
+            , layout: ['prev', 'page', 'next', 'limit']
+            , jump: function (obj, first) {
+                Config.pageSize = obj.limit
+                Config.page = obj.curr;
+                if (!first) {
+                    getOrderList();
+                }
+            }
+        });
+    }
 })

@@ -11,11 +11,17 @@ var TableHeader = [[ //表头
     , {title: '操作', align: 'center', toolbar: '#barDemo'}
 
 ]];
-layui.use(['layer', 'jquery', 'request', 'form', 'table'], function () {
+var Config = {
+    page: 1,
+    pageSize: 10,
+    count: 0
+}
+layui.use(['layer', 'jquery', 'request', 'form', 'table','laypage'], function () {
     var $ = layui.jquery;
     var form = layui.form;
     var request = layui.request;
     var table = layui.table;
+    var laypage = layui.laypage;
     form.on('submit(sreach)', function (data) {
         getAllGoods(data.field.search, data.field.category);
         return false;
@@ -24,34 +30,31 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table'], function () {
         //  window.parent.location.reload(); //刷新父页面
         location.replace(location.href);
     }
-    table.render({
-        elem: '#roomlist'
-        , page: true //开启分页
-        , cols: TableHeader
-        , data: []
-    });
+
     window.getAllGoods = function (search, name) {
         request.doGet("/admin/goods/", {
+            page: Config.page,
+            page_size: Config.pageSize,
             search: search,
             category: name
         }, function (data) {
             //第一个实例
+            Config.count=data.count;
             $("#total").html(data.count);
             table.render({
                 elem: '#goodslist'
-                , page: true //开启分页
+                , limit: Config.pageSize//显示的数量
+                , page: false //开启分页
                 , cols: TableHeader
                 , data: data.results
             });
+            Rflaypage();
 
         });
     }
     table.on('tool(goodslist)', function (obj) {
         var data = obj.data;
-        if (obj.event === 'detail') {
-            // layer.msg('ID：'+ data.id + ' 的查看操作');
-            WeAdminShow("详情", "./GoodsAdd.html?op=detail&id=" + data.id);
-        } else if (obj.event === 'del') {
+         if (obj.event === 'del') {
             // layer.confirm('真的删除行么', function(index){
             //     obj.del();
             //     layer.close(index);
@@ -82,9 +85,22 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table'], function () {
             form.render('select'); //刷新select选择框渲染
         });
     }
-//删除商品
-    window.delAll = function (span) {
-        var data = tableCheck.getData();
 
+    function Rflaypage() {
+        laypage.render({
+            elem: 'page'
+            , count: Config.count
+            , limit: Config.pageSize
+            , curr: Config.page
+            , layout: ['prev', 'page', 'next', 'limit']
+            , jump: function (obj, first) {
+                Config.pageSize = obj.limit
+                Config.page = obj.curr;
+                if (!first) {
+                    getAllGoods($("#goodsname").val(), $("#goodsStyle_select").val())
+                }
+            }
+        });
     }
+
 });

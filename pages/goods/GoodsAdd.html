@@ -50,11 +50,11 @@
             <label class="layui-form-label">积分换取</label>
             <div class="layui-input-inline">
                 <input id="radio3" type="radio" lay-filter="is_integral" name="is_integral" title="是" value="1"
-                       checked/>
-                <input id="radio4" type="radio" lay-filter="is_integral" name="is_integral" title="否" value="0"/>
+                       />
+                <input id="radio4" type="radio" lay-filter="is_integral" name="is_integral" title="否" value="0" checked/>
             </div>
         </div>
-        <div class="layui-form-item " id="need_div">
+        <div class="layui-form-item layui-hide" id="need_div">
             <label class="layui-form-label">消费积分</label>
             <div class="layui-input-inline">
                 <input id="need_integral" lay-verType="tips" type="number" name="need_integral"
@@ -62,10 +62,51 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">是否促销</label>
+            <div class="layui-input-inline">
+                <input  type="radio" name="is_promotion" title="是" value="1" />
+                <input  type="radio" name="is_promotion" title="否" value="0" checked/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">会员商品</label>
+            <div class="layui-input-inline">
+                <input  type="radio" name="is_special" lay-filter="is_special" title="是" value="1" />
+                <input  type="radio" name="is_special" lay-filter="is_special" title="否" value="0" checked />
+            </div>
+        </div>
+        <div class="layui-form-item layui-hide" id="special_div">
+            <label class="layui-form-label">会员选择</label>
+            <div class="layui-input-inline">
+                <select name="vip_info" id="vip_info" lay-verify="required" lay-filter="pid-select">
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">展示照片</label>
+            <div class="layui-input-block layui-upload">
+                <div class="layui-upload-list">
+                    <img style="width: 300px;height: 300px" class="layui-upload-img" id="demo1">
+                    <p id="demoText"></p>
+                    <button type="button" style="margin-top: 5px" class="layui-btn" id="test2">选择展示照片</button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class=" layui-input-block layui-upload">
+                <button type="button" class="layui-btn " id="testList">商品详情图片</button>
+                <div class="layui-upload-list" >
+
+                    <div id="layer-photos-demo" class="layer-photos-demo"></div>
+                </div>
+                <!-- <button type="button" class="layui-btn" id="testListAction">开始上传</button>-->
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">状态</label>
             <div class="layui-input-inline">
                 <input id="radio1" type="radio" name="is_active" title="启用" value="1" checked/>
-                <input id="radio2" type="radio" name="is_active" title="禁用" value="0"/>
+                <input id="radio2" type="radio" name="is_active" title="禁用" value="0" />
             </div>
         </div>
         <div class="layui-form-item">
@@ -75,6 +116,7 @@
             </div>
         </div>
         <input type="hidden" name="hotelnum" value="0"/>
+        <input type="hidden" name="cover_image" id="cover_image" value=""/>
     </form>
 </div>
 

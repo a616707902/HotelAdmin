@@ -16,7 +16,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     $(function () {
         var op = request.getQueryString("op");
         var id = request.getQueryString("id");
-        getConsumerDetail(id, op)
+        getVipMemberDetail(id, op)
 
     });
 
@@ -25,23 +25,24 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
         parent.layer.close(index); //再执行关闭
     });
 
-    function getConsumerDetail(id, op) {
-        request.doGet("/admin/consumer/" + id + "/", {}, function (response) {
+    function getVipMemberDetail(id, op) {
+        request.doGet("/admin/vip_member/" + id + "/", {}, function (response) {
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
             });
-            $("input[name=is_distribution]").each(function(){
-                if($(this).val()==response.is_distribution){
-                    $(this).attr('checked',true);
-                }
-            });
-            $("input[name=is_vip]").each(function(){
-                if($(this).val()==response.is_vip){
-                    $(this).attr('checked',true);
-                }
-            });
-            form.render();
-        })
+            var consumer_id=response.consumer_id
+            request.doGet("/admin/consumer/" + consumer_id + "/", {}, function (response) {
+                $.each(response, function (key, value) {
+                    $('#' + key).val(value);
+                });
+                $("input[name=is_distribution]").each(function(){
+                    if($(this).val()==response.is_distribution){
+                        $(this).attr('checked',true);
+                    }
+                });
+                form.render();
+            })
 
+        })
     }
 })

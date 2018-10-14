@@ -13,7 +13,7 @@ layui.use(['layer', 'jquery', 'request', 'element'], function () {
      */
     var usertable = layui.data('user');
     var user = usertable.user;
-
+var perms=layui.data('perms').perms;
     if (usertable == undefined || user == undefined || !user.isLogin) {
         window.location.href = "/HotelAdmin/login.html";
     }
@@ -24,54 +24,79 @@ layui.use(['layer', 'jquery', 'request', 'element'], function () {
 	 * @todo 初始化加载完成执行方法
 	 * 打开或刷新后执行
 	 */
+    var MenuList=new Array();
     $(function () {
         $('#realname').html(user.realName);
-        requset.doGet("UserOperation/getMenuList", {
-            username: user.userName
-        }, function (data) {
+        $.get("/HotelAdmin/static/js/extends/menu.json", function (data) {
             var menu = ""; //定义变量存储
             for (var i = 0; i < data.length; i++) {
-
-                if (data[i].pareMenuId == 0 && data[i].levelnum == 1) { //取出父元素的菜单，拼进页面
-                    menu += "<li>"
-                    menu += "<a href='" + data[i].menuUrl + "'>" +
-                        "<i class=\"iconfont\">" + data[i].menuIcon + "</i>" +
-                        "<cite>" + data[i].menuName + "</cite>" +
-                        "<i class=\"iconfont nav_right\">&#xe697;</i>" +
-                        "</a>" +
-                        "<ul class=\"sub-menu\">";
-                    for (var j = 0; j < data.length; j++) { //继续遍历这几条数据
-                        if (data[j].pareMenuId == data[i].menuId && data[j].levelnum == 2) { //取出这个父元素所对应的子元素
-
-                            menu += "<li>"
-                            menu += "<a _href='" + data[j].menuUrl + "'>"
-                            menu += "<i class=\"iconfont\">&#xe6a7;</i>"
-                            menu += "<cite>" + data[j].menuName + "</cite>"
-                            if (data[j].menuUrl === "javascript:;") {
-                                menu += "<i class=\"iconfont nav_right\">&#xe697;</i>"
-                            }
-                            menu += "</a>"
-                            if (data[j].menuUrl === "javascript:;") {
-                                menu += "<ul class=\"sub-menu\">"
-                                for (var k = 0; k < data.length; k++) {
-                                    if (data[k].pareMenuId == data[j].menuId && data[k].levelnum == 3) {
-                                        menu += "<li>"
-                                        menu += "<a _href='" + data[k].menuUrl + "'>"
-                                        menu += "<i class=\"iconfont\">&#xe6a7;</i>"
-                                        menu += "<cite>" + data[k].menuName + "</cite>"
-                                        menu += "</li>"
-                                    }
-                                }
-                                menu += "</ul>";
-                            }
-                            menu += "</li>"
-                        }
+                for (var j=0;j<perms.length;j++){
+                    if (perms[j]==data[i].codename){
+                        MenuList.push(data[i]);
                     }
-                    menu += "</ul>";
-                    menu += "</li>";
                 }
 
+
             }
+            $.each(MenuList,function (index,data) {
+                menu += "<li>"
+                menu += "<a href='" + data.menuUrl + "'>" +
+                    "<i class=\"iconfont\">"+data.icon+"</i>" +
+                    "<cite>" + data.name + "</cite>" +
+                    "<i class=\"iconfont nav_right\">&#xe697;</i>" +
+                    "</a>";
+
+                if (data.childs!=null){
+                    menu += "<ul class=\"sub-menu\">";
+                    $.each(data.childs,function (index,child) {
+                        menu += "<li>"
+                        menu += "<a _href='" + child.menuUrl + "'>"
+                        menu += "<i class=\"iconfont\">&#xe6a7;</i>"
+                        menu += "<cite>" + child.name + "</cite>"
+                        menu += "</li>"
+                    });
+                    menu += "</ul>";
+                }
+                menu += "</li>"
+            });
+            // if (data[i].pareMenuId == 0 && data[i].levelnum == 1) { //取出父元素的菜单，拼进页面
+            //     menu += "<li>"
+            //     menu += "<a href='" + data[i].menuUrl + "'>" +
+            //         "<i class=\"iconfont\"> &#xe6b8;</i>" +
+            //         "<cite>" + data[i].menuName + "</cite>" +
+            //         "<i class=\"iconfont nav_right\">&#xe697;</i>" +
+            //         "</a>" +
+            //         "<ul class=\"sub-menu\">";
+            //     for (var j = 0; j < data.length; j++) { //继续遍历这几条数据
+            //         if (data[j].pareMenuId == data[i].menuId && data[j].levelnum == 2) { //取出这个父元素所对应的子元素
+            //
+            //             menu += "<li>"
+            //             menu += "<a _href='" + data[j].menuUrl + "'>"
+            //             menu += "<i class=\"iconfont\">&#xe6a7;</i>"
+            //             menu += "<cite>" + data[j].menuName + "</cite>"
+            //             if (data[j].menuUrl === "javascript:;") {
+            //                 menu += "<i class=\"iconfont nav_right\">&#xe697;</i>"
+            //             }
+            //             menu += "</a>"
+            //             if (data[j].menuUrl === "javascript:;") {
+            //                 menu += "<ul class=\"sub-menu\">"
+            //                 for (var k = 0; k < data.length; k++) {
+            //                     if (data[k].pareMenuId == data[j].menuId && data[k].levelnum == 3) {
+            //                         menu += "<li>"
+            //                         menu += "<a _href='" + data[k].menuUrl + "'>"
+            //                         menu += "<i class=\"iconfont\">&#xe6a7;</i>"
+            //                         menu += "<cite>" + data[k].menuName + "</cite>"
+            //                         menu += "</li>"
+            //                     }
+            //                 }
+            //                 menu += "</ul>";
+            //             }
+            //             menu += "</li>"
+            //         }
+            //     }
+            //     menu += "</ul>";
+            //     menu += "</li>";
+            // }
             $("#nav").html(menu);
             element.init()//初始化element事件，使菜单展开
             /*

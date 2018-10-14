@@ -1,39 +1,40 @@
 layui.extend({
     request: '{/}../../static/js/network/request',
 });
-layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
+layui.use(['layer', 'request', 'jquery', 'form'], function () {
     var layer = layui.layer;
     var $ = layui.jquery;
     var form = layui.form;
     var request = layui.request;
-    var upload = layui.upload;
     form.on('submit(add)', function (data) {
         //发异步，把数据提交给php
         var op = request.getQueryString("op");
         var id = request.getQueryString("id");
 
         if ("edit" == op) {
-            editGoodsStyle(data, id);
+            editVipSet(data, id);
         } else {
-            addGoodsStyle(data);
+            addVipSet(data);
         }
 
         return false;
     });
+
     $(function () {
         var op = request.getQueryString("op");
         var id = request.getQueryString("id");
         if ( "edit" == op) {
 
-            getGoodsStyleDetail(id,op)
+            getVipSetDetail(id,op);
         }
+
     });
 
 
-    function editGoodsStyle(data, id) {
-        request.doPut("/admin/goods_category/" + id + "/", {
-            is_active: data.field.is_active=='1'?true:false,
-            category_name: data.field.category_name,
+    function editVipSet(data, id) {
+        request.doPut("/admin/vip_settings/" + id + "/", {
+            vip_name: data.field.vip_name,
+            hotel_discount: data.field.hotel_discount,
         }, function (data) {
             layer.alert("修改成功", {
                 icon: 6
@@ -47,11 +48,10 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
         });
     }
 
-    function addGoodsStyle(data) {
-        request.doPost("/admin/goods_category/", {
-            is_active: data.field.is_active=='1'?true:false,
-            category_name: data.field.category_name,
-
+    function addVipSet(data) {
+        request.doPost("/admin/vip_settings/", {
+            vip_name: data.field.vip_name,
+            hotel_discount: data.field.hotel_discount
         }, function (data) {
             layer.alert("增加成功", {
                 icon: 6
@@ -65,20 +65,12 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
         });
     }
 
-    function getGoodsStyleDetail(id,op) {
-        request.doGet("/admin/goods_category/" + id + "/", {}, function (response) {
+    function getVipSetDetail(id,op) {
+        request.doGet("/admin/vip_settings/" + id + "/", {}, function (response) {
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
             });
-            $("input[name=is_active]").each(function () {
-                if ($(this).val() == response.is_active) {
-                    $(this).attr('checked', true);
-                }
-            });
-            // var images = response.images;
-            // for (var i = 0; i < images.length; i++) {
-            //     $('#demo2').append('<img src="' + images[i] + '" alt="商品类型参考照片" class="layui-upload-img">')
-            // }
-        })
+            form.render(); //刷新select选择框渲染
+        });
     }
-})
+});

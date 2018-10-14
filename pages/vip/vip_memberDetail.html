@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../../static/css/font.css">
     <link rel="stylesheet" href="../../static/css/weadmin.css">
     <script src="../../lib/layui/layui.js" charset="utf-8"></script>
-    <script src="consumerDetail.js" type="text/javascript" charset="utf-8"></script>
+    <script src="vip_memberDetail.js" type="text/javascript" charset="utf-8"></script>
 
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
@@ -23,7 +23,9 @@
 <div class="weadmin-body">
 
     <form id="form1" class="layui-form">
-
+        <div class="site-title">
+            <fieldset><legend><a name="ignore">用户基本信息</a></legend></fieldset>
+        </div>
         <div class="layui-form-item">
             <label class="layui-form-label">用户姓名</label>
             <div class="layui-input-inline">
@@ -62,33 +64,33 @@
                 <input  type="radio" name="is_distribution" title="否" value="0" />
             </div>
         </div>
+        <div class="site-title">
+            <fieldset><legend><a name="ignore">会员信息</a></legend></fieldset>
+        </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">VIP用户</label>
+            <label class="layui-form-label">会员编号</label>
             <div class="layui-input-inline">
-                <input  type="radio" name="is_vip" title="是" value="1" />
-                <input  type="radio" name="is_vip" title="否" value="0" />
+                <input  id="vip_no"  class="layui-input ">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">折扣</label>
-            <div class="layui-input-block">
+            <label class="layui-form-label">会员等级</label>
+            <div class="layui-input-inline">
+                <input  id="vip_level_name"  class="layui-input ">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">会员折扣</label>
+            <div class="layui-input-inline">
                 <input  id="discount"  class="layui-input ">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">余额</label>
+            <label class="layui-form-label">创建时间</label>
             <div class="layui-input-inline">
-                <input  id="bonus"  text="number" class="layui-input ">
+                <input  id="create_time"  class="layui-input ">
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">积分</label>
-            <div class="layui-input-inline">
-                <input  id="integral"  text="number" class="layui-input ">
-            </div>
-        </div>
-
-
 
         <div class="layui-form-item">
             <div class="layui-input-block">
@@ -96,6 +98,7 @@
             </div>
         </div>
     </form>
+
 
 
 </div>

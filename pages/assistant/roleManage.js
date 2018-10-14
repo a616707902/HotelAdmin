@@ -1,14 +1,11 @@
 layui.extend({
-    request: '{/}../../../static/js/network/request' // {/}的意思即代表采用自有路径，即不跟随 base 路径
+    request: '{/}../../static/js/network/request' // {/}的意思即代表采用自有路径，即不跟随 base 路径
 });
 var TableHeader=[[ //表头
     // {type:'checkbox',align:'center'},
     {field: 'id',align:'center', title: 'ID'}
-    ,{field: 'style_name',align:'center', title: '类型名称' }
-    ,{field: 'room_profile',align:'center', title: '房间类型简介'}
-    ,{field: 'room_count',align:'center', title: '总数量'}
-    ,{field: 'is_active', align:'center',title: '状态' ,templet: '#switchTpl', unresize: true}
-    ,{field: 'left_room_count', align:'center',title: '剩余房间数' }
+    ,{field: 'name',align:'center', title: '角色名' }
+    // ,{field: 'perms',align:'center', title: '权限'}
     ,{ title: '操作',  align:'center', toolbar: '#barDemo'}
 
 ]];
@@ -17,23 +14,22 @@ var Config = {
     pageSize: 10,
     count: 0
 }
-// unresize 是否禁用拖拽列宽
 layui.use(['layer', 'jquery', 'request', 'form','table','laypage'], function () {
     var $ = layui.jquery;
     var form = layui.form;
     var requset = layui.request;
     var table=layui.table;
-    var laypage=layui.laypage;
+    var laypage = layui.laypage
     form.on('submit(sreach)', function (data) {
-        getAllRoomStyle(data.field.search);
-        return false;
+        getStaffCenter(data.field.search);
     });
     window.reflush = function () {
         //  window.parent.location.reload(); //刷新父页面
         location.replace(location.href);
     }
-    window.getAllRoomStyle = function (search) {
-        requset.doGet("/admin/room_style/", {
+
+    window.getStaffCenter = function (search) {
+        requset.doGet("/admin/role/", {
             page: Config.page,
             page_size: Config.pageSize,
             search: search
@@ -42,7 +38,7 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laypage'], function () 
             Config.count = data.count;
             $("#total").html(data.count);
             table.render({
-                elem: '#list'
+                elem: '#staffList'
                 , limit: Config.pageSize//显示的数量
                 , page: false //开启分页
                 , cols: TableHeader
@@ -52,19 +48,24 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laypage'], function () 
 
         });
     }
-    table.on('tool(list)', function(obj){
+    table.on('tool(staffList)', function(obj){
         var data = obj.data;
-         if(obj.event === 'del'){
+        if(obj.event === 'detail'){
+            // layer.msg('ID：'+ data.id + ' 的查看操作');
+            WeAdminShow("角色详情","./roleAdd.html?op=detail&id="+data.id);
+        } else if(obj.event === 'del'){
+            // layer.confirm('真的删除行么', function(index){
+            //     obj.del();
+            //     layer.close(index);
+            // });
         } else if(obj.event === 'edit'){
             // layer.alert('编辑行：<br>'+ JSON.stringify(data))
-            WeAdminShow("编辑","./room_styleAdd.html?op=edit&id="+data.id);
+            WeAdminShow("编辑修改","./roleAdd.html?op=edit&id="+data.id);
         }
     });
     $(function () {
-        getAllRoomStyle($("#roomstyle").val())
-        $('#add').click(function () {
-            WeAdminShow("添加","./room_styleAdd.html?");
-        });
+        getStaffCenter($("#search").val())
+
     });
     function Rflaypage() {
         laypage.render({
@@ -77,11 +78,9 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laypage'], function () 
                 Config.pageSize = obj.limit
                 Config.page = obj.curr;
                 if (!first) {
-                    getAllRoomStyle($("#roomstyle").val());
+                    getOrderList();
                 }
             }
         });
     }
-
-
-})
+});

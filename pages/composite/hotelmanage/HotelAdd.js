@@ -10,7 +10,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload', 'address'], function 
     var upload = layui.upload;
     var address = layui.address;
     address.provinces('', '', '');
-    var demoListView = $('#layer-photos-demo')
+    var demoListView = $('#layer-photos-demo');
     form.on('submit(address)', function (data) {
         //发异步，把数据提交给php
 
@@ -76,8 +76,6 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload', 'address'], function 
             } else {
                 loadData();
             }
-
-
         }
         , error: function (res) {
             layer.msg(res, {icon: 5});
@@ -91,18 +89,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload', 'address'], function 
     $(function () {
         var op = request.getQueryString("op");
         var id = request.getQueryString("id");
-        if ("detail" === op || "edit" === op) {
-            if ("detail" === op) {
-                $(".layui-form-item button").addClass("layui-hide");
-                $("#address_div").addClass("layui-hide");
-                getHotalDetail(id);
-            } else {
-                getAllTag(id);
-            }
-
-        } else {
-            getAllTag(id);
-        }
+        getAllTag(id);
     });
     var files;
     var uploadListIns = upload.render({
@@ -143,11 +130,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload', 'address'], function 
                 });
 
                 demoListView.append(tr);
-                // layer.photos({
-                //     photos: '#layer-photos-demo'
-                //     ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
-                //     ,full:true
-                // });
+
             });
         }, before: function (obj) { //obj参数包含的信息，跟choose回调完全一致
             layer.load(); //上传loading
@@ -278,74 +261,49 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload', 'address'], function 
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
             });
-            if ("detail" === op) {
-                if (response.is_active) {
-                    $("#radio1").attr("checked", "checked");
-                    $("#radio2").attr("disabled", "disabled");
-                } else {
-                    $("#radio2").attr("checked", "checked");
-                    $("#radio1").attr("disabled", "disabled");
+            $("input[name=status]").each(function () {
+                if ($(this).val() == response.is_active) {
+                    $(this).attr('checked', true);
                 }
-            }
+            });
+
             address.provinces(response.province, response.city, response.area);
             var images = response.cover_images;
             $('#demo1').attr('src', images); //图片链接（base64）
             var tags = response.tags;
             var images = response.images;
             for (var i = 0; i < images.length; i++) {
-                if ("detail" == op) {
-                    var tr = $([' <div class="layui-upload-list ">\n' +
-                    '<span class="con_img" >' +
-                    '                    <img id="image_' + i + '" style="width: 300px;height: 300px" layer-src=' + images[i] + ' src=' + images[i] + ' class="layui-upload-img image_path" >\n' +
-                    '</span>' +
-                    '                    <span >' +
-                    '</span>\n' +
-                    '                </div>'
-                    ].join(''));
-                    demoListView.append(tr);
-                } else if ("edit" == op) {
-                    var tr = $([' <div class="layui-upload-list ">\n' +
-                    '<span class="con_img" >' +
-                    '                    <img id="image_' + i + '" style="width: 300px;height: 300px" layer-src=' + images[i] + ' src=' + images[i] + ' class="layui-upload-img image_path" >\n' +
-                    '</span>' +
-                    '                    <span >' +
-                    '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>' +
-                    '</span>\n' +
-                    '                </div>'
-                    ].join(''));
-                    //删除
-                    tr.find('.demo-delete').on('click', function () {
-                        tr.remove();
-                        //tr.find('.uploadSucceed').removeAttr("imgpath");
-                    });
-                    demoListView.append(tr);
-                }
-            }
-            if ("detail" === op) {
-                if (tags != null) {
-                    var html = "";
-                    for (var i = 0; i < tags.length; i++) {
-                        html += " <input type=\"checkbox\" name=\"tags\"  value='" + tags[i] + "' title=\"" + tags[i] + "\"  enabled=\"false\" checked=\"checked\">"
-                    }
-                    $("#tag_div").html(html);
-                }
-            } else {
-                var checks = document.getElementsByName("tags")
-                if (tags != null && checks != null) {
-                    for (var i = 0; i < checks.length; i++) {
-                        for (var j = 0; j < tags.length; j++) {
-                            if (checks[i].value == tags[i]) {
-                                checks[i].checked = true;
-                            }
+                var tr = $([' <div class="layui-upload-list ">\n' +
+                '<span class="con_img" >' +
+                '                    <img id="image_' + i + '" imageUrl="'+images[i]+'" style="width: 200px;height: 200px" layer-src=' + images[i] + ' src=' + images[i] + ' class="layui-upload-img image_path" >\n' +
+                '</span>' +
+                '                    <span >' +
+                '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>' +
+                '</span>\n' +
+                '                </div>'
+                ].join(''));
+                //删除
+                tr.find('.demo-delete').on('click', function () {
+                    // console.log($(this).parent("span").parent(".layui-upload-list"));
+                    $(this).parent("span").parent(".layui-upload-list").remove();
 
+                    return false;
+                });
+                demoListView.append(tr);
+            }
+            var checks = document.getElementsByName("tags")
+            if (tags != null && checks != null) {
+                for (var i = 0; i < checks.length; i++) {
+                    for (var j = 0; j < tags.length; j++) {
+                        if (checks[i].value == tags[j]) {
+                            checks[i].checked = true;
                         }
-
                     }
-                    form.render();
                 }
 
-
             }
+            form.render();
+
         })
     }
 

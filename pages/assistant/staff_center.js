@@ -5,17 +5,24 @@ var TableHeader=[[ //表头
     // {type:'checkbox',align:'center'},
     {field: 'id',align:'center', title: 'ID'}
     ,{field: 'user_name',align:'center', title: '管理员姓名' }
-    ,{field: 'sex',align:'center', title: '年龄'}
-    ,{field: 'user',align:'center', title: '登录账号'}
-    ,{field: 'belong_hotel', align:'center',title: '所属酒店' }
+    ,{field: 'sex_display',align:'center', title: '性别'}
+    ,{field: 'username',align:'center', title: '登录账号'}
+    ,{field: 'belong_hotel_name', align:'center',title: '所属酒店' }
+    ,{field: 'is_active', align:'center',title: '状态' ,templet: '#switchTpl', unresize: true}
     ,{ title: '操作',  align:'center', toolbar: '#barDemo'}
 
 ]];
-layui.use(['layer', 'jquery', 'request', 'form','table'], function () {
+var Config = {
+    page: 1,
+    pageSize: 10,
+    count: 0
+}
+layui.use(['layer', 'jquery', 'request', 'form','table','laypage'], function () {
     var $ = layui.jquery;
     var form = layui.form;
     var requset = layui.request;
     var table=layui.table;
+    var laypage = layui.laypage
     form.on('submit(sreach)', function (data) {
         getStaffCenter(data.field.search);
     });
@@ -29,29 +36,31 @@ layui.use(['layer', 'jquery', 'request', 'form','table'], function () {
         ,cols:TableHeader
         ,data:[]
     });
-    window.getStaffCenter = function (search) {
+     function getStaffCenter(search) {
         requset.doGet("/admin/staff_center/", {
+            page: Config.page,
+            page_size: Config.pageSize,
             search: search
         }, function (data) {
             //第一个实例
+            Config.count = data.count;
             $("#total").html(data.count);
             table.render({
                 elem: '#staffList'
-                ,page: true //开启分页
-                ,cols: TableHeader
-                ,data:data.results
-                , done: function(res, curr, count){
-
-                }
+                , limit: Config.pageSize//显示的数量
+                , page: false //开启分页
+                , cols: TableHeader
+                , data: data.results
             });
+            Rflaypage();
 
         });
     }
     table.on('tool(staffList)', function(obj){
         var data = obj.data;
-        if(obj.event === 'detail'){
+        if(obj.event === 'assign'){
             // layer.msg('ID：'+ data.id + ' 的查看操作');
-            WeAdminShow("管理员详情","./StaffAdd.html?op=detail&id="+data.id);
+            WeAdminShow("授权角色","./StaffRoleAssign.html?op=assign&id="+data.id);
         } else if(obj.event === 'del'){
             // layer.confirm('真的删除行么', function(index){
             //     obj.del();
@@ -66,4 +75,20 @@ layui.use(['layer', 'jquery', 'request', 'form','table'], function () {
         getStaffCenter($("#search").val())
 
     });
+    function Rflaypage() {
+        laypage.render({
+            elem: 'page'
+            , count: Config.count
+            , limit: Config.pageSize
+            , curr: Config.page
+            , layout: ['prev', 'page', 'next', 'limit']
+            , jump: function (obj, first) {
+                Config.pageSize = obj.limit
+                Config.page = obj.curr;
+                if (!first) {
+                    getOrderList();
+                }
+            }
+        });
+    }
 });
