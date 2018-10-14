@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>评论详情</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../static/css/font.css">
+    <link rel="stylesheet" href="../../../static/css/weadmin.css">
+    <script src="../../../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="commentDetail.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+<div class="weadmin-body">
+
+    <form id="form1" class="layui-form">
+        <div class="site-title">
+            <fieldset>
+                <legend><a name="ignore">评论信息</a></legend>
+            </fieldset>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">评论人</label>
+                <div class="layui-input-inline">
+                    <input id="commenter_name" type="text" name="commenter_name" class="layui-input nochange" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">评分</label>
+                <div class="layui-input-inline">
+                    <input id="comment_level_display" type="text" name="comment_level_display"
+                           class="layui-input nochange" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">内容</label>
+            <div class="layui-input-block">
+                <textarea id="content" name="content" class="layui-textarea" readonly></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">显示方式</label>
+                <div class="layui-input-inline">
+                    <input id="comment_show_display" type="text" name="comment_show_display"
+                           class="layui-input nochange"
+                           readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">订单类型</label>
+                <div class="layui-input-inline">
+                    <input id="belong_order_type_display" type="text" name="belong_order_type_display"
+                           class="layui-input nochange" readonly>
+                </div>
+            </div>
+
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">评论时间</label>
+            <div class="layui-input-inline">
+                <input id="create_time" type="text" name="create_time"
+                       class="layui-input nochange" readonly>
+            </div>
+        </div>
+
+        <span id="reply_div" class="layui-hide">
+        <div class="site-title">
+            <fieldset>
+                <legend><a name="ignore">回复信息</a></legend>
+            </fieldset>
+        </div>
+         <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">回复内容</label>
+            <div class="layui-input-block">
+                <textarea id="comment_reply_reply_content" name="comment_reply_reply_content" class="layui-textarea"
+                          readonly></textarea>
+            </div>
+        </div>
+
+        </span>
+        <div class="layui-form-item" id="reply_button">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="replyComment">回复评论</button>
+            </div>
+        </div>
+        <span id="change_div">
+             <div class="site-title">
+            <fieldset>
+                <legend><a name="ignore">修改显示方式</a></legend>
+            </fieldset>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">显示方式</label>
+            <div class="layui-input-inline">
+                <select name="comment_show" id="comment_show" lay-filter="comment_show" >
+                    <option value="10">评论人可见</option>
+                    <option value="20">所有人可见</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item layui-hide" id="noshow_div">
+            <label class="layui-form-label">不显示原因</label>
+            <div class="layui-input-block">
+                <input id="no_show_reason" type="text" name="no_show_reason"
+                       class="layui-input " readonly>
+            </div>
+        </div>
+
+        </span>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="add">立即提交</button>
+                <button id="close" class="layui-btn layui-btn-primary">关闭</button>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+
+
+</body>
+
+</html>

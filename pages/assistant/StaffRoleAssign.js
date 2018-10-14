@@ -62,8 +62,6 @@ layui.use(['layer', 'request', 'jquery', 'form'], function () {
      * @param hotel
      */
     function getAllRole() {
-        console.log(groups);
-        console.log(decodeURI(groups));
         request.doGet("/admin/role/", {
             page: 1,
             page_size: 100000

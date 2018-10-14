@@ -145,6 +145,17 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
                     $(this).attr('checked', true);
                 }
             });
+            $("#groups_div").removeClass("layui-hide");
+            var groups=response.groups;
+            var html="";
+            if (groups != null && groups.length > 0) {
+                $.each(groups,function (index,group) {
+                    html+="<button class=\"layui-btn layui-btn-disabled   layui-btn-radius\">"+group+"</button>";
+                });
+            }
+            $("#groups").html(html);
+
+
             form.render();
         })
         return false;
