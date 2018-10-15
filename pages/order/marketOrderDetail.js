@@ -7,10 +7,19 @@ if (usertable == undefined || user == undefined || !user.isLogin) {
     window.parent.location.href = "/HotelAdmin/login.html";
 }
 var hotel = user.hotelID;*/
-layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
+var TableHeader = [[ //表头
+    {field: 'goods', align: 'center', title: '商品名称'},
+    {field: 'sale_price', align: 'center', title: '商品单价'}
+    ,{field: 'integral', align: 'center', title: '消费积分'}
+    , {field: 'nums', align: 'center', title: '数量'}
+    , {field: 'single_goods_amount', align: 'center', title: '总计'}
+
+]];
+layui.use(['layer', 'request', 'jquery', 'form','table', 'upload'], function () {
     var layer = layui.layer;
     var $ = layui.jquery;
     var form = layui.form;
+    var table = layui.table;
     var request = layui.request;
     $(function () {
         var op = request.getQueryString("op");
@@ -29,7 +38,23 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
             });
+            var status=response.order_status;
 
+            if (status!=10){
+                $("#pay_div").removeClass("layui-hide")
+            }
+            var market_order_contact=response.market_order_contact;
+            $.each(market_order_contact,function (key ,value) {
+                $("#market_order_contact_"+key).val(value);
+            })
+            var market_order_detail=response.market_order_detail;
+            table.render({
+                elem: '#goodsList'
+                , limit: market_order_detail.length//显示的数量
+                , page: false //开启分页
+                , cols: TableHeader
+                , data: market_order_detail
+            });
 
         })
     }

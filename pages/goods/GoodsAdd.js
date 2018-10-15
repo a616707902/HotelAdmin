@@ -1,7 +1,7 @@
 layui.extend({
     request: '{/}../../static/js/network/request',
 });
-layui.use(['layer', 'request', 'jquery', 'form','upload'], function () {
+layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     var layer = layui.layer;
     var $ = layui.jquery;
     var form = layui.form;
@@ -22,6 +22,7 @@ layui.use(['layer', 'request', 'jquery', 'form','upload'], function () {
 
         return false;
     });
+
     function loadData() {
         var op = request.getQueryString("op");
         var id = request.getQueryString("id");
@@ -33,13 +34,17 @@ layui.use(['layer', 'request', 'jquery', 'form','upload'], function () {
         }
 
     }
+
     form.on('radio(is_integral)', function (data) {
         // console.log(data.elem); //得到radio原始DOM对象
         // console.log(data.value); //被点击的radio的value值
         if (data.value == 0) {
             $('#need_div').addClass("layui-hide");
+            $('#price_div').removeClass("layui-hide");
+
         } else {
             $('#need_div').removeClass("layui-hide");
+            $('#price_div').addClass("layui-hide");
         }
         return false;
     });
@@ -114,7 +119,7 @@ layui.use(['layer', 'request', 'jquery', 'form','upload'], function () {
             vip_info: data.field.vip_info,
             images: getImages(),
             is_promotion: data.field.is_promotion == '1' ? true : false,
-            cover_image: data.field.cover_image,
+            cover_image: $("#cover_image").val(),
             goods_price: data.field.goods_price
         }, function (data) {
             layer.alert("修改成功", {
@@ -140,7 +145,7 @@ layui.use(['layer', 'request', 'jquery', 'form','upload'], function () {
             vip_info: data.field.vip_info,
             images: getImages(),
             is_promotion: data.field.is_promotion == '1' ? true : false,
-            cover_image: data.field.cover_image,
+            cover_image: $("#cover_image").val(),
             goods_price: data.field.goods_price
         }, function (data) {
             layer.alert("增加成功", {
@@ -154,6 +159,7 @@ layui.use(['layer', 'request', 'jquery', 'form','upload'], function () {
             });
         });
     }
+
     var files;
     var uploadListIns = upload.render({
         elem: '#testList'
@@ -265,6 +271,7 @@ layui.use(['layer', 'request', 'jquery', 'form','upload'], function () {
             });
         }
     });
+
     function getGoodsDetail(id, op) {
         request.doGet("/admin/goods/" + id + "/", {}, function (response) {
             $.each(response, function (key, value) {
@@ -285,10 +292,12 @@ layui.use(['layer', 'request', 'jquery', 'form','upload'], function () {
                     $(this).attr('checked', true);
                 }
             });
-            if (response.is_integral){
+            if (response.is_integral) {
                 $('#need_div').removeClass("layui-hide");
-            }else{
+                $('#price_div').addClass("layui-hide");
+            } else {
                 $('#need_div').addClass("layui-hide");
+                $('#price_div').removeClass("layui-hide");
             }
             $("input[name=is_promotion]").each(function () {
                 if ($(this).val() == response.is_promotion) {
@@ -300,9 +309,9 @@ layui.use(['layer', 'request', 'jquery', 'form','upload'], function () {
                     $(this).attr('checked', true);
                 }
             });
-            if (response.is_special){
+            if (response.is_special) {
                 $('#special_div').removeClass("layui-hide");
-            }else{
+            } else {
                 $('#special_div').addClass("layui-hide");
             }
             var images = response.cover_image;
@@ -311,7 +320,7 @@ layui.use(['layer', 'request', 'jquery', 'form','upload'], function () {
             for (var i = 0; i < images.length; i++) {
                 var tr = $([' <div class="layui-upload-list ">\n' +
                 '<span class="con_img" >' +
-                '                    <img id="image_' + i + '" imageUrl="'+images[i]+'" style="width: 200px;height: 200px" layer-src=' + images[i] + ' src=' + images[i] + ' class="layui-upload-img image_path" >\n' +
+                '                    <img id="image_' + i + '" imageUrl="' + images[i] + '" style="width: 200px;height: 200px" layer-src=' + images[i] + ' src=' + images[i] + ' class="layui-upload-img image_path" >\n' +
                 '</span>' +
                 '                    <span >' +
                 '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>' +

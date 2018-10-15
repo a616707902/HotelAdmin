@@ -7,15 +7,14 @@ var Config = {
     count: 0
 }
 var TableHeader = [[ //表头
-    // {type:'checkbox',align:'center'},
     {field: 'order_id', align: 'center', title: '订单号'},
-    {field: 'belong_hotel', align: 'center', title: '所属酒店'}
+    {field: 'order_amount', align: 'center', title: '订单总价'}
+    ,{field: 'integral', align: 'center', title: '消费积分'}
     , {field: 'create_time', align: 'center', title: '下单时间'}
     , {field: 'order_status_display', align: 'center', title: '订单状态'}
     , {field: 'consumer', align: 'center', title: '会员账号'}
-    // , {field: 'is_distribution', align: 'center', title: '是否分销人员' ,templet: '#switchTpl', unresize: true}
-    // , {field: 'sell_user_name', align: 'center', title: '分销用户名'}
-    // , {field: 'bonus', align: 'center', title: '金额'}
+    // , {field: 'room_nums', align: 'center', title: '房间数'}
+    // , {field: 'room_style_name', align: 'center', title: '房间类型'}
     , {title: '操作', align: 'center', toolbar: '#barDemo'}
 
 ]];

@@ -8,7 +8,7 @@ var TableHeader=[[ //表头
     ,{field: 'room_profile',align:'center', title: '房间类型简介'}
     ,{field: 'room_count',align:'center', title: '总数量'}
     ,{field: 'is_active', align:'center',title: '状态' ,templet: '#switchTpl', unresize: true}
-    ,{field: 'left_room_count', align:'center',title: '剩余房间数' }
+    // ,{field: 'left_room_count', align:'center',title: '剩余房间数' }
     ,{ title: '操作',  align:'center', toolbar: '#barDemo'}
 
 ]];

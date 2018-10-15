@@ -56,9 +56,25 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     $(function () {
         var op = request.getQueryString("op");
         var id = request.getQueryString("id");
-        getHotelSelect(hotel,op,id);
+        getAllTag(hotel,op,id)
+
 
     });
+    function getAllTag(hotel,op,id) {
+        request.doGet("/admin/tags/", {}, function (data) {
+            var alltag = data.results;
+            if (alltag != null) {
+                var html = "";
+                for (var i = 0; i < alltag.length; i++) {
+                    html += " <input type=\"checkbox\" name=\"tags\" value='" + alltag[i].name + "' tagid=\" + alltag[i].id + \" title=\"" + alltag[i].name + "\">"
+                }
+                $("#tag_div").html(html);
+                form.render();
+            }
+            getHotelSelect(hotel,op,id);
+
+        });
+    }
     var Instfiles;
     var uploadInst =upload.render({
         elem: '#test1'
@@ -126,10 +142,12 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
 
     function editRoomStyle(data, id) {
         request.doPut("/admin/room_style/" + id + "/", {
+            tags:getTags(),
             price: data.field.price,
             belong_hotel: data.field.hotel,
-            cover_image: data.field.cover_image,
+            cover_image:$("#cover_images").val(),
             is_active: data.field.is_active == '1' ? true : false,
+            room_count:data.field.room_count,
             style_name: data.field.style_name,
             room_profile: data.field.room_profile,
             images: getImages()
@@ -147,12 +165,26 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     }
 
     function addRoomStyle(data) {
-
+        // "tags": [
+        //     "string"
+        // ],
+        //     "price": 0,
+        //     "is_active": true,
+        //     "cover_image": "string",
+        //     "room_count": 0,
+        //     "style_name": "string",
+        //     "room_profile": "string",
+        //     "images": [
+        //     "string"
+        // ],
+        //     "belong_hotel": "string"
         request.doPost("/admin/room_style/", {
+            tags:getTags(),
             price: data.field.price,
             belong_hotel: data.field.hotel,
-            cover_image: data.field.cover_image,
+            cover_image:$("#cover_images").val(),
             is_active: data.field.is_active == '1' ? true : false,
+            room_count:data.field.room_count,
             style_name: data.field.style_name,
             room_profile: data.field.room_profile,
             images: getImages()
@@ -184,7 +216,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
                 }
             });
             $("#room_count_div").removeClass("layui-hide");
-            $("#left_room_count_div").removeClass("layui-hide");
+            // $("#left_room_count_div").removeClass("layui-hide");
             var images = response.images;
             for (var i = 0; i < images.length; i++) {
                     var tr = $([' <div class="layui-upload-list ">\n' +
@@ -208,6 +240,18 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
                     $(this).attr('checked', true);
                 }
             });
+            var tags = response.tags;
+            var checks = document.getElementsByName("tags")
+            if (tags != null && checks != null) {
+                for (var i = 0; i < checks.length; i++) {
+                    for (var j = 0; j < tags.length; j++) {
+                        if (checks[i].value == tags[j]) {
+                            checks[i].checked = true;
+                        }
+                    }
+                }
+
+            }
             form.render();
         })
     }
@@ -313,4 +357,17 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
         }
         return jsonLength;
     }
+    function getTags() {
+        var tags = new Array();
+        var checks = document.getElementsByName("tags")
+        if (checks != null) {
+            for (var i = 0; i < checks.length; i++) {
+                if (checks[i].checked) {
+                    tags.push(checks[i].value);
+                }
+            }
+        }
+        return tags;
+    }
+
 })
