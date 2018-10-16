@@ -123,7 +123,10 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             url = "/admin/hotel/" + hotel + "/";
         }
         var htmlselect = "";
-        request.doGet(url, {}, function (data) {
+        request.doGet(url, {
+            page: 1,
+            page_size: 10000,
+        }, function (data) {
 
             if (hotel != null && hotel != '') {
                 htmlselect += "<option value=\"" + data.id + "\">" + data.name + "</option>";
@@ -145,7 +148,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             tags:getTags(),
             price: data.field.price,
             belong_hotel: data.field.hotel,
-            cover_image:$("#cover_images").val(),
+            cover_image:$("#cover_image").val(),
             is_active: data.field.is_active == '1' ? true : false,
             room_count:data.field.room_count,
             style_name: data.field.style_name,
@@ -182,7 +185,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             tags:getTags(),
             price: data.field.price,
             belong_hotel: data.field.hotel,
-            cover_image:$("#cover_images").val(),
+            cover_image:$("#cover_image").val(),
             is_active: data.field.is_active == '1' ? true : false,
             room_count:data.field.room_count,
             style_name: data.field.style_name,
@@ -215,7 +218,9 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
                     $(this).attr('checked', true);
                 }
             });
-            $("#room_count_div").removeClass("layui-hide");
+            var cover_image=response.cover_image;
+            $('#demo1').attr('src', cover_image); //图片链接（base64）
+            // $("#room_count_div").removeClass("layui-hide");
             // $("#left_room_count_div").removeClass("layui-hide");
             var images = response.images;
             for (var i = 0; i < images.length; i++) {

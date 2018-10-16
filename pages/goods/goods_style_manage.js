@@ -45,6 +45,7 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laypage'], function () 
             search: search
         }, function (data) {
             //第一个实例
+            Config.count=data.count;
             $("#total").html(data.count);
             table.render({
                 elem: '#goodsstylelist'

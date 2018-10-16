@@ -93,7 +93,7 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laydate', 'laypage'], f
                 Config.pageSize = obj.limit
                 Config.page = obj.curr;
                 if (!first) {
-                    getOrderList();
+                    getConsumer();
                 }
             }
         });

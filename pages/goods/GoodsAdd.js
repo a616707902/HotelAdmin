@@ -61,7 +61,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     $(function () {
         var op = request.getQueryString("op");
         var id = request.getQueryString("id");
-        getStyleSelect(op, id);
+        getGoodStyleSelect(op, id);
 
     });
 
@@ -69,7 +69,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
      * 根据当前的酒店获取房间类型
      * @param hotel
      */
-    function getStyleSelect(op, id) {
+    function getGoodStyleSelect(op, id) {
         var htmlselect = "";
         request.doGet("/admin/goods_category/", {
             page: 1,
@@ -83,8 +83,10 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             }
             $('#category').html(htmlselect);
             form.render('select'); //刷新select选择框渲染
-            getVipSettingList(op, id)
-
+            // getVipSettingList(op, id)
+            if ("edit" == op) {
+                getGoodsDetail(id, op);
+            }
         });
     }
 

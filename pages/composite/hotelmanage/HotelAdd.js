@@ -13,15 +13,14 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload', 'address'], function 
     var demoListView = $('#layer-photos-demo');
     form.on('submit(address)', function (data) {
         //发异步，把数据提交给php
-
-        request.doPost("/admin/hotel/get_lat_long/", {
-            address: $('#address').val()
-        }, function (data) {
-            $('.layui-hide').removeClass('layui-hide');
-            $('#longitude').val(data.longitude);
-            $('#latitude').val(data.latitude);
-        });
-        return false;
+    request.doPost("/admin/hotel/get_lat_long/", {
+        address: $('#address').val()
+    }, function (data) {
+        $('.layui-hide').removeClass('layui-hide');
+        $('#longitude').val(data.longitude);
+        $('#latitude').val(data.latitude);
+    });
+    return false;
     });
     var uploadData = null;
     form.on('submit(add)', function (data) {

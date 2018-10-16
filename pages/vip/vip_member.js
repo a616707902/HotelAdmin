@@ -43,6 +43,7 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laydate', 'laypage'], f
             // phone__contains:$("#phone__contains").val()
         }, function (data) {
             //第一个实例
+            Config.count=data.count;
             $("#total").html(data.count);
             table.render({
                 elem: '#list'

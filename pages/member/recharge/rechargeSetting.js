@@ -94,7 +94,7 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table','laypage'], function ()
                 Config.pageSize = obj.limit
                 Config.page = obj.curr;
                 if (!first) {
-                    getOrderList();
+                    getAllReschargeSeting();
                 }
             }
         });
