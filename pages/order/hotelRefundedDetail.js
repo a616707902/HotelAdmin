@@ -7,51 +7,32 @@ if (usertable == undefined || user == undefined || !user.isLogin) {
     window.parent.location.href = "/HotelAdmin/login.html";
 }
 var hotel = user.hotelID;*/
+
 layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     var layer = layui.layer;
     var $ = layui.jquery;
     var form = layui.form;
     var request = layui.request;
+    var money=0;
     $(function () {
         var op = request.getQueryString("op");
         var id = request.getQueryString("id");
         getOrderDetail(id, op)
 
     });
-    // form.on('submit(refund)', function (data) {
-    //     //发异步，把数据提交给php
-    //     var id = request.getQueryString("id");
-    //     request.doPut("/admin/hotel_order/" + id + "/refund/", {
-    //         order_status: $("#order_status").val(),
-    //         operator_remark: $("#operator_remark").val()
-    //     }, function (data) {
-    //         layer.alert("退款成功", {
-    //             icon: 6
-    //         }, function () {
-    //             parent.reflush();
-    //             // 获得frame索引
-    //             var index = parent.layer.getFrameIndex(window.name);
-    //             //关闭当前frame
-    //             parent.layer.close(index);
-    //         });
-    //     });
-    //
-    //
-    //     return false;
-    // });
+
     form.on('submit(add)', function (data) {
         //发异步，把数据提交给php
-        var id = request.getQueryString("id");
-        var order_status = $("#order_status").val();
-        if (order_status == "") {
-            layer.msg("请选择订单状态", {icon: 5});
-            return;
+        var refunded=$("#refunded_money").val();
+        if (refunded<0||refunded>money){
+            layer.msg("退款金额应在0~"+money+"范围内!",{icon:5});
+            return ;
         }
-        request.doPut("/admin/hotel_order/" + id + "/", {
-            order_status: $("#order_status").val(),
+        request.doPut("/admin/hotel_refunded/" + id + "/", {
+            order_status: $("#refunded_money").val(),
             operator_remark: $("#operator_remark").val()
         }, function (data) {
-            layer.alert("修改成功", {
+            layer.alert("退款成功", {
                 icon: 6
             }, function () {
                 parent.reflush();
@@ -76,14 +57,12 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
             });
+            money=response.order_pay.money;
             var status = response.order_status;
-            if (status >= 50) {
-                $("#refund_div").removeClass("layui-hide")
+            if (status!=50){
+                $("#refunded_button").addClass("layui-hide")
             }
 
-            if (status != 10) {
-                $("#pay_div").removeClass("layui-hide")
-            }
             var hotel_order_detail = response.hotel_order_detail;
             var order_pay = response.order_pay;
             $.each(hotel_order_detail, function (key, value) {

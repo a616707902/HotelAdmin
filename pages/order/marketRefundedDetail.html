@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../../static/css/font.css">
     <link rel="stylesheet" href="../../static/css/weadmin.css">
     <script src="../../lib/layui/layui.js" charset="utf-8"></script>
-    <script src="marketOrderDetail.js" type="text/javascript" charset="utf-8"></script>
+    <script src="marketRefundedDetail.js" type="text/javascript" charset="utf-8"></script>
 
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
@@ -128,7 +128,7 @@
             </div>
         </div>
 
-        <span id="pay_div" class="layui-hide">
+        <span id="pay_div" >
         <div class="site-title">
             <fieldset>
                 <legend><a name="ignore">付款信息</a></legend>
@@ -174,29 +174,19 @@
                 </div>
             </div>
         </div>
-</span>
-        <div class="site-title">
-            <fieldset>
-                <legend><a name="ignore">修改订单状态</a></legend>
-            </fieldset>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">订单状态</label>
-            <div class="layui-input-inline">
-                <select name="order_status" id="order_status" lay-filter="search">
-                    <option value="10">未支付</option>
-                    <option value="15">待发货</option>
-                    <option value="20">待收货</option>
-                    <option value="35">完成待评价</option>
-                    <option value="40">完成并且已评价</option>
-                    <option value="45">已取消</option>
-                    <option value="50">待退款</option>
-                    <option value="55">退款中</option>
-                    <option value="69">已退款</option>
-                    <option value="65">已过期</option>
-                </select>
+              <div class="layui-form-item layui-hide" id="refund_button_div">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="refund">退款</button>
             </div>
         </div>
+</span>
+        <!--<hr class="layui-bg-green">-->
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">订单状态</label>-->
+            <!--<div class="layui-input-inline">-->
+                <!--<input id="change_order_status_display" class="layui-input">-->
+            <!--</div>-->
+        <!--</div>-->
         <div class="layui-form-item">
             <label class="layui-form-label">店家备注</label>
             <div class="layui-input-block">
@@ -205,7 +195,7 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit="" lay-filter="add">立即提交</button>
+                <button class="layui-btn" lay-submit="" id="refunded_button" lay-filter="add">确认退款</button>
                 <button id="close" class="layui-btn layui-btn-primary">关闭</button>
             </div>
         </div>

@@ -110,14 +110,15 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
                     // errorCallBack();
                     var msg="";
                     $.each(XMLHttpRequest.responseJSON,function (key,value) {
-                        msg+= $("#"+key).parent().parent().children(".layui-form-label").html()+JSON.stringify(value);
+                      var lable=  $("#"+key).parent().parent().children(".layui-form-label").html();
+                        msg+= (lable==undefined?"":lable)+JSON.stringify(value);
                 });
                     layer.msg(msg,{icon :5});
 
                 } else if (XMLHttpRequest.status == 403 || XMLHttpRequest.status == 401) {
                     layer.msg('登录失效，请重新登录', {icon: 5});
                     setTimeout(function () {
-                        window.location.href = "/HotelAdmin/login.html";
+                        window.top.location.href = "/login.html";
                     }, 2000);
                     return;
                 } else if (XMLHttpRequest.status == 404) {

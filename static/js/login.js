@@ -12,8 +12,7 @@ layui.use(['form', 'request'], function () {
             username: data.field.username,
             password: data.field.password
         }, function (response) {
-
-
+            sessionStorage.removeItem('menu');
                 //登录成功将登录返回的数据写入本地存储
                 layui.data('user', {
                     key: 'user',

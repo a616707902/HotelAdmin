@@ -10,7 +10,7 @@ layui.define(["form", "jquery"], function (exports) {
     provinces : function (province ,city,area) {
         //加载省数据
         var proHtml = '', that = this;
-        $.get("/HotelAdmin/static/js/extends/address.json", function (data) {
+        $.get("../../../static/js/extends/address.json", function (data) {
             for (var i = 0; i < data.length; i++) {
                 if (data[i].name == province) {
                     proHtml += '<option selected="selected" value="' + data[i].code + '">' + data[i].name + '</option>';

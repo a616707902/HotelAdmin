@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../../static/css/font.css">
     <link rel="stylesheet" href="../../static/css/weadmin.css">
     <script src="../../lib/layui/layui.js" charset="utf-8"></script>
-    <script src="marketOrderDetail.js" type="text/javascript" charset="utf-8"></script>
+    <script src="hotelRefundedDetail.js" type="text/javascript" charset="utf-8"></script>
 
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
@@ -47,16 +47,16 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">总数量</label>
+                <label class="layui-form-label">所属酒店</label>
                 <div class="layui-input-inline">
-                    <input id="num" type="text" name="num" class="layui-input nochange"
+                    <input id="belong_hotel_name" type="text" name="belong_hotel_name" class="layui-input nochange"
                            readonly>
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">总金额</label>
+                <label class="layui-form-label">下单时间</label>
                 <div class="layui-input-inline">
-                    <input id="order_amount" type="text" name="order_amount"
+                    <input id="create_time" type="text" name="create_time"
                            class="layui-input nochange" readonly>
                 </div>
             </div>
@@ -64,77 +64,99 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">消费积分</label>
+                <label class="layui-form-label">房间类型</label>
                 <div class="layui-input-inline">
-                    <input id="integral" type="text" name="integral"
+                    <input id="hotel_order_detail_room_style_name" type="text" name="room_style_name"
                            class="layui-input nochange" readonly>
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">会员姓名</label>
+                <label class="layui-form-label">房间数</label>
                 <div class="layui-input-inline">
-                    <input id="consumer" type="number" name="consumer"
+                    <input id="hotel_order_detail_room_nums" type="number" name="room_nums"
                            class="layui-input nochange" readonly>
                 </div>
             </div>
         </div>
-
-
-
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">房间单价</label>
+                <div class="layui-input-inline">
+                    <input id="hotel_order_detail_room_price" type="number" name="room_price"
+                           class="layui-input nochange" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">订单总价</label>
+                <div class="layui-input-inline">
+                    <input id="order_amount" type="number" name="order_amount"
+                           class="layui-input nochange" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">入住时间</label>
+                <div class="layui-input-inline">
+                    <input id="hotel_order_detail_reserve_check_in_time" type="text" name="reserve_check_in_time"
+                           class="layui-input nochange" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">退房时间</label>
+                <div class="layui-input-inline">
+                    <input id="hotel_order_detail_reserve_check_out_time" type="text" name="reserve_check_out_time"
+                           class="layui-input nochange" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">共计天数</label>
+                <div class="layui-input-inline">
+                    <input id="hotel_order_detail_days" type="text" name="days"
+                           class="layui-input nochange" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">联系人</label>
+                <div class="layui-input-inline">
+                    <input id="hotel_order_detail_contact_name" type="text" name="contact_name"
+                           class="layui-input nochange" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">联系电话</label>
+                <div class="layui-input-inline">
+                    <input id="hotel_order_detail_contact_phone" type="text" name="contact_phone"
+                           class="layui-input nochange" readonly>
+                </div>
+            </div>
+        </div>
         <div class="layui-form-item">
             <label class="layui-form-label">用户备注</label>
             <div class="layui-input-block">
                 <input id="user_remark" class="layui-input nochange" readonly>
             </div>
         </div>
-        <div class="layui-form-item layui-hide" id="refund_div">
+        <div class="layui-form-item " id="refund_div">
             <label class="layui-form-label">退款理由</label>
             <div class="layui-input-block">
                 <input id="refund_reason" class="layui-input nochange" readonly>
             </div>
         </div>
-        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-            <legend>购买商品信息</legend>
-        </fieldset>
-        <table class="layui-table" id="goodsList">
-
-        </table>
-        <div class="site-title">
-            <fieldset>
-                <legend><a name="ignore">收货人信息</a></legend>
-            </fieldset>
-        </div>
-
-        <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">联系人姓名</label>
-                <div class="layui-input-inline">
-                    <input id="market_order_contact_consignee_name" type="text" name="consignee_name" class="layui-input nochange"
-                           readonly>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">联系人电话</label>
-                <div class="layui-input-inline">
-                    <input id="market_order_contact_consignee_phone" type="text" name="consignee_phone" readonly
-                           class="layui-input nochange" readonly>
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">联系人地址</label>
-            <div class="layui-input-block">
-                <input id="market_order_contact_consignee_address" class="layui-input nochange" readonly>
-            </div>
-        </div>
-
-        <span id="pay_div" class="layui-hide">
+        <span id="pay_div" >
         <div class="site-title">
             <fieldset>
                 <legend><a name="ignore">付款信息</a></legend>
             </fieldset>
         </div>
-
+        <div class="layui-form-item">
+            <label class="layui-form-label">付款单号</label>
+            <div class="layui-input-inline">
+                <input id="order_pay_wx_order_id" class="layui-input nochange " readonly>
+            </div>
+        </div>
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label">付款类型</label>
@@ -151,7 +173,7 @@
                 </div>
             </div>
         </div>
-             <div class="layui-form-item">
+        <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label">赠送金额</label>
                 <div class="layui-input-inline">
@@ -166,35 +188,18 @@
                            class="layui-input nochange" readonly>
                 </div>
             </div>
-                  <div class="layui-inline">
-                <label class="layui-form-label">消费积分</label>
-                <div class="layui-input-inline">
-                    <input id="order_pay_integral" type="text" name="integral"
-                           class="layui-input nochange" readonly>
-                </div>
-            </div>
         </div>
+
 </span>
         <div class="site-title">
             <fieldset>
-                <legend><a name="ignore">修改订单状态</a></legend>
+                <legend><a name="ignore">退款</a></legend>
             </fieldset>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">订单状态</label>
+            <label class="layui-form-label">退款金额</label>
             <div class="layui-input-inline">
-                <select name="order_status" id="order_status" lay-filter="search">
-                    <option value="10">未支付</option>
-                    <option value="15">待发货</option>
-                    <option value="20">待收货</option>
-                    <option value="35">完成待评价</option>
-                    <option value="40">完成并且已评价</option>
-                    <option value="45">已取消</option>
-                    <option value="50">待退款</option>
-                    <option value="55">退款中</option>
-                    <option value="69">已退款</option>
-                    <option value="65">已过期</option>
-                </select>
+                <input id="refunded_money"type="number" value="0" class="layui-input ">
             </div>
         </div>
         <div class="layui-form-item">
@@ -205,7 +210,7 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit="" lay-filter="add">立即提交</button>
+                <button class="layui-btn" lay-submit="" id="refunded_button" lay-filter="add" >确认退款</button>
                 <button id="close" class="layui-btn layui-btn-primary">关闭</button>
             </div>
         </div>

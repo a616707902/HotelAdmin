@@ -15,10 +15,16 @@ layui.use(['layer', 'jquery', 'request', 'element'], function () {
     var user = usertable.user;
 var perms=layui.data('perms').perms;
     if (usertable == undefined || user == undefined || !user.isLogin) {
-        window.location.href = "/HotelAdmin/login.html";
+        layui.data('user', null); //user
+        layui.data('perms', null); //user
+        layui.data('token', null); //user
+        window.top.location.href = "/login.html";
     }
     $('.loginout').click(function () {
+        sessionStorage.removeItem('menu');
         layui.data('user', null); //user
+        layui.data('perms', null); //user
+        layui.data('token', null); //user
     });
     /*
 	 * @todo 初始化加载完成执行方法
@@ -27,7 +33,7 @@ var perms=layui.data('perms').perms;
     var MenuList=new Array();
     $(function () {
         $('#realname').html(user.realName);
-        $.get("/HotelAdmin/static/js/extends/menu.json", function (data) {
+        $.get("../../static/js/extends/menu.json", function (data) {
             var menu = ""; //定义变量存储
             for (var i = 0; i < data.length; i++) {
                 for (var j=0;j<perms.length;j++){

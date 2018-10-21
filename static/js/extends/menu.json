@@ -7,11 +7,11 @@
     "childs": [
       {
         "name": "横幅管理",
-        "menuUrl": "/HotelAdmin/pages/banner/banner/bannerList.html"
+        "menuUrl": "../banner/banner/bannerList.html"
       },
       {
         "name": "公告管理",
-        "menuUrl": "/HotelAdmin/pages/banner/notice/noticeList.html"
+        "menuUrl": "../banner/notice/noticeList.html"
       }
     ]
   },
@@ -23,11 +23,11 @@
     "childs": [
       {
         "name": "酒店管理",
-        "menuUrl": "/HotelAdmin/pages/composite/hotelmanage/hotel_manage.html"
+        "menuUrl": "../composite/hotelmanage/hotel_manage.html"
       },
       {
         "name": "房间类型管理",
-        "menuUrl": "/HotelAdmin/pages/composite/rooms/room_style_manage.html"
+        "menuUrl": "../composite/rooms/room_style_manage.html"
       }
     ]
   },
@@ -39,11 +39,11 @@
     "childs": [
       {
         "name": "用户",
-        "menuUrl": "/HotelAdmin/pages/member/consumer.html"
+        "menuUrl": "../member/consumer.html"
       },
       {
         "name": "会员",
-        "menuUrl": "/HotelAdmin/pages/vip/vip_member.html"
+        "menuUrl": "../vip/vip_member.html"
       }
     ]
   },
@@ -54,8 +54,12 @@
     "menuUrl": "javascript:;",
     "childs": [
       {
-        "name": "会员管理",
-        "menuUrl": "/HotelAdmin/pages/composite/hotelmanage/consumer.html"
+        "name": "角色管理",
+        "menuUrl": "/pages/assistant/roleManage.html"
+      },
+      {
+        "name": "职员授权",
+        "menuUrl": "/pages/assistant/assignList.html"
       }
     ]
   },
@@ -67,7 +71,7 @@
     "childs": [
       {
         "name": "分销申请管理",
-        "menuUrl": "/HotelAdmin/pages/member/apply/applyList.html"
+        "menuUrl": "../member/apply/applyList.html"
       }
     ]
   },
@@ -79,7 +83,7 @@
     "childs": [
       {
         "name": "积分管理",
-        "menuUrl": "/HotelAdmin/pages/member/integral/integral.html"
+        "menuUrl": "../member/integral/integral.html"
       }
     ]
   },
@@ -91,11 +95,11 @@
     "childs": [
       {
         "name": "商品类型管理",
-        "menuUrl": "/HotelAdmin/pages/goods/goods_style_manage.html"
+        "menuUrl": "../goods/goods_style_manage.html"
       },
       {
         "name": "商品管理",
-        "menuUrl": "/HotelAdmin/pages/goods/goods_manage.html"
+        "menuUrl": "../goods/goods_manage.html"
       }
     ]
   },
@@ -108,7 +112,7 @@
 
       {
         "name": "商城订单",
-        "menuUrl": "/HotelAdmin/pages/order/marketOrderList.html"
+        "menuUrl": "../order/marketOrderList.html"
       }
     ]
   },
@@ -120,7 +124,7 @@
     "childs": [
       {
         "name": "标签管理",
-        "menuUrl": "/HotelAdmin/pages/composite/tagManage/tagManage.html"
+        "menuUrl": "../composite/tagManage/tagManage.html"
       }
     ]
   },
@@ -132,7 +136,7 @@
     "childs": [
       {
         "name": "职员管理",
-        "menuUrl": "/HotelAdmin/pages/assistant/staff_center.html"
+        "menuUrl": "../assistant/staff_center.html"
       }
     ]
   },
@@ -144,7 +148,7 @@
     "childs": [
       {
         "name": "酒店订单",
-        "menuUrl": "/HotelAdmin/pages/order/hotelOrderList.html"
+        "menuUrl": "../order/hotelOrderList.html"
       }
     ]
   },
@@ -156,15 +160,43 @@
     "childs": [
       {
         "name": "充值配置",
-        "menuUrl": "/HotelAdmin/pages/member/recharge/rechargeSetting.html"
+        "menuUrl": "../member/recharge/rechargeSetting.html"
       },
       {
         "name": "充值信息",
-        "menuUrl": "/HotelAdmin/pages/member/recharge/rechargeInfo.html"
+        "menuUrl": "../member/recharge/rechargeInfo.html"
       },
       {
         "name": "会员折扣配置",
-        "menuUrl": "/HotelAdmin/pages/vip/vip_setting.html"
+        "menuUrl": "../vip/vip_setting.html"
+      }
+    ]
+  },
+  {
+    "codename": "refunded",
+    "name": "退款中心",
+    "icon": "&#xe6b8;",
+    "menuUrl": "javascript:;",
+    "childs": [
+      {
+        "name": "住宿订单退款",
+        "menuUrl": "/pages/order/hotelRefundedList.html"
+      },
+      {
+        "name": "商城订单退款",
+        "menuUrl": "/pages/order/marketRefundedList.html"
+      }
+    ]
+  },
+  {
+    "codename": "comment_reply",
+    "name": "评论回复中心",
+    "icon": "&#xe6b8;",
+    "menuUrl": "javascript:;",
+    "childs": [
+      {
+        "name": "评论回复",
+        "menuUrl": "/pages/composite/comment/commentList.html"
       }
     ]
   }

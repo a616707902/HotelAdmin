@@ -32,12 +32,6 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laydate', 'laypage'], f
     laydate.render({
         elem: '#start' //指定元素
     });
-    table.render({
-        elem: '#memberList'
-        ,page: true //开启分页
-        ,cols:TableHeader
-        ,data:[]
-    });
     //执行一个laydate实例
     laydate.render({
         elem: '#end' //指定元素
@@ -60,6 +54,7 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laydate', 'laypage'], f
             // phone__contains:$("#phone__contains").val()
         }, function (data) {
             //第一个实例
+            Config.count=data.count;
             $("#total").html(data.count);
             table.render({
                 elem: '#list'

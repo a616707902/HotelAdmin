@@ -35,7 +35,7 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
         getOrderList();
         return false;
     });
-    window.getOrderList = function () {
+   function getOrderList() {
         requset.doGet("/admin/hotel_order/", {
             page: Config.page,
             page_size: Config.pageSize,

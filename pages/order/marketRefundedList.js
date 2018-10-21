@@ -26,6 +26,7 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
     var table = layui.table;
     var laydate = layui.laydate;
     var laypage = layui.laypage
+
     window.reflush = function () {
         //  window.parent.location.reload(); //刷新父页面
         location.replace(location.href);
@@ -34,8 +35,8 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
         getOrderList();
         return false;
     });
-  function getOrderList() {
-        requset.doGet("/admin/market_order/", {
+     function getOrderList() {
+        requset.doGet("/admin/market_refunded/", {
             page: Config.page,
             page_size: Config.pageSize,
             order_status: $("#order_status").val(),
@@ -59,7 +60,7 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
         var data = obj.data;
         if (obj.event === 'detail') {
             // layer.msg('ID：'+ data.id + ' 的查看操作');
-            WeAdminShow("详情", "./marketOrderDetail.html?op=detail&id=" + data.id);
+            WeAdminShow("详情", "./marketRefundedDetail.html?op=detail&id=" + data.id);
         }
     });
     $(function () {

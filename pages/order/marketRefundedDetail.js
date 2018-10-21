@@ -10,12 +10,12 @@ var hotel = user.hotelID;*/
 var TableHeader = [[ //表头
     {field: 'goods', align: 'center', title: '商品名称'},
     {field: 'sale_price', align: 'center', title: '商品单价'}
-    ,{field: 'integral', align: 'center', title: '消费积分'}
+    , {field: 'integral', align: 'center', title: '消费积分'}
     , {field: 'nums', align: 'center', title: '数量'}
     , {field: 'single_goods_amount', align: 'center', title: '总计'}
 
 ]];
-layui.use(['layer', 'request', 'jquery', 'form','table', 'upload'], function () {
+layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function () {
     var layer = layui.layer;
     var $ = layui.jquery;
     var form = layui.form;
@@ -27,37 +27,10 @@ layui.use(['layer', 'request', 'jquery', 'form','table', 'upload'], function () 
         getOrderDetail(id, op)
 
     });
-    form.on('submit(refund)', function (data) {
-        //发异步，把数据提交给php
-        var id = request.getQueryString("id");
-        request.doPut("/admin/market_order/"+id+"/", {
-            order_status:$("#order_status").val(),
-            operator_remark: $("#operator_remark").val()
-        }, function (data) {
-            layer.alert("退款成功", {
-                icon: 6
-            }, function () {
-                parent.reflush();
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-                parent.layer.close(index);
-            });
-        });
-
-
-        return false;
-    });
     form.on('submit(add)', function (data) {
         //发异步，把数据提交给php
-        var id = request.getQueryString("id");
-        var order_status= $("#order_status").val();
-        if (order_status==""){
-            layer.msg("请选择订单状态",{icon:5});
-            return ;
-        }
-        request.doPut("/admin/market_order/"+id+"/refund/", {
-            order_status:$("#order_status").val(),
+
+        request.doPut("/admin/market_refunded/" + id + "/", {
             operator_remark: $("#operator_remark").val()
         }, function (data) {
             layer.alert("修改成功", {
@@ -70,8 +43,6 @@ layui.use(['layer', 'request', 'jquery', 'form','table', 'upload'], function () 
                 parent.layer.close(index);
             });
         });
-
-
         return false;
     });
     $("#close").click(function () {
@@ -84,20 +55,19 @@ layui.use(['layer', 'request', 'jquery', 'form','table', 'upload'], function () 
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
             });
-            var status=response.order_status;
-
-            if (status!=10){
-                $("#pay_div").removeClass("layui-hide");
+            var status = response.order_status;
+            if (status != 50) {
+                $("#refunded_button").addClass("layui-hide")
             }
-            var market_order_contact=response.market_order_contact;
-            var order_pay=response.order_pay;
-            $.each(market_order_contact,function (key ,value) {
-                $("#market_order_contact_"+key).val(value);
+            var market_order_contact = response.market_order_contact;
+            var order_pay = response.order_pay;
+            $.each(market_order_contact, function (key, value) {
+                $("#market_order_contact_" + key).val(value);
             })
-            $.each(order_pay,function (key ,value) {
-                $("#order_pay_"+key).val(value);
+            $.each(order_pay, function (key, value) {
+                $("#order_pay_" + key).val(value);
             })
-            var market_order_detail=response.market_order_detail;
+            var market_order_detail = response.market_order_detail;
             table.render({
                 elem: '#goodsList'
                 , limit: market_order_detail.length//显示的数量
