@@ -154,7 +154,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">付款单号</label>
             <div class="layui-input-inline">
-                <input id="order_pay_wx_order_id" class="layui-input nochange ">
+                <input id="order_pay_wx_order_id" class="layui-input nochange " readonly>
             </div>
         </div>
         <div class="layui-form-item">
@@ -189,12 +189,33 @@
                 </div>
             </div>
         </div>
+              <div class="layui-form-item layui-hide" id="refund_button_div">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="refund">退款</button>
+            </div>
+        </div>
 </span>
-        <hr class="layui-bg-green">
+        <div class="site-title">
+            <fieldset>
+                <legend><a name="ignore">修改订单状态</a></legend>
+            </fieldset>
+        </div>
         <div class="layui-form-item">
             <label class="layui-form-label">订单状态</label>
             <div class="layui-input-inline">
-                <input id="change_order_status_display" class="layui-input">
+                <select name="order_status" id="order_status" lay-filter="search">
+                    <option value=""></option>
+                    <option value="10">待支付</option>
+                    <option value="20">待入住</option>
+                    <option value="30">入住中</option>
+                    <option value="35">完成待评价</option>
+                    <option value="40">完成并且已评价</option>
+                    <option value="40">取消</option>
+                    <option value="50">待退款</option>
+                    <option value="55">退款中</option>
+                    <option value="69">已退款</option>
+                    <option value="65">已过期</option>
+                </select>
             </div>
         </div>
         <div class="layui-form-item">

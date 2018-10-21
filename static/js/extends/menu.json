@@ -1,10 +1,19 @@
 [
   {
     "codename": "banner",
-    "name": "横幅页",
+    "name": "横幅配置",
     "icon": "&#xe6b8;",
     "menuUrl": "javascript:;",
-    "childs": null
+    "childs": [
+      {
+        "name": "横幅管理",
+        "menuUrl": "/HotelAdmin/pages/banner/banner/bannerList.html"
+      },
+      {
+        "name": "公告管理",
+        "menuUrl": "/HotelAdmin/pages/banner/notice/noticeList.html"
+      }
+    ]
   },
   {
     "codename": "hotel",

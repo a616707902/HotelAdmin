@@ -26,14 +26,18 @@
     <a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
         <i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
 </div>
-<!--ORDER_STATUS = (-->
-<!--(10, '未支付'),-->
-<!--(20, '待发货'),-->
-<!--(30, '待收货'),-->
-<!--(40, '已完成'),-->
-<!--(50, '已取消'),-->
-<!--(60, '等待评价'),-->
-<!--(70, '评价完成')  # 评价完成后才有积分-->
+<!--(10, '待支付'),
+(15, '待发货'),
+(20, '待收货')
+(25, '待入住'),
+(30, '入住中'),
+(35, '完成待评价'),
+(40, '完成并且已评价'),
+(45, '取消'),
+(50, '待退款'),
+(55, '退款中'),
+(69, '已退款'),
+(65, '已过期')-->
 <div class="weadmin-body">
     <div class="layui-row">
         <form class="layui-form layui-col-md12 we-search">
@@ -43,12 +47,15 @@
                 <select name="order_status" id="order_status"  lay-filter="search">
                     <option value=""></option>
                     <option value="10">未支付</option>
-                    <option value="20">待发货</option>
-                    <option value="30">待收货</option>
-                    <option value="40">已完成</option>
-                    <option value="50">已取消</option>
-                    <option value="60">等待评价</option>
-                    <option value="70">评价完成</option>
+                    <option value="15">待发货</option>
+                    <option value="20">待收货</option>
+                    <option value="35">完成待评价</option>
+                    <option value="40">完成并且已评价</option>
+                    <option value="45">已取消</option>
+                    <option value="50">待退款</option>
+                    <option value="55">退款中</option>
+                    <option value="69">已退款</option>
+                    <option value="65">已过期</option>
                 </select>
             </div>
 

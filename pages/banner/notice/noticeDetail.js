@@ -1,5 +1,5 @@
 layui.extend({
-    request: '{/}../../static/js/network/request',
+    request: '{/}../../../static/js/network/request',
 });
 layui.use(['layer', 'request', 'jquery', 'form'], function () {
     var layer = layui.layer;
@@ -12,48 +12,26 @@ layui.use(['layer', 'request', 'jquery', 'form'], function () {
         var id = request.getQueryString("id");
 
         if ("edit" == op) {
-            editVipSet(data, id);
+            editNotice(data, id);
         } else {
-            addVipSet(data);
+            addNotice(data);
         }
 
         return false;
     });
-
     $(function () {
         var op = request.getQueryString("op");
         var id = request.getQueryString("id");
-        if ( "edit" == op) {
-
-            getVipSetDetail(id,op);
+        if ("edit" == op) {
+            getNoticeDetail(id);
         }
 
     });
 
-
-    function editVipSet(data, id) {
-        request.doPut("/admin/vip_settings/" + id + "/", {
-            vip_name: data.field.vip_name,
-            hotel_discount: data.field.hotel_discount,
-            vip_weight: data.field.vip_weight
-        }, function (data) {
-            layer.alert("修改成功", {
-                icon: 6
-            }, function () {
-                parent.reflush();
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-                parent.layer.close(index);
-            });
-        });
-    }
-
-    function addVipSet(data) {
-        request.doPost("/admin/vip_settings/", {
-            vip_name: data.field.vip_name,
-            hotel_discount: data.field.hotel_discount,
-            vip_weight: data.field.vip_weight
+    function addNotice(data) {
+        request.doPost("/admin/notice/", {
+            content: data.field.content,
+            is_active: data.field.is_active == 1 ? true : false
         }, function (data) {
             layer.alert("增加成功", {
                 icon: 6
@@ -67,12 +45,35 @@ layui.use(['layer', 'request', 'jquery', 'form'], function () {
         });
     }
 
-    function getVipSetDetail(id,op) {
-        request.doGet("/admin/vip_settings/" + id + "/", {}, function (response) {
+    function editNotice(data, id) {
+        request.doPut("/admin/notice/" + id + "/", {
+            content: data.field.content,
+            is_active: data.field.is_active == 1 ? true : false
+        }, function (data) {
+            layer.alert("修改成功", {
+                icon: 6
+            }, function () {
+                parent.reflush();
+                // 获得frame索引
+                var index = parent.layer.getFrameIndex(window.name);
+                //关闭当前frame
+                parent.layer.close(index);
+            });
+        });
+    }
+
+
+    function getNoticeDetail(id) {
+        request.doGet("/admin/notice/" + id + "/", {}, function (response) {
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
             });
-            form.render(); //刷新select选择框渲染
+            $("input[name=is_active]").each(function () {
+                if ($(this).val() == response.is_active) {
+                    $(this).attr('checked', true);
+                }
+            });
+            form.render()
         });
     }
 });

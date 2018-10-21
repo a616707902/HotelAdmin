@@ -105,7 +105,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload', 'address'], function 
             //读取本地文件
             obj.preview(function (index, file, result) {
 
-                var tr = $([' <div class="layui-upload-list ">\n' +
+                var tr = $([' <div class="layui-upload-list2 ">\n' +
                 '<span class="con_img" >' +
                 '                    <img id="image_' + index + '" style="width: 200px;height: 200px" layer-src=' + file + ' src=' + result + ' class="layui-upload-img image_path" >\n' +
                 '<span id="upload_' + index + '" class="ms layui-hide"style="color: rgb(248,253,253);text-align: center;">上传成功</span></span>' +
@@ -272,7 +272,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload', 'address'], function 
             var tags = response.tags;
             var images = response.images;
             for (var i = 0; i < images.length; i++) {
-                var tr = $([' <div class="layui-upload-list ">\n' +
+                var tr = $([' <div class="layui-upload-list2 ">\n' +
                 '<span class="con_img" >' +
                 '                    <img id="image_' + i + '" imageUrl="'+images[i]+'" style="width: 200px;height: 200px" layer-src=' + images[i] + ' src=' + images[i] + ' class="layui-upload-img image_path" >\n' +
                 '</span>' +
@@ -284,7 +284,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload', 'address'], function 
                 //删除
                 tr.find('.demo-delete').on('click', function () {
                     // console.log($(this).parent("span").parent(".layui-upload-list"));
-                    $(this).parent("span").parent(".layui-upload-list").remove();
+                    $(this).parent("span").parent(".layui-upload-list2").remove();
 
                     return false;
                 });

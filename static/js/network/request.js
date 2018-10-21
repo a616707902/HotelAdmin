@@ -59,6 +59,9 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
         doPut: function (url, data, callback) {
             doRequest('PUT', url, JSON.stringify(data), callback);
         },
+        doDelete:function (url,data,callback) {
+            doRequest('DELETE', url, JSON.stringify(data), callback);
+        },
         getQueryString: function (name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
             var r = window.location.search.substr(1).match(reg);
@@ -82,11 +85,11 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
             data: data,
             dataType: 'json',
             //success(result,status,xhr)
-            success: function (response,status,xhr) {
+            success: function (response, status, xhr) {
                 layer.close(index);
                 console.log(status);//success
                 console.log(xhr.status);//200
-                if (300<xhr.status||xhr.status<200) {
+                if (300 < xhr.status || xhr.status < 200) {
                     layer.msg(response.detail, {icon: 5});
                     return false;
                 } else {
@@ -100,20 +103,25 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
             complete: function () {
                 layer.close(index);
             },
-            //error(xhr,status,error)
             error: function (XMLHttpRequest, textStatus, error) {
                 layer.close(index);
-                if (XMLHttpRequest.status == 400){
-                    layer.msg(XMLHttpRequest.responseText,{icon: 5})
-                }else
-                if (XMLHttpRequest.status == 403||XMLHttpRequest.status ==401) {
+                if (XMLHttpRequest.status == 400) {
+                    // layer.msg(XMLHttpRequest.responseText, {icon: 5})
+                    // errorCallBack();
+                    var msg="";
+                    $.each(XMLHttpRequest.responseJSON,function (key,value) {
+                        msg+= $("#"+key).parent().parent().children(".layui-form-label").html()+JSON.stringify(value);
+                });
+                    layer.msg(msg,{icon :5});
+
+                } else if (XMLHttpRequest.status == 403 || XMLHttpRequest.status == 401) {
                     layer.msg('登录失效，请重新登录', {icon: 5});
                     setTimeout(function () {
                         window.location.href = "/HotelAdmin/login.html";
                     }, 2000);
                     return;
-                }else{
-                    layer.msg('#ERROR:'+error, {icon: 5});
+                } else if (XMLHttpRequest.status == 404) {
+                    layer.msg('当前数据未找到', {icon: 5});
                 }
 
             }

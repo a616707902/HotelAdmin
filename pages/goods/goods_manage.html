@@ -64,11 +64,18 @@
 <script src="../../static/js/showPOP.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">查看/编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <!--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
 </script>
 
 <script type="text/html" id="switchTpl">
     <input type="checkbox" disabled="disabled" name="is_active" value="{{d.is_active}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="is_active" {{ d.is_active? 'checked' : '' }}>
+</script>
+<script type="text/html" id="titleTpl">
+    {{#  if(d.is_integral){ }}
+   {{d.need_integral}}{{'分'}}
+    {{#  } else { }}
+    {{d.goods_price}}{{'元'}}
+    {{#  } }}
 </script>
 </body>
 

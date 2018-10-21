@@ -5,7 +5,8 @@ layui.extend({
 var TableHeader = [[ //表头
     // {type:'checkbox',align:'center'},
     {field: 'id', align: 'center', title: 'ID'},
-    {field: 'vip_name', align: 'center', title: '会员名'}
+    {field: 'vip_name', align: 'center', title: '会员名'},
+    {field: 'vip_weight', align: 'center', title: '权重'}
     , {field: 'hotel_discount', align: 'center', title: '会员折扣'}
     , {title: '操作', align: 'center', toolbar: '#barDemo'}
 

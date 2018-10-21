@@ -634,3 +634,10 @@ fieldset legend {
 .nochange{
   ime-mode: disabled
 }
+.layui-upload-list2{
+  float:left;
+  width:300px;
+  height:200px;
+  margin: 10px 20px;
+  border: 1px solid #ddd;
+}

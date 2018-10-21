@@ -7,7 +7,7 @@ var TableHeader = [[ //表头
     , {field: 'category_name', align: 'center', title: '商品类型'}
     , {field: 'goods_name', align: 'center', title: '商品名称'}
     , {field: 'is_active', align: 'center', title: '商品状态',templet: '#switchTpl', unresize: true}
-    , {field: 'goods_price', align: 'center', title: '价格'}
+    , {field: 'goods_price', align: 'center', title: '价格/积分' ,templet: '#titleTpl', unresize: true}
     , {title: '操作', align: 'center', toolbar: '#barDemo'}
 
 ]];

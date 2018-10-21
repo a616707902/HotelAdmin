@@ -18,6 +18,53 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
         getOrderDetail(id, op)
 
     });
+    form.on('submit(refund)', function (data) {
+        //发异步，把数据提交给php
+        var id = request.getQueryString("id");
+        request.doPut("/admin/hotel_order/" + id + "/refund/", {
+            order_status: $("#order_status").val(),
+            operator_remark: $("#operator_remark").val()
+        }, function (data) {
+            layer.alert("退款成功", {
+                icon: 6
+            }, function () {
+                parent.reflush();
+                // 获得frame索引
+                var index = parent.layer.getFrameIndex(window.name);
+                //关闭当前frame
+                parent.layer.close(index);
+            });
+        });
+
+
+        return false;
+    });
+    form.on('submit(add)', function (data) {
+        //发异步，把数据提交给php
+        var id = request.getQueryString("id");
+        var order_status = $("#order_status").val();
+        if (order_status == "") {
+            layer.msg("请选择订单状态", {icon: 5});
+            return;
+        }
+        request.doPut("/admin/hotel_order/" + id + "/", {
+            order_status: $("#order_status").val(),
+            operator_remark: $("#operator_remark").val()
+        }, function (data) {
+            layer.alert("修改成功", {
+                icon: 6
+            }, function () {
+                parent.reflush();
+                // 获得frame索引
+                var index = parent.layer.getFrameIndex(window.name);
+                //关闭当前frame
+                parent.layer.close(index);
+            });
+        });
+
+
+        return false;
+    });
 
     $("#close").click(function () {
         var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
@@ -29,11 +76,16 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
             });
-            var status=response.order_status;
-            if (status>=50){
+            var status = response.order_status;
+            if (status >= 50) {
                 $("#refund_div").removeClass("layui-hide")
             }
-            if (status!=10){
+            //退款
+            if (status == 50) {
+
+                $("#refund_button_div").removeClass("layui-hide")
+            }
+            if (status != 10) {
                 $("#pay_div").removeClass("layui-hide")
             }
             var hotel_order_detail = response.hotel_order_detail;
@@ -44,7 +96,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             $.each(order_pay, function (key, value) {
                 $('#order_pay_' + key).val(value);
             });
-
+            form.render();
         })
     }
 })
