@@ -180,11 +180,11 @@
     "childs": [
       {
         "name": "住宿订单退款",
-        "menuUrl": "/pages/order/hotelRefundedList.html"
+        "menuUrl": "../order/hotelRefundedList.html"
       },
       {
         "name": "商城订单退款",
-        "menuUrl": "/pages/order/marketRefundedList.html"
+        "menuUrl": "../order/marketRefundedList.html"
       }
     ]
   },
@@ -196,7 +196,7 @@
     "childs": [
       {
         "name": "评论回复",
-        "menuUrl": "/pages/composite/comment/commentList.html"
+        "menuUrl": "../composite/comment/commentList.html"
       }
     ]
   }

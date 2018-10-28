@@ -13,8 +13,6 @@ var TableHeader = [[ //表头
     , {field: 'create_time', align: 'center', title: '下单时间'}
     , {field: 'order_status_display', align: 'center', title: '订单状态'}
     , {field: 'consumer', align: 'center', title: '会员账号'}
-    // , {field: 'room_nums', align: 'center', title: '房间数'}
-    // , {field: 'room_style_name', align: 'center', title: '房间类型'}
     , {title: '操作', align: 'center', toolbar: '#barDemo'}
 
 ]];

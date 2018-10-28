@@ -29,14 +29,15 @@
 <!--(10, '待支付'),
 (15, '待发货'),
 (20, '待收货')
-(25, '待入住'),
-(30, '入住中'),
-(35, '完成待评价'),
-(40, '完成并且已评价'),
+(35, '待评价'),
+(40, '已评价'),
 (45, '取消'),
+(46, '申请退款'),
+(48, '填写退货信息'),
 (50, '待退款'),
 (55, '退款中'),
-(69, '已退款'),
+(60, '已退款'),
+(61, '退款失败'),
 (65, '已过期')-->
 <div class="weadmin-body">
     <div class="layui-row">
@@ -49,12 +50,15 @@
                     <option value="10">未支付</option>
                     <option value="15">待发货</option>
                     <option value="20">待收货</option>
-                    <option value="35">完成待评价</option>
-                    <option value="40">完成并且已评价</option>
-                    <option value="45">已取消</option>
+                    <option value="35">待评价</option>
+                    <option value="40">已评价</option>
+                    <option value="45">取消</option>
+                    <option value="46">申请退款</option>
+                    <option value="48">填写退货信息</option>
                     <option value="50">待退款</option>
                     <option value="55">退款中</option>
-                    <option value="69">已退款</option>
+                    <option value="60">已退款</option>
+                    <option value="61">退款失败</option>
                     <option value="65">已过期</option>
                 </select>
             </div>

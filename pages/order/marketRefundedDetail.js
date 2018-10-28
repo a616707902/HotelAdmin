@@ -29,8 +29,10 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
     });
     form.on('submit(add)', function (data) {
         //发异步，把数据提交给php
-
+        var id = request.getQueryString("id");
         request.doPut("/admin/market_refunded/" + id + "/", {
+            refunded_integral:$("#refunded_integral").val(),
+            refunded_money:$("#refunded_money").val(),
             operator_remark: $("#operator_remark").val()
         }, function (data) {
             layer.alert("修改成功", {

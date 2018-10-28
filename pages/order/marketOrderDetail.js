@@ -9,8 +9,8 @@ if (usertable == undefined || user == undefined || !user.isLogin) {
 var hotel = user.hotelID;*/
 var TableHeader = [[ //表头
     {field: 'goods', align: 'center', title: '商品名称'},
-    {field: 'sale_price', align: 'center', title: '商品单价'}
-    ,{field: 'integral', align: 'center', title: '消费积分'}
+    {field: 'goods_price', align: 'center', title: '商品单价'}
+    ,{field: 'goods_integral', align: 'center', title: '消费积分'}
     , {field: 'nums', align: 'center', title: '数量'}
     , {field: 'single_goods_amount', align: 'center', title: '总计'}
 
@@ -27,27 +27,6 @@ layui.use(['layer', 'request', 'jquery', 'form','table', 'upload'], function () 
         getOrderDetail(id, op)
 
     });
-    form.on('submit(refund)', function (data) {
-        //发异步，把数据提交给php
-        var id = request.getQueryString("id");
-        request.doPut("/admin/market_order/"+id+"/", {
-            order_status:$("#order_status").val(),
-            operator_remark: $("#operator_remark").val()
-        }, function (data) {
-            layer.alert("退款成功", {
-                icon: 6
-            }, function () {
-                parent.reflush();
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-                parent.layer.close(index);
-            });
-        });
-
-
-        return false;
-    });
     form.on('submit(add)', function (data) {
         //发异步，把数据提交给php
         var id = request.getQueryString("id");
@@ -56,7 +35,8 @@ layui.use(['layer', 'request', 'jquery', 'form','table', 'upload'], function () 
             layer.msg("请选择订单状态",{icon:5});
             return ;
         }
-        request.doPut("/admin/market_order/"+id+"/refund/", {
+        request.doPut("/admin/market_order/"+id+"/", {
+            market_order_contact:{},
             order_status:$("#order_status").val(),
             operator_remark: $("#operator_remark").val()
         }, function (data) {

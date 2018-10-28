@@ -13,7 +13,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     var $ = layui.jquery;
     var form = layui.form;
     var request = layui.request;
-    var money=0;
+    var money = 0;
     $(function () {
         var op = request.getQueryString("op");
         var id = request.getQueryString("id");
@@ -22,14 +22,15 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     });
 
     form.on('submit(add)', function (data) {
+        var id = request.getQueryString("id");
         //发异步，把数据提交给php
-        var refunded=$("#refunded_money").val();
-        if (refunded<0||refunded>money){
-            layer.msg("退款金额应在0~"+money+"范围内!",{icon:5});
-            return ;
+        var refunded = $("#refunded_money").val();
+        if (refunded < 0 || refunded > money) {
+            layer.msg("退款金额应在0~" + money + "范围内!", {icon: 5});
+            return false;
         }
         request.doPut("/admin/hotel_refunded/" + id + "/", {
-            order_status: $("#refunded_money").val(),
+            refunded_money: $("#refunded_money").val(),
             operator_remark: $("#operator_remark").val()
         }, function (data) {
             layer.alert("退款成功", {
@@ -57,9 +58,9 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
             });
-            money=response.order_pay.money;
+            money = response.order_pay.money;
             var status = response.order_status;
-            if (status!=50){
+            if (status != 50) {
                 $("#refunded_button").addClass("layui-hide")
             }
 

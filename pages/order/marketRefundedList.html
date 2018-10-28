@@ -69,6 +69,13 @@
 <script src="marketRefundedList.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看/修改</a>
+    {{#  if(d.order_status==46){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="edit">处理退款申请</a>
+    {{#  } else { }}
+    <!--{{d.goods_price}}{{'元'}}-->
+    {{#  } }}
+
+
 </script>
 </body>
 

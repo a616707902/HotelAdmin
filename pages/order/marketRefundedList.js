@@ -62,6 +62,9 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
             // layer.msg('ID：'+ data.id + ' 的查看操作');
             WeAdminShow("详情", "./marketRefundedDetail.html?op=detail&id=" + data.id);
         }
+        else if (obj.event === 'edit') { //处理退款申请
+            WeAdminShow("详情", "./market_dealApply.html?op=edit&id=" + data.id);
+        }
     });
     $(function () {
         getOrderList();
