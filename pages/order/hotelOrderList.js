@@ -32,6 +32,7 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
         location.replace(location.href);
     }
     form.on('submit(sreach)', function (data) {
+        Config.page=1;
         getOrderList();
         return false;
     });
@@ -63,15 +64,39 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
             // layer.msg('ID：'+ data.id + ' 的查看操作');
             WeAdminShow("详情", "./hotelOrderDetail.html?op=edit&id=" + data.id);
         }else if (obj.event === 'confirm') {
-            request.doPut("/admin/hotel_order/" + data.id + "/", {
-                order_status:30,
-                operator_remark: ""
-            }, function (data) {
-                layer.alert("修改成功", {
-                    icon: 6
-                }, function () {
-                    reflush();
+            var index=    layer.confirm('确定入住当前订单？', {
+                btn: ['确定','取消'] //按钮
+            }, function(){
+                requset.doPut("/admin/hotel_order/" + data.id + "/", {
+                    order_status:30,
+                    operator_remark: ""
+                }, function (data) {
+                    layer.alert("入住成功", {
+                        icon: 6
+                    }, function () {
+                        reflush();
+                    });
                 });
+            }, function(){
+                layer.close(index);
+            });
+
+        }else  if (obj.event === 'back'){
+            var index=    layer.confirm('确定退房？', {
+                btn: ['确定','取消'] //按钮
+            }, function(){
+                requset.doPut("/admin/hotel_order/" + data.id + "/", {
+                    order_status:35,
+                    operator_remark: ""
+                }, function (data) {
+                    layer.alert("退房成功", {
+                        icon: 6
+                    }, function () {
+                        reflush();
+                    });
+                });
+            }, function(){
+                layer.close(index);
             });
         }
     });

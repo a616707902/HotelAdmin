@@ -75,7 +75,8 @@
     <a class="layui-btn  layui-btn-primary layui-btn-xs" lay-event="edit">查看/修改</a>
     {{#  if(d.order_status==25){ }}
     <a class="layui-btn layui-btn-xs" lay-event="confirm">入住</a>
-    {{#  } else { }}
+    {{#  } else if(d.order_status==30){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="back">退房</a>
     {{#  } }}
 </script>
 </body>

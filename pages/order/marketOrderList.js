@@ -29,6 +29,7 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
         location.replace(location.href);
     }
     form.on('submit(sreach)', function (data) {
+        Config.page=1;
         getOrderList();
         return false;
     });
@@ -58,6 +59,8 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
         if (obj.event === 'detail') {
             // layer.msg('ID：'+ data.id + ' 的查看操作');
             WeAdminShow("详情", "./marketOrderDetail.html?op=detail&id=" + data.id);
+        }else if(obj.event === 'confirm'){
+            WeAdminShow("填写发货信息", "./markSendDetail.html?id=" + data.id,800,600);
         }
     });
     $(function () {
