@@ -190,29 +190,32 @@
             </div>
         </div>
 </span>
+        <span id="confirm_div" class="layui-hide">
         <div class="site-title">
             <fieldset>
-                <legend><a name="ignore">修改订单状态</a></legend>
+                <legend><a name="ignore">确认订单</a></legend>
             </fieldset>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">订单状态</label>
-            <div class="layui-input-inline">
-                <select name="order_status" id="order_status" lay-filter="search">
-                    <option value=""></option>
-                    <option value="10">待支付</option>
-                    <option value="25">待入住</option>
-                    <option value="30">入住中</option>
-                    <option value="35">完成待评价</option>
-                    <option value="40">完成并且已评价</option>
-                    <option value="45">取消</option>
-                    <option value="46">申请退款</option>
-                    <option value="50">待退款</option>
-                    <option value="55">退款中</option>
-                    <option value="60">已退款</option>
-                    <option value="61">拒绝退款</option>
-                    <option value="65">已过期</option>
-                </select>
+            <div class="layui-input-block">
+                <input type="radio" name="order_status" lay-filter="order_status" title="入住" value="30" checked/>
+                <input type="radio" name="order_status" lay-filter="order_status" title="取消订单" value="45" />
+                <!--<select name="order_status" id="order_status" lay-filter="search">-->
+                <!--<option value=""></option>-->
+                <!--<option value="10">待支付</option>-->
+                <!--<option value="25">待入住</option>-->
+                <!--<option value="30">入住中</option>-->
+                <!--<option value="35">完成待评价</option>-->
+                <!--<option value="40">完成并且已评价</option>-->
+                <!--<option value="45">取消</option>-->
+                <!--<option value="46">申请退款</option>-->
+                <!--<option value="50">待退款</option>-->
+                <!--<option value="55">退款中</option>-->
+                <!--<option value="60">已退款</option>-->
+                <!--<option value="61">拒绝退款</option>-->
+                <!--<option value="65">已过期</option>-->
+                <!--</select>-->
             </div>
         </div>
         <div class="layui-form-item">
@@ -227,6 +230,7 @@
                 <button id="close" class="layui-btn layui-btn-primary">关闭</button>
             </div>
         </div>
+            </span>
     </form>
 
 

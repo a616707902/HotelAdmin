@@ -62,6 +62,17 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
         if (obj.event === 'edit') {
             // layer.msg('ID：'+ data.id + ' 的查看操作');
             WeAdminShow("详情", "./hotelOrderDetail.html?op=edit&id=" + data.id);
+        }else if (obj.event === 'confirm') {
+            request.doPut("/admin/hotel_order/" + data.id + "/", {
+                order_status:30,
+                operator_remark: ""
+            }, function (data) {
+                layer.alert("修改成功", {
+                    icon: 6
+                }, function () {
+                    reflush();
+                });
+            });
         }
     });
     $(function () {

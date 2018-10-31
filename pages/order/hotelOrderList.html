@@ -72,7 +72,11 @@
 <script src="../../static/js/showPOP.js" type="text/javascript" charset="utf-8"></script>
 <script src="hotelOrderList.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">查看/修改</a>
+    <a class="layui-btn  layui-btn-primary layui-btn-xs" lay-event="edit">查看/修改</a>
+    {{#  if(d.order_status==25){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="confirm">入住</a>
+    {{#  } else { }}
+    {{#  } }}
 </script>
 </body>
 

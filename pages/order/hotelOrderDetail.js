@@ -48,7 +48,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             return;
         }
         request.doPut("/admin/hotel_order/" + id + "/", {
-            order_status: $("#order_status").val(),
+            order_status: data.field.order_status,
             operator_remark: $("#operator_remark").val()
         }, function (data) {
             layer.alert("修改成功", {
@@ -77,8 +77,9 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
                 $('#' + key).val(value);
             });
             var status = response.order_status;
-            if (status >= 50) {
-                $("#refund_div").removeClass("layui-hide")
+            //待入住状态  需确认订单
+            if (status == 25) {
+                $("#confirm_div").removeClass("layui-hide")
             }
 
             if (status != 10) {

@@ -124,6 +124,9 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
                 } else if (XMLHttpRequest.status == 404) {
                     layer.msg('当前数据未找到', {icon: 5});
                 }
+                else if (XMLHttpRequest.status == 500) {
+                    layer.msg('服务器接口处理错误', {icon: 5});
+                }
 
             }
         });
