@@ -36,15 +36,16 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
                     comment: id,
                     reply_content: $("#addNewReply").val()
                 },function (data) {
-                    layer.alert("回复成功", {
+                  var indexalert= parent.layer.alert("回复成功", {
                         icon: 6
                     }, function () {
                         getCommentDetail(id);
-                        // 获得frame索引
-                        var index = parent.layer.getFrameIndex(window.name);
-                        //关闭当前frame
-                        parent.layer.close(index);
+                        // // 获得frame索引
+                        // var index = parent.layer.getFrameIndex(window.name);
+                        // //关闭当前frame
+                        // parent.layer.close(index);
                         layer.close(lay_index);
+                        parent.layer.close(indexalert);
                     });
                 });
             }

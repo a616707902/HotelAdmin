@@ -7,3 +7,12 @@ pscp  -r E:\HotelAdmin ubuntu@120.77.41.102:/home/ubuntu/chenpan/
 
 重新启动nginx
 sudo service nginx restart
+
+
+##git 命令
+
+克隆：
+git clone https://github.com/a616707902/HotelAdmin.git
+
+更新：
+git pull

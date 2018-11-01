@@ -71,7 +71,7 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
     };
 
     function doRequest(type, url, data, callback) {
-        var index = layer.load(0, {
+        var index = top.layer.load(0, {
             shade: [0.1, '#fff'] //0.1透明度的白色背景
         });
         $.ajax({
@@ -86,11 +86,11 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
             dataType: 'json',
             //success(result,status,xhr)
             success: function (response, status, xhr) {
-                layer.close(index);
+                top.layer.close(index);
                 console.log(status);//success
                 console.log(xhr.status);//200
                 if (300 < xhr.status || xhr.status < 200) {
-                    layer.msg(response.detail, {icon: 5});
+                    top.layer.msg(response.detail, {icon: 5});
                     return false;
                 } else {
                     callback(response);
@@ -101,10 +101,10 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
             },
             //complete(xhr,status)
             complete: function () {
-                layer.close(index);
+                top.layer.close(index);
             },
             error: function (XMLHttpRequest, textStatus, error) {
-                layer.close(index);
+                top.layer.close(index);
                 if (XMLHttpRequest.status == 400) {
                     // layer.msg(XMLHttpRequest.responseText, {icon: 5})
                     // errorCallBack();
@@ -113,19 +113,21 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
                       var lable=  $("#"+key).parent().parent().children(".layui-form-label").html();
                         msg+= (lable==undefined?"":lable)+JSON.stringify(value);
                 });
-                    layer.msg(msg,{icon :5});
+                    top.layer.msg(msg,{icon :5});
 
                 } else if (XMLHttpRequest.status == 403 || XMLHttpRequest.status == 401) {
-                    layer.msg('登录失效，请重新登录', {icon: 5});
+                    top.layer.msg('登录失效，请重新登录', {icon: 5});
                     setTimeout(function () {
                         window.top.location.href = "/login.html";
                     }, 2000);
                     return;
                 } else if (XMLHttpRequest.status == 404) {
-                    layer.msg('当前数据未找到', {icon: 5});
+                    top.layer.msg('当前数据未找到', {icon: 5});
                 }
                 else if (XMLHttpRequest.status == 500) {
-                    layer.msg('服务器接口处理错误', {icon: 5});
+                    top.layer.msg('服务器接口处理错误', {icon: 5});
+                }else{
+                    top.layer.msg(XMLHttpRequest.responseJSON.detail, {icon: 5});
                 }
 
             }
