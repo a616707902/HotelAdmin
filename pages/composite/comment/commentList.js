@@ -9,6 +9,7 @@ var Config = {
 var TableHeader = [[ //表头
     // {type:'checkbox',align:'center'},
     {field: 'belong_order_type_display', align: 'center', title: '评论订单类型'},
+    {field: 'goods_type', align: 'center', title: '房间类型/商品',templet: '#titleTpl', unresize: true},
     {field: 'content', align: 'center', title: '评论内容'}
     , {field: 'comment_level_display', align: 'center', title: '评分'}
     , {field: 'commenter_name', align: 'center', title: '评论人'}

@@ -87,6 +87,20 @@ COMMENT_LEVEL = (
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">查看/修改</a>
 </script>
+
+<script type="text/html" id="titleTpl">
+    {{#  if(d.belong_order_type==20){ }}
+    {{d.belong_order.hotel_order_detail.room_style_name}}
+    {{#  } else if(d.belong_order_type==10){ }}
+        {{# layui.each(d.belong_order.market_order_detail,function(index,market){ }}
+            {{# if (index==d.belong_order.market_order_detail.length-1){}}
+                {{mark.goods}}
+            {{#  } else{ }}
+                 {{mark.goods}}{{','}}
+            {{#  } }}
+        {{# });}}
+    {{#  } }}
+</script>
 </body>
 
 </html>
