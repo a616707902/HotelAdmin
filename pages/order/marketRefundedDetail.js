@@ -8,9 +8,9 @@ if (usertable == undefined || user == undefined || !user.isLogin) {
 }
 var hotel = user.hotelID;*/
 var TableHeader = [[ //表头
-    {field: 'goods', align: 'center', title: '商品名称'},
-    {field: 'sale_price', align: 'center', title: '商品单价'}
-    , {field: 'integral', align: 'center', title: '消费积分'}
+    {field: 'goods_name', align: 'center', title: '商品名称'},
+    {field: 'goods_price', align: 'center', title: '商品单价'}
+    , {field: 'goods_integral', align: 'center', title: '消费积分'}
     , {field: 'nums', align: 'center', title: '数量'}
     , {field: 'single_goods_amount', align: 'center', title: '总计'}
 

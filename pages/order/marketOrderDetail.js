@@ -8,7 +8,7 @@ if (usertable == undefined || user == undefined || !user.isLogin) {
 }
 var hotel = user.hotelID;*/
 var TableHeader = [[ //表头
-    {field: 'goods', align: 'center', title: '商品名称'},
+    {field: 'goods_name', align: 'center', title: '商品名称'},
     {field: 'goods_price', align: 'center', title: '商品单价'}
     ,{field: 'goods_integral', align: 'center', title: '消费积分'}
     , {field: 'nums', align: 'center', title: '数量'}
@@ -52,7 +52,7 @@ layui.use(['layer', 'request', 'jquery', 'form','table', 'upload'], function () 
             if (status!=10){
                 $("#pay_div").removeClass("layui-hide");
             }
-            if (status!=15){
+            if (status==15){
                 $("#send_order").removeClass("layui-hide");
             }
             var market_order_contact=response.market_order_contact;
