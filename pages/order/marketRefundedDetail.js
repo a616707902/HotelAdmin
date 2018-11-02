@@ -27,29 +27,30 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
         getOrderDetail(id, op)
 
     });
-    form.on('submit(add)', function (data) {
-        //发异步，把数据提交给php
-        var id = request.getQueryString("id");
-        request.doPut("/admin/market_refunded/" + id + "/", {
-            refunded_integral:$("#refunded_integral").val(),
-            refunded_money:$("#refunded_money").val(),
-            operator_remark: $("#operator_remark").val()
-        }, function (data) {
-            layer.alert("修改成功", {
-                icon: 6
-            }, function () {
-                parent.reflush();
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-                parent.layer.close(index);
-            });
-        });
-        return false;
-    });
+    // form.on('submit(add)', function (data) {
+    //     //发异步，把数据提交给php
+    //     var id = request.getQueryString("id");
+    //     request.doPut("/admin/market_refunded/" + id + "/", {
+    //         refunded_integral:$("#refunded_integral").val(),
+    //         refunded_money:$("#refunded_money").val(),
+    //         operator_remark: $("#operator_remark").val()
+    //     }, function (data) {
+    //         layer.alert("修改成功", {
+    //             icon: 6
+    //         }, function () {
+    //             parent.reflush();
+    //             // 获得frame索引
+    //             var index = parent.layer.getFrameIndex(window.name);
+    //             //关闭当前frame
+    //             parent.layer.close(index);
+    //         });
+    //     });
+    //     return false;
+    // });
     $("#close").click(function () {
         var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
         parent.layer.close(index); //再执行关闭
+
     });
 
     function getOrderDetail(id, op) {
@@ -58,8 +59,8 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
                 $('#' + key).val(value);
             });
             var status = response.order_status;
-            if (status != 50) {
-                $("#refunded_button").addClass("layui-hide")
+            if (status == 60) {
+                $("#span_refunded").removeClass("layui-hide")
             }
             var market_order_contact = response.market_order_contact;
             var order_pay = response.order_pay;
