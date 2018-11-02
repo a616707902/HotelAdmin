@@ -59,10 +59,10 @@ layui.use(['layer', 'request', 'jquery', 'form','table', 'upload'], function () 
             var order_pay=response.order_pay;
             $.each(market_order_contact,function (key ,value) {
                 $("#market_order_contact_"+key).val(value);
-            })
+            });
             $.each(order_pay,function (key ,value) {
                 $("#order_pay_"+key).val(value);
-            })
+            });
             var market_order_detail=response.market_order_detail;
             table.render({
                 elem: '#goodsList'
