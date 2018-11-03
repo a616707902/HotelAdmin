@@ -26,6 +26,24 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
     form.on('submit(add)', function (data) {
         //发异步，把数据提交给php
         var id = request.getQueryString("id");
+        if (data.field.order_status==48){
+            if(data.field.refunded_name==undefined||data.field.refunded_name==''){
+                layer.msg("收货人未填写",{icon:5});
+                return false;
+            }
+            if(data.field.refunded_phone==undefined||data.field.refunded_phone==''){
+                layer.msg("联系电话未填写",{icon:5});
+                return false;
+            }
+            if(isPoneAvailable(data.field.refunded_phone)){
+                layer.msg("请输入正确的电话号码",{icon:5});
+                return false;
+            }
+            if(data.field.refunded_address==undefined||data.field.refunded_address==''){
+                layer.msg("退货地址未填写",{icon:5});
+                return false;
+            }
+        }
         request.doPost("/admin/market_refunded/" + id + "/deal_apply/", {
             order_status: data.field.order_status,
             admin_refunded_info: {
@@ -54,6 +72,13 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
         parent.layer.close(index); //再执行关闭
         return false;
     });
-
+    function isPoneAvailable(str) {
+        var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+        if (!myreg.test(str)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 })
