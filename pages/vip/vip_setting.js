@@ -29,6 +29,7 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laydate', 'laypage'], f
         location.replace(location.href);
     }
     form.on('submit(sreach)', function (data) {
+        Config.page=1;
         getVipSettingList();
         return false;
     });

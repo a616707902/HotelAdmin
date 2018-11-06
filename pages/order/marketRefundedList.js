@@ -67,7 +67,7 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
             WeAdminShow("处理退款申请", "./market_dealApply.html?op=edit&id=" + data.id,600,300);
         }
         else if (obj.event === 'refunded') { //处理退款申请
-            WeAdminShow("退款", "./markDealRefunded.html?op=refunded&id=" + data.id,600,300);
+            WeAdminShow("退款", "./markDealRefunded.html?op=refunded&id=" + data.id,600,600);
         }
     });
     $(function () {
