@@ -21,6 +21,7 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laypage'], function () 
     var table=layui.table;
     var laypage = layui.laypage
     form.on('submit(sreach)', function (data) {
+        Config.page=1;
         getAllHotel(data.field.search);
     });
     window.reflush = function () {

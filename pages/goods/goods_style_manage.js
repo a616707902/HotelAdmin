@@ -22,6 +22,7 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laypage'], function () 
     var table=layui.table;
     var laypage=layui.laypage;
     form.on('submit(search)', function (data) {
+        Config.page=1;
         getAllGoodsStyle(data.field.search);
     });
     //监听性别操作

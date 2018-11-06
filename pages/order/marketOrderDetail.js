@@ -56,7 +56,14 @@ layui.use(['layer', 'request', 'jquery', 'form','table', 'upload'], function () 
                 $("#send_order").removeClass("layui-hide");
             }
             var market_order_contact=response.market_order_contact;
+            var order_express=response.order_express;
             var order_pay=response.order_pay;
+            if (order_express!=undefined&&order_express!=null){
+                $("#order_express").removeClass("layui-hide");
+                $.each(order_express,function (key ,value) {
+                    $("#order_express_"+key).val(value);
+                });
+            }
             $.each(market_order_contact,function (key ,value) {
                 $("#market_order_contact_"+key).val(value);
             });

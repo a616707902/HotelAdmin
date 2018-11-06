@@ -55,11 +55,11 @@
     "childs": [
       {
         "name": "角色管理",
-        "menuUrl": "/pages/assistant/roleManage.html"
+        "menuUrl": "../assistant/roleManage.html"
       },
       {
         "name": "职员授权",
-        "menuUrl": "/pages/assistant/assignList.html"
+        "menuUrl": "../assistant/assignList.html"
       }
     ]
   },

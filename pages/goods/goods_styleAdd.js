@@ -75,10 +75,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
                     $(this).attr('checked', true);
                 }
             });
-            // var images = response.images;
-            // for (var i = 0; i < images.length; i++) {
-            //     $('#demo2').append('<img src="' + images[i] + '" alt="商品类型参考照片" class="layui-upload-img">')
-            // }
+            form.render();
         })
     }
 })

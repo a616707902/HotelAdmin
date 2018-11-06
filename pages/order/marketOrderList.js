@@ -60,7 +60,7 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
             // layer.msg('ID：'+ data.id + ' 的查看操作');
             WeAdminShow("详情", "./marketOrderDetail.html?op=detail&id=" + data.id);
         }else if(obj.event === 'confirm'){
-            WeAdminShow("填写发货信息", "./markSendDetail.html?id=" + data.id,800,400);
+            WeAdminShow("填写发货信息", "./markSendDetail.html?id=" + data.id,800,600);
         }
     });
     $(function () {

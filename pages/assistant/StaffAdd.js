@@ -76,11 +76,10 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
         //     "sex": "string"
         // }
         request.doPut("/admin/staff_center/" + id + "/", {
-            belong_hotel: data.field.hotel,
-            username: data.field.username,
-            user: data.field.user,
+            belong_hotel: data.field.belong_hotel,
+            user_name: data.field.user_name,
             sex: data.field.sex,
-            "is_active": true,
+            is_active: data.field.is_active==1?true:false,
         }, function (data) {
             layer.alert("修改成功", {
                 icon: 6
@@ -95,8 +94,8 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     }
 
     function addStaff(data) {
-        if (Verification()) {
-            layer.msg("两次输入的密码不一致", {icon: 5});
+        if (!Verification()) {
+
             return;
         }
         // {
@@ -106,11 +105,11 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
         //     "user_name": "string",
         //     "sex": "string"
         // }
-        request.doPost("/admin/room_style/", {
-            belong_hotel: data.field.hotel,
+        request.doPost("/admin/staff_center/", {
+            belong_hotel: data.field.belong_hotel,
             username: data.field.username,
             password: data.field.password,
-            user_name: data.field.user,
+            user_name: data.field.user_name,
             sex: data.field.sex
         }, function (data) {
             layer.alert("增加成功", {
@@ -172,7 +171,11 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             layer.msg("请输入确认密码", {icon: 5});
             return false;
         }
-        return password == repassword;
+        if (password != repassword){
+            layer.msg("两次输入的密码不一致", {icon: 5});
+            return false;
+        }
+        return true;
     }
 
 

@@ -18,13 +18,13 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
         var id = request.getQueryString("id");
 
         request.doPut("/admin/market_order/" + id + "/", {
-            market_order_contact: {
-                id: data.field.market_order_contact_id,
-                consignee_name: data.field.consignee_name,
-                consignee_address: data.field.consignee_address,
-                consignee_phone: data.field.consignee_phone,
-                order: data.field.market_order_contact_order
-            },
+            // market_order_contact: {
+            //     id: data.field.market_order_contact_id,
+            //     consignee_name: data.field.consignee_name,
+            //     consignee_address: data.field.consignee_address,
+            //     consignee_phone: data.field.consignee_phone,
+            //     order: data.field.market_order_contact_order
+            // },
             order_status: 20,
             operator_remark: $("#operator_remark").val(),
             order_express: {

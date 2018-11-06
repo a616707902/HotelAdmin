@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../../static/css/font.css">
     <link rel="stylesheet" href="../../static/css/weadmin.css">
     <script src="../../lib/layui/layui.js" charset="utf-8"></script>
-    <script src="marketOrderDetail.js" type="text/javascript" charset="utf-8"></script>
+    <script src="markSendDetail.js" type="text/javascript" charset="utf-8"></script>
 
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
@@ -36,7 +36,7 @@
                 <label class="layui-form-label">联系人姓名</label>
                 <div class="layui-input-inline">
                     <input id="market_order_contact_consignee_name" type="text" name="consignee_name" class="layui-input"
-                           >
+                           readonly>
                 </div>
             </div>
             <div class="layui-inline">
@@ -50,7 +50,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">联系人地址</label>
             <div class="layui-input-block">
-                <input id="market_order_contact_consignee_address"  name="consignee_address" class="layui-input " >
+                <input id="market_order_contact_consignee_address"  name="consignee_address" class="layui-input " readonly>
             </div>
         </div>
         <input type="hidden" id="market_order_contact_id" name="market_order_contact_id" value="0"/>
@@ -72,7 +72,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">快递名称</label>
                 <div class="layui-input-inline">
-                    <input id="express_name" type="text" name="express_name "
+                    <input id="express_name" type="text" name="express_name"
                            class="layui-input " >
                 </div>
             </div>
@@ -80,7 +80,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">店家备注</label>
             <div class="layui-input-block">
-                <input id="operator_remark" class="layui-input "readonly>
+                <input id="operator_remark" class="layui-input ">
             </div>
         </div>
         <div class="layui-form-item">
