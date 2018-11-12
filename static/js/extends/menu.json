@@ -72,6 +72,10 @@
       {
         "name": "分销申请管理",
         "menuUrl": "../member/apply/applyList.html"
+      },
+      {
+        "name": "分销提取",
+        "menuUrl": "../member/pick/pickList.html"
       }
     ]
   },
