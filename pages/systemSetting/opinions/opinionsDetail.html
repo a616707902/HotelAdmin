@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>详情信息</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../static/css/font.css">
+    <link rel="stylesheet" href="../../../static/css/weadmin.css">
+    <script src="../../../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="opinionsDetail.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="weadmin-body">
+
+    <form id="form1" class="layui-form">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户姓名</label>
+            <div class="layui-input-inline">
+                <input  id="consumer_name"  class="layui-input " readonly>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话号码</label>
+            <div class="layui-input-inline">
+                <input  id="phone"   class="layui-input " readonly>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">意见内容</label>
+            <div class="layui-input-block">
+                <textarea  id="content"  class="layui-textarea " readonly></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">提交</label>
+            <div class="layui-input-inline">
+                <input  id="create_time"  text="text" class="layui-input ">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button id="close" class="layui-btn layui-btn-primary">关闭</button>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+
+
+</body>
+
+</html>

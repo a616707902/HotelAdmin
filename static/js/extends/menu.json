@@ -194,13 +194,17 @@
   },
   {
     "codename": "comment_reply",
-    "name": "评论回复中心",
+    "name": "评论建议中心",
     "icon": "&#xe6b8;",
     "menuUrl": "javascript:;",
     "childs": [
       {
         "name": "评论回复",
         "menuUrl": "../composite/comment/commentList.html"
+      },
+      {
+        "name": "意见建议",
+        "menuUrl": "../systemSetting/opinions/opinionsList.html"
       }
     ]
   }
