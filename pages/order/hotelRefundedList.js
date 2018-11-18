@@ -74,9 +74,10 @@ function  getOrderList() {
         requset.doPost("/admin/hotel_refunded/"+id+"/retry/", {
             operator_remark:""
         }, function (data) {
-            layer.alert("退款提交成功", {
+          var index =  layer.alert("退款提交成功", {
                 icon: 6
             }, function () {
+              layer.close(index);
                 getOrderList();
             });
 
