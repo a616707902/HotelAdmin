@@ -27,26 +27,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
         getOrderDetail(id, op)
 
     });
-    // form.on('submit(add)', function (data) {
-    //     //发异步，把数据提交给php
-    //     var id = request.getQueryString("id");
-    //     request.doPut("/admin/market_refunded/" + id + "/", {
-    //         refunded_integral:$("#refunded_integral").val(),
-    //         refunded_money:$("#refunded_money").val(),
-    //         operator_remark: $("#operator_remark").val()
-    //     }, function (data) {
-    //         layer.alert("修改成功", {
-    //             icon: 6
-    //         }, function () {
-    //             parent.reflush();
-    //             // 获得frame索引
-    //             var index = parent.layer.getFrameIndex(window.name);
-    //             //关闭当前frame
-    //             parent.layer.close(index);
-    //         });
-    //     });
-    //     return false;
-    // });
+
     $("#close").click(function () {
         var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
         parent.layer.close(index); //再执行关闭
@@ -55,7 +36,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
     });
 
     function getOrderDetail(id, op) {
-        request.doGet("/admin/market_order/" + id + "/", {}, function (response) {
+        request.doGet("/admin/market_refunded/" + id + "/", {}, function (response) {
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
             });
@@ -71,6 +52,14 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
             $.each(order_pay, function (key, value) {
                 $("#order_pay_" + key).val(value);
             })
+            var order_refunded=response.order_refunded;
+            if (order_refunded){
+                $("#refunded_span").removeClass("layui-hide");
+                $.each(order_refunded, function (key, value) {
+                    $('#order_refunded_' + key).val(value);
+                });
+
+            }
             var market_order_detail = response.market_order_detail;
             table.render({
                 elem: '#goodsList'

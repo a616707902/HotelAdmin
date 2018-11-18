@@ -145,7 +145,7 @@
                 <input id="refund_reason" class="layui-input nochange" readonly>
             </div>
         </div>
-        <span id="pay_div" >
+        <span id="pay_div">
         <div class="site-title">
             <fieldset>
                 <legend><a name="ignore">付款信息</a></legend>
@@ -191,6 +191,42 @@
         </div>
 
 </span>
+        <span id="refunded_span" class="layui-hide">
+        <div class="site-title">
+            <fieldset>
+                <legend><a name="ignore">退款情况</a></legend>
+            </fieldset>
+        </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+            <label class="layui-form-label">退款状态</label>
+            <div class="layui-input-inline">
+                <input id="order_refunded_refunded_status_display" class="layui-input " readonly>
+            </div>
+                </div>
+                <div class="layui-inline">
+                     <label class="layui-form-label">退款金额</label>
+            <div class="layui-input-inline">
+                <input id="order_refunded_refunded_money" type="number" step="0.01" value="0" class="layui-input "
+                       readonly>
+            </div>
+                </div>
+        </div>
+            <div class="layui-form-item">
+ <label class="layui-form-label">到账时间</label>
+            <div class="layui-input-inline">
+                <input id="order_refunded_refunded_account" class="layui-input " readonly>
+            </div>
+        </div>
+             <div class="layui-form-item">
+            <label class="layui-form-label">退款信息</label>
+            <div class="layui-input-block">
+                <input id="order_refunded_refunded_message" class="layui-input " readonly>
+            </div>
+        </div>
+
+        </span>
+        <span id="refunding_div">
         <div class="site-title">
             <fieldset>
                 <legend><a name="ignore">退款</a></legend>
@@ -199,7 +235,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">退款金额</label>
             <div class="layui-input-inline">
-                <input id="refunded_money"type="number" step="0.01" value="0" class="layui-input ">
+                <input id="refunded_money" type="number" step="0.01" value="0" class="layui-input ">
             </div>
         </div>
         <div class="layui-form-item">
@@ -208,9 +244,12 @@
                 <input id="operator_remark" class="layui-input ">
             </div>
         </div>
+        </span>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit="" id="refunded_button" lay-filter="add" >确认退款</button>
+                <button class="layui-btn" lay-submit="" id="refunded_button" lay-filter="add">确认退款</button>
+                <button class="layui-btn layui-hide" lay-submit="" id="retry_refunded_button" lay-filter="retry">重新退款
+                </button>
                 <button id="close" class="layui-btn layui-btn-primary">关闭</button>
             </div>
         </div>

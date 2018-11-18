@@ -12,6 +12,7 @@ var TableHeader = [[ //表头
     ,{field: 'integral', align: 'center', title: '消费积分'}
     , {field: 'create_time', align: 'center', title: '下单时间'}
     , {field: 'order_status_display', align: 'center', title: '订单状态'}
+    , {field: 'refunded_status', align: 'center', title: '退款状态' ,templet: '#titleTpl', unresize: true}
     , {field: 'consumer', align: 'center', title: '会员账号'}
     // , {field: 'room_nums', align: 'center', title: '房间数'}
     // , {field: 'room_style_name', align: 'center', title: '房间类型'}
@@ -68,8 +69,23 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
         }
         else if (obj.event === 'refunded') { //处理退款申请
             WeAdminShow("退款", "./markDealRefunded.html?op=refunded&id=" + data.id,600,600);
+        }else if (obj.event === 'retry') { //处理退款申请
+            retryRefunded(data.id);
         }
     });
+
+    function retryRefunded(id) {
+        requset.doPost("/admin/market_refunded/"+id+"/retry/", {
+            operator_remark:""
+        }, function (data) {
+            layer.alert("退款提交成功", {
+                icon: 6
+            }, function () {
+                getOrderList();
+            });
+
+        });
+    }
     $(function () {
         getOrderList();
     });

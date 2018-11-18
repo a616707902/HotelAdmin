@@ -63,8 +63,18 @@
     {{#  } else if(d.order_status==50){ }}
     <a class="layui-btn layui-btn-xs" lay-event="refunded">退款</a>
     {{#  } }}
+    {{#  if((d.order_status==55&&d.order_refunded.refunded_status==40)||(d.order_status==55&&d.order_refunded.refunded_status==30)){ }}
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="retry">重试</a>
+    {{#  } else { }}
+    {{#  } }}
 
+</script>
+<script type="text/html" id="titleTpl">
+    {{#  if(d.order_refunded){ }}
+    {{d.order_refunded.refunded_status_display}}
+    {{#  } else { }}
 
+    {{#  } }}
 </script>
 </body>
 

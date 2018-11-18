@@ -12,9 +12,8 @@ var TableHeader = [[ //表头
     {field: 'belong_hotel_name', align: 'center', title: '所属酒店'}
     , {field: 'create_time', align: 'center', title: '下单时间'}
     , {field: 'order_status_display', align: 'center', title: '订单状态'}
+    , {field: 'refunded_status', align: 'center', title: '退款状态' ,templet: '#titleTpl', unresize: true}
     , {field: 'consumer', align: 'center', title: '会员账号'}
-    // , {field: 'room_nums', align: 'center', title: '房间数'}
-    // , {field: 'room_style_name', align: 'center', title: '房间类型'}
     , {title: '操作', align: 'center', toolbar: '#barDemo'}
 
 ]];
@@ -59,14 +58,30 @@ function  getOrderList() {
 
     table.on('tool(lists)', function (obj) {
         var data = obj.data;
+
         if (obj.event === 'edit') {
             // layer.msg('ID：'+ data.id + ' 的查看操作');
             WeAdminShow("详情", "./hotelRefundedDetail.html?op=edit&id=" + data.id);
+        }else if(obj.event === 'retry'){
+            retryRefunded(data.id);
         }
     });
     $(function () {
         getOrderList();
     });
+
+    function retryRefunded(id) {
+        requset.doPost("/admin/hotel_refunded/"+id+"/retry/", {
+            operator_remark:""
+        }, function (data) {
+            layer.alert("退款提交成功", {
+                icon: 6
+            }, function () {
+                getOrderList();
+            });
+
+        });
+    }
 
     function Rflaypage() {
         laypage.render({
