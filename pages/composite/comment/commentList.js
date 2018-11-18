@@ -30,7 +30,8 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
 
     window.reflush = function () {
         //  window.parent.location.reload(); //刷新父页面
-        location.replace(location.href);
+        // location.replace(location.href);
+        getCommentList();
     }
     form.on('submit(sreach)', function (data) {
         Config.page=1;

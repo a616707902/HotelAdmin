@@ -26,7 +26,8 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laypage'], function (
     // });
     window.reflush = function () {
         //  window.parent.location.reload(); //刷新父页面
-        location.replace(location.href);
+        // location.replace(location.href);
+        getAllNotice()
     }
      function getAllNotice(search) {
         request.doGet("/admin/notice/", {
