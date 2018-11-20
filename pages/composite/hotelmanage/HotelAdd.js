@@ -31,6 +31,13 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload', 'address'], function 
         }
         address+=$("#street").val();
         $("#address").val(address);
+        request.doPost("/admin/hotel/get_lat_long/", {
+            address: address
+        }, function (data) {
+            $('.layui-hide').removeClass('layui-hide');
+            $('#longitude').val(data.longitude);
+            $('#latitude').val(data.latitude);
+        });
         return false;
     });
     var demoListView = $('#layer-photos-demo');

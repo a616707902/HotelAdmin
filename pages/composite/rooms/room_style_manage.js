@@ -4,6 +4,7 @@ layui.extend({
 var TableHeader=[[ //表头
     // {type:'checkbox',align:'center'},
     {field: 'id',align:'center', title: 'ID'}
+    ,{field: 'hotel_name',align:'center', title: '所属酒店' }
     ,{field: 'style_name',align:'center', title: '类型名称' }
     ,{field: 'room_profile',align:'center', title: '房间类型简介'}
     ,{field: 'room_count',align:'center', title: '总数量'}
