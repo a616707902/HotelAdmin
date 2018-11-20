@@ -95,6 +95,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             obj.preview(function (index, file, result) {
                 $('#demo1').attr('src', result); //图片链接（base64）
             });
+            $('#demoText').html("");
         }
         , done: function (res) {
             //上传完毕

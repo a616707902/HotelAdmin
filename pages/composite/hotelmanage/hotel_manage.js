@@ -23,6 +23,7 @@ layui.use(['layer', 'jquery', 'request', 'form','table','laypage'], function () 
     form.on('submit(sreach)', function (data) {
         Config.page=1;
         getAllHotel(data.field.search);
+        return false;
     });
     window.reflush = function () {
         //  window.parent.location.reload(); //刷新父页面
