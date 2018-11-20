@@ -53,9 +53,10 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
                 remark: data.field.remark
             }
         }, function (data) {
-            layer.alert("提交成功", {
+          var index2=  layer.alert("提交成功", {
                 icon: 6
             }, function () {
+              layer.close(index2);
                 parent.reflush();
                 // 获得frame索引
                 var index = parent.layer.getFrameIndex(window.name);

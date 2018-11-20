@@ -98,6 +98,7 @@ layui.use(['layer', 'request', 'jquery', 'form'], function () {
                 var index = parent.layer.getFrameIndex(window.name);
                 //关闭当前frame
                 parent.layer.close(index);
+                layer.closeAll();
             });
         });
     }
