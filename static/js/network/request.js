@@ -118,7 +118,7 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
                 } else if (XMLHttpRequest.status == 403 || XMLHttpRequest.status == 401) {
                     top.layer.msg('登录失效，请重新登录', {icon: 5});
                     setTimeout(function () {
-                        window.top.location.href = "/login.html";
+                        window.top.location.href = "/";
                     }, 2000);
                     return;
                 } else if (XMLHttpRequest.status == 404) {

@@ -32,62 +32,14 @@
     ]
   },
   {
-    "codename": "consumer",
-    "name": "客户中心",
+    "codename": "hotel_order",
+    "name": "住宿订单",
     "icon": "&#xe6b8;",
     "menuUrl": "javascript:;",
     "childs": [
       {
-        "name": "用户",
-        "menuUrl": "../member/consumer.html"
-      },
-      {
-        "name": "会员",
-        "menuUrl": "../vip/vip_member.html"
-      }
-    ]
-  },
-  {
-    "codename": "role",
-    "name": "权限中心",
-    "icon": "&#xe6b8;",
-    "menuUrl": "javascript:;",
-    "childs": [
-      {
-        "name": "角色管理",
-        "menuUrl": "../assistant/roleManage.html"
-      },
-      {
-        "name": "职员授权",
-        "menuUrl": "../assistant/assignList.html"
-      }
-    ]
-  },
-  {
-    "codename": "distribution",
-    "name": "分销中心",
-    "icon": "&#xe6b8;",
-    "menuUrl": "javascript:;",
-    "childs": [
-      {
-        "name": "分销申请管理",
-        "menuUrl": "../member/apply/applyList.html"
-      },
-      {
-        "name": "分销提取",
-        "menuUrl": "../member/pick/pickList.html"
-      }
-    ]
-  },
-  {
-    "codename": "integral",
-    "name": "积分中心",
-    "icon": "&#xe6b8;",
-    "menuUrl": "javascript:;",
-    "childs": [
-      {
-        "name": "积分管理",
-        "menuUrl": "../member/integral/integral.html"
+        "name": "酒店订单",
+        "menuUrl": "../order/hotelOrderList.html"
       }
     ]
   },
@@ -121,6 +73,68 @@
     ]
   },
   {
+    "codename": "refunded",
+    "name": "退款中心",
+    "icon": "&#xe6b8;",
+    "menuUrl": "javascript:;",
+    "childs": [
+      {
+        "name": "住宿订单退款",
+        "menuUrl": "../order/hotelRefundedList.html"
+      },
+      {
+        "name": "商城订单退款",
+        "menuUrl": "../order/marketRefundedList.html"
+      }
+    ]
+  },
+  {
+    "codename": "consumer",
+    "name": "客户中心",
+    "icon": "&#xe6b8;",
+    "menuUrl": "javascript:;",
+    "childs": [
+      {
+        "name": "用户",
+        "menuUrl": "../member/consumer.html"
+      },
+      {
+        "name": "会员",
+        "menuUrl": "../vip/vip_member.html"
+      }
+    ]
+  },
+
+  {
+    "codename": "distribution",
+    "name": "分销中心",
+    "icon": "&#xe6b8;",
+    "menuUrl": "javascript:;",
+    "childs": [
+      {
+        "name": "分销申请管理",
+        "menuUrl": "../member/apply/applyList.html"
+      },
+      {
+        "name": "分销提取",
+        "menuUrl": "../member/pick/pickList.html"
+      }
+    ]
+  },
+  {
+    "codename": "integral",
+    "name": "积分中心",
+    "icon": "&#xe6b8;",
+    "menuUrl": "javascript:;",
+    "childs": [
+      {
+        "name": "积分管理",
+        "menuUrl": "../member/integral/integral.html"
+      }
+    ]
+  },
+
+  {
     "codename": "tags",
     "name": "标签中心",
     "icon": "&#xe6b8;",
@@ -145,17 +159,22 @@
     ]
   },
   {
-    "codename": "hotel_order",
-    "name": "住宿订单",
+    "codename": "role",
+    "name": "权限中心",
     "icon": "&#xe6b8;",
     "menuUrl": "javascript:;",
     "childs": [
       {
-        "name": "酒店订单",
-        "menuUrl": "../order/hotelOrderList.html"
+        "name": "角色管理",
+        "menuUrl": "../assistant/roleManage.html"
+      },
+      {
+        "name": "职员授权",
+        "menuUrl": "../assistant/assignList.html"
       }
     ]
   },
+
   {
     "codename": "vip_info",
     "name": "会员中心",
@@ -173,22 +192,6 @@
       {
         "name": "会员折扣配置",
         "menuUrl": "../vip/vip_setting.html"
-      }
-    ]
-  },
-  {
-    "codename": "refunded",
-    "name": "退款中心",
-    "icon": "&#xe6b8;",
-    "menuUrl": "javascript:;",
-    "childs": [
-      {
-        "name": "住宿订单退款",
-        "menuUrl": "../order/hotelRefundedList.html"
-      },
-      {
-        "name": "商城订单退款",
-        "menuUrl": "../order/marketRefundedList.html"
       }
     ]
   },
