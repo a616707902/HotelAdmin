@@ -15,10 +15,12 @@
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style type="text/css">
-        .laytable-cell-1-banner_images{
+        .laytable-cell-1-images, .laytable-cell-2-images, .laytable-cell-3-images,
+        .laytable-cell-4-images, .laytable-cell-5-images, .laytable-cell-6-images, .laytable-cell-7-images, .laytable-cell-8-images {
             height: 100%;
             max-width: 100%;
         }
+
     </style>
 </head>
 
@@ -45,9 +47,9 @@
          </form>-->
     </div>
     <div class="weadmin-block">
-        <button class="layui-btn" id="add" ><i class="layui-icon"></i>添加
+        <button class="layui-btn" id="add"><i class="layui-icon"></i>添加
         </button>
-        <span   class="fr" style="line-height:40px">共有数据： <span  id ="total">0</span> 条</span>
+        <span class="fr" style="line-height:40px">共有数据： <span id="total">0</span> 条</span>
     </div>
     <table class="layui-table" id="lists" lay-filter="lists">
 
@@ -66,10 +68,13 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script type="text/html" id="switchTpl">
-    <input type="checkbox" disabled="disabled" name="is_active" value="{{d.is_show}}" lay-skin="switch" lay-text="显示|未显示" lay-filter="is_show" {{ d.is_show? 'checked' : '' }}>
+    <input type="checkbox" disabled="disabled" name="is_active" value="{{d.is_show}}" lay-skin="switch"
+           lay-text="显示|未显示" lay-filter="is_show" {{ d.is_show? 'checked' : '' }}>
 </script>
 <script type="text/html" id="imgTpl">
-    <img   name="is_active" src="{{d.banner_images}}" style="height: 100px" >
+    <div>
+        <img name="is_active" src="{{d.banner_images}}" style="height: 100px">
+    </div>
 </script>
 </body>
 

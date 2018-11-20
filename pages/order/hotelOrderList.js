@@ -72,9 +72,10 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
                     order_status:30,
                     operator_remark: ""
                 }, function (data) {
-                    layer.alert("入住成功", {
+               var index2=     layer.alert("入住成功", {
                         icon: 6
                     }, function () {
+                   layer.close(index2);
                         reflush();
                     });
                 });
@@ -90,9 +91,10 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
                     order_status:35,
                     operator_remark: ""
                 }, function (data) {
-                    layer.alert("退房成功", {
+                    var index2=    layer.alert("退房成功", {
                         icon: 6
                     }, function () {
+                        layer.close(index2);
                         reflush();
                     });
                 });
