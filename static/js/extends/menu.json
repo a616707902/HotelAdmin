@@ -16,6 +16,18 @@
     ]
   },
   {
+    "codename": "tags",
+    "name": "标签中心",
+    "icon": "&#xe6b8;",
+    "menuUrl": "javascript:;",
+    "childs": [
+      {
+        "name": "标签管理",
+        "menuUrl": "../composite/tagManage/tagManage.html"
+      }
+    ]
+  },
+  {
     "codename": "hotel",
     "name": "宾馆中心",
     "icon": "&#xe6b8;",
@@ -134,18 +146,6 @@
     ]
   },
 
-  {
-    "codename": "tags",
-    "name": "标签中心",
-    "icon": "&#xe6b8;",
-    "menuUrl": "javascript:;",
-    "childs": [
-      {
-        "name": "标签管理",
-        "menuUrl": "../composite/tagManage/tagManage.html"
-      }
-    ]
-  },
   {
     "codename": "staff",
     "name": "职员中心",

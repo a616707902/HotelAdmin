@@ -10,6 +10,24 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload', 'address'], function 
     var upload = layui.upload;
     var address = layui.address;
     address.provinces('', '', '');
+    $("#address").on("focus",function () {
+       var province= $('#province').val()
+       var city= $('#city').val()
+       var area= $('#area').val()
+        var address="";
+        if (province!=undefined&&province!=''){
+            address+=$('#province option:selected').text();
+        }
+        if (city!=undefined&&city!=''){
+            address+= $('#city option:selected').text();
+        }
+        if (area!=undefined&&area!=''){
+            address+=$('#area option:selected').text();
+        }
+        address+=$("#street").val();
+        $("#address").val(address);
+        return false;
+    });
     var demoListView = $('#layer-photos-demo');
     form.on('submit(address)', function (data) {
         //发异步，把数据提交给php
