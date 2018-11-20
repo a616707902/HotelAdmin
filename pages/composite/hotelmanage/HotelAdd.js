@@ -10,6 +10,11 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload', 'address'], function 
     var upload = layui.upload;
     var address = layui.address;
     address.provinces('', '', '');
+    $("#close").click(function () {
+        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+        parent.layer.close(index); //再执行关闭
+        return false;
+    });
     $("#address").on("focus",function () {
        var province= $('#province').val()
        var city= $('#city').val()
@@ -83,6 +88,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload', 'address'], function 
             obj.preview(function (index, file, result) {
                 $('#demo1').attr('src', result); //图片链接（base64）
             });
+            $('#demoText').html("");
         }
         , done: function (res) {
             //上传完毕
