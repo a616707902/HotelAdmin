@@ -18,7 +18,7 @@ var perms=layui.data('perms').perms;
         layui.data('user', null); //user
         layui.data('perms', null); //user
         layui.data('token', null); //user
-        window.top.location.href = "/login.html";
+        window.top.location.href = "/";
     }
     $('.loginout').click(function () {
         sessionStorage.removeItem('menu');
