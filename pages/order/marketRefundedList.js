@@ -13,6 +13,7 @@ var TableHeader = [[ //表头
     , {field: 'create_time', align: 'center', title: '下单时间'}
     , {field: 'order_status_display', align: 'center', title: '订单状态'}
     , {field: 'refunded_status', align: 'center', title: '退款状态' ,templet: '#titleTpl', unresize: true}
+    , {field: 'refunded_info', align: 'center', title: '快递（快递单号）' ,templet: '#titleTp2', unresize: true}
     , {field: 'consumer', align: 'center', title: '会员账号'}
     // , {field: 'room_nums', align: 'center', title: '房间数'}
     // , {field: 'room_style_name', align: 'center', title: '房间类型'}

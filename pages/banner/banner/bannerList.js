@@ -4,7 +4,7 @@ layui.extend({
 var TableHeader = [[ //表头
     // {type:'checkbox',align:'center'},
     // {field: 'id', align: 'center', title: 'ID'}
-    {field: 'banner_title', align: 'center', title: '横幅标题'}
+    {field: 'banner_title',width:20, align: 'center', title: '横幅标题'}
     , {field: 'banner_images', align: 'center', title: '展示照片', templet: '#imgTpl', style:"height:100px;", unresize: true,}
     , {field: 'is_show', align: 'center', title: '是否显示', templet: '#switchTpl', unresize: true}
     , {title: '操作', align: 'center', toolbar: '#barDemo'}

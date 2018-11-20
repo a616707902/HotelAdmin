@@ -60,6 +60,13 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
             // $.each(market_order_contact, function (key, value) {
             //     $("#market_order_contact_" + key).val(value);
             // })
+            var user_refunded_info=response.user_refunded_info;
+            if (user_refunded_info){
+                $.each(user_refunded_info, function (key, value) {
+                    $('#user_refunded_info_' + key).val(value);
+                });
+
+            }
             money = response.order_pay.money;
             integral = response.order_pay.integral;
             $.each(order_pay, function (key, value) {

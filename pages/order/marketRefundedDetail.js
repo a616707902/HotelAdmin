@@ -53,10 +53,17 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
                 $("#order_pay_" + key).val(value);
             })
             var order_refunded=response.order_refunded;
+            var user_refunded_info=response.user_refunded_info;
             if (order_refunded){
                 $("#refunded_span").removeClass("layui-hide");
                 $.each(order_refunded, function (key, value) {
                     $('#order_refunded_' + key).val(value);
+                });
+
+            }
+            if (user_refunded_info){
+                $.each(user_refunded_info, function (key, value) {
+                    $('#user_refunded_info_' + key).val(value);
                 });
 
             }
