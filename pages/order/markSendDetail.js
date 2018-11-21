@@ -18,13 +18,6 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
         var id = request.getQueryString("id");
 
         request.doPut("/admin/market_order/" + id + "/", {
-            // market_order_contact: {
-            //     id: data.field.market_order_contact_id,
-            //     consignee_name: data.field.consignee_name,
-            //     consignee_address: data.field.consignee_address,
-            //     consignee_phone: data.field.consignee_phone,
-            //     order: data.field.market_order_contact_order
-            // },
             order_status: 20,
             operator_remark: $("#operator_remark").val(),
             order_express: {
@@ -33,14 +26,17 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
             }
 
         }, function (data) {
-            layer.alert("修改成功", {
+            var index2 = layer.alert("修改成功", {
                 icon: 6
             }, function () {
+                // layer.close(layer.index);
+
                 parent.reflush();
                 // 获得frame索引
                 var index = parent.layer.getFrameIndex(window.name);
                 //关闭当前frame
                 parent.layer.close(index);
+                layer.close(index2);
             });
         });
 

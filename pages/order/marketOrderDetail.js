@@ -10,12 +10,12 @@ var hotel = user.hotelID;*/
 var TableHeader = [[ //表头
     {field: 'goods_name', align: 'center', title: '商品名称'},
     {field: 'goods_price', align: 'center', title: '商品单价'}
-    ,{field: 'goods_integral', align: 'center', title: '消费积分'}
+    , {field: 'goods_integral', align: 'center', title: '消费积分'}
     , {field: 'nums', align: 'center', title: '数量'}
     , {field: 'single_goods_amount', align: 'center', title: '总计'}
 
 ]];
-layui.use(['layer', 'request', 'jquery', 'form','table', 'upload'], function () {
+layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function () {
     var layer = layui.layer;
     var $ = layui.jquery;
     var form = layui.form;
@@ -28,14 +28,12 @@ layui.use(['layer', 'request', 'jquery', 'form','table', 'upload'], function () 
 
     });
     form.on('submit(add)', function (data) {
-        WeAdminShow("填写发货信息", "./markSendDetail.html?id=" + data.id,800,600);
+        var id = request.getQueryString("id");
+        parent.sendMarket(id);
+
         return false;
     });
-   function reflush() {
-       var op = request.getQueryString("op");
-       var id = request.getQueryString("id");
-       getOrderDetail(id, op)
-   }
+
     $("#close").click(function () {
         var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
         parent.layer.close(index); //再执行关闭
@@ -47,30 +45,30 @@ layui.use(['layer', 'request', 'jquery', 'form','table', 'upload'], function () 
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
             });
-            var status=response.order_status;
+            var status = response.order_status;
 
-            if (status!=10){
+            if (status != 10) {
                 $("#pay_div").removeClass("layui-hide");
             }
-            if (status==15){
+            if (status == 15) {
                 $("#send_order").removeClass("layui-hide");
             }
-            var market_order_contact=response.market_order_contact;
-            var order_express=response.order_express;
-            var order_pay=response.order_pay;
-            if (order_express!=undefined&&order_express!=null){
+            var market_order_contact = response.market_order_contact;
+            var order_express = response.order_express;
+            var order_pay = response.order_pay;
+            if (order_express != undefined && order_express != null) {
                 $("#order_express").removeClass("layui-hide");
-                $.each(order_express,function (key ,value) {
-                    $("#order_express_"+key).val(value);
+                $.each(order_express, function (key, value) {
+                    $("#order_express_" + key).val(value);
                 });
             }
-            $.each(market_order_contact,function (key ,value) {
-                $("#market_order_contact_"+key).val(value);
+            $.each(market_order_contact, function (key, value) {
+                $("#market_order_contact_" + key).val(value);
             });
-            $.each(order_pay,function (key ,value) {
-                $("#order_pay_"+key).val(value);
+            $.each(order_pay, function (key, value) {
+                $("#order_pay_" + key).val(value);
             });
-            var market_order_detail=response.market_order_detail;
+            var market_order_detail = response.market_order_detail;
             table.render({
                 elem: '#goodsList'
                 , limit: market_order_detail.length//显示的数量

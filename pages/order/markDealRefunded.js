@@ -52,7 +52,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
     });
 
     function getOrderDetail(id, op) {
-        request.doGet("/admin/market_order/" + id + "/", {}, function (response) {
+        request.doGet("/admin/market_refunded/" + id + "/", {}, function (response) {
             $.each(response, function (key, value) {
                 $('#' + key).val(value);
             });

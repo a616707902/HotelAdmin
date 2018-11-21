@@ -16,7 +16,7 @@ var TableHeader = [[ //表头
     {field: 'consumer_name', align: 'center', title: '会员姓名'}
     , {field: 'recharge_status_display', align: 'center', title: '充值状态'}
     , {field: 'recharge_money', align: 'center', title: '充值金额'}
-    , {field: 'free_money', align: 'center', title: '剩余金额'}
+    , {field: 'free_money', align: 'center', title: '赠送余额'}
     , {field: 'pay_time', align: 'center', title: '充值时间'}
     , {title: '操作', align: 'center', toolbar: '#barDemo'}
 

@@ -13,7 +13,7 @@ layui.use(['layer','jquery'], function () {
         w       弹出层宽度（缺省调默认值）
         h       弹出层高度（缺省调默认值）
     */
-    window.WeAdminShow = function (title, url, w, h) {
+    window.WeAdminShow = function (title, url, w, h,callback) {
         if (title == null || title == '') {
             title = false;
         }
@@ -38,7 +38,8 @@ layui.use(['layer','jquery'], function () {
             shadeClose: true,
             shade: 0.4,
             title: title,
-            content: url
+            content: url,
+            end:callback
         });
     }
     /*弹出层+传递ID参数*/

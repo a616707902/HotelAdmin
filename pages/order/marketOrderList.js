@@ -9,7 +9,7 @@ var Config = {
 var TableHeader = [[ //表头
     {field: 'order_id', align: 'center', title: '订单号'},
     {field: 'order_amount', align: 'center', title: '订单总价'}
-    ,{field: 'integral', align: 'center', title: '消费积分'}
+    , {field: 'integral', align: 'center', title: '消费积分'}
     , {field: 'create_time', align: 'center', title: '下单时间'}
     , {field: 'order_status_display', align: 'center', title: '订单状态'}
     , {field: 'consumer', align: 'center', title: '会员账号'}
@@ -30,11 +30,12 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
         getOrderList();
     }
     form.on('submit(sreach)', function (data) {
-        Config.page=1;
+        Config.page = 1;
         getOrderList();
         return false;
     });
-  function getOrderList() {
+
+    function getOrderList() {
         requset.doGet("/admin/market_order/", {
             page: Config.page,
             page_size: Config.pageSize,
@@ -60,10 +61,16 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
         if (obj.event === 'detail') {
             // layer.msg('ID：'+ data.id + ' 的查看操作');
             WeAdminShow("详情", "./marketOrderDetail.html?op=detail&id=" + data.id);
-        }else if(obj.event === 'confirm'){
-            WeAdminShow("填写发货信息", "./markSendDetail.html?id=" + data.id,800,600);
+        } else if (obj.event === 'confirm') {
+            sendMarket(data.id);
         }
     });
+
+    window.sendMarket= function (id) {
+        layer.closeAll();
+        WeAdminShow("填写发货信息", "./markSendDetail.html?id=" + id, 800, 600);
+    }
+
     $(function () {
         getOrderList();
     });

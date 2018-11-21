@@ -35,7 +35,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
                 layer.msg("联系电话未填写",{icon:5});
                 return false;
             }
-            if(isPoneAvailable(data.field.refunded_phone)){
+            if(!isPoneAvailable(data.field.refunded_phone)){
                 layer.msg("请输入正确的电话号码",{icon:5});
                 return false;
             }

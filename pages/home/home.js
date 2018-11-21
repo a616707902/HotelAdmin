@@ -483,14 +483,14 @@ var perms=layui.data('perms').perms;
         var len = $('.layui-tab-title').children('li').length;
         var layId = $(which).attr('lay-id');
         var i = 1;
-        if ($(which).attr('data-bit')) {
-            return false; //判断页面打开后第一次点击，执行刷新
-        } else {
+        // if ($(which).attr('data-bit')) {
+        //     return false; //判断页面打开后第一次点击，执行刷新
+        // } else {
             $(which).attr('data-bit', i);
             var frame = $('.weIframe[tab-id=' + layId + ']');
             frame.attr('src', frame.attr('src'));
             console.log("reload:" + $(which).attr('data-bit'));
-        }
+        // }
     }
 
 

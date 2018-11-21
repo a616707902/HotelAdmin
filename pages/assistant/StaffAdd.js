@@ -68,13 +68,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     }
 
     function editStaff(data, id) {
-        // {
-        //     "is_active": true,
-        //     "belong_hotel": "string",
-        //     "date_joined": "string",
-        //     "user_name": "string",
-        //     "sex": "string"
-        // }
+
         request.doPut("/admin/staff_center/" + id + "/", {
             belong_hotel: data.field.belong_hotel,
             user_name: data.field.user_name,
@@ -98,13 +92,6 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
 
             return;
         }
-        // {
-        //     "username": "string",
-        //     "belong_hotel": "string",
-        //     "password": "string",
-        //     "user_name": "string",
-        //     "sex": "string"
-        // }
         request.doPost("/admin/staff_center/", {
             belong_hotel: data.field.belong_hotel,
             username: data.field.username,
@@ -155,8 +142,8 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             $("#groups").html(html);
 
 
-            form.render();
-        })
+        });
+        form.render();
         return false;
     }
 
