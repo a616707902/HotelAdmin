@@ -4,9 +4,10 @@ layui.extend({
 var TableHeader = [[ //表头
     // {type:'checkbox',align:'center'},
     // {field: 'id', align: 'center', title: 'ID'}
-     {field: 'content', align: 'center', title: '公告内容'}
-    , {field: 'is_active', align: 'center', title: '状态', templet: '#switchTpl', unresize: true}
-    , {title: '操作', align: 'center', toolbar: '#barDemo'}
+     {field: 'content', align: 'center',width:'45%', title: '公告内容'},
+     {field: 'create_time', align: 'center',width:'20%', title: '创建时间'}
+    , {field: 'is_active', align: 'center',width:'20%', title: '状态', templet: '#switchTpl', unresize: true}
+    , {title: '操作', align: 'center',width:'15%', toolbar: '#barDemo'}
 
 ]];
 var Config = {

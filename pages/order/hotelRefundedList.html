@@ -15,14 +15,7 @@
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<!--ORDER_STATUS = (-->
-<!--(10, '未支付'),-->
-<!--(20, '待发货'),-->
-<!--(30, '待收货'),-->
-<!--(40, '已完成'),-->
-<!--(50, '已取消'),-->
-<!--(60, '等待评价'),-->
-<!--(70, '评价完成')  # 评价完成后才有积分-->
+
 <body>
 <div class="weadmin-nav">
 			<span class="layui-breadcrumb">
@@ -66,8 +59,14 @@
 <script src="../../lib/layui/layui.js" charset="utf-8"></script>
 <script src="../../static/js/showPOP.js" type="text/javascript" charset="utf-8"></script>
 <script src="hotelRefundedList.js" type="text/javascript" charset="utf-8"></script>
+<!--46：申请退款，50请退款-->
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">查看/修改</a>
+    <a class="layui-btn  layui-btn-primary layui-btn-xs" lay-event="edit">查看</a>
+    {{#  if(d.order_status==46){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="dealapply">处理退款申请</a>
+    {{#  } else if(d.order_status==50){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="refunded">退款</a>
+    {{#  } }}
     {{#  if((d.order_status==55&&d.order_refunded.refunded_status==40)||(d.order_status==55&&d.order_refunded.refunded_status==30)){ }}
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="retry">重试</a>
     {{#  } else { }}

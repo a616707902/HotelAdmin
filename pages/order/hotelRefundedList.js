@@ -66,6 +66,10 @@ function  getOrderList() {
             WeAdminShow("详情", "./hotelRefundedDetail.html?op=edit&id=" + data.id);
         }else if(obj.event === 'retry'){
             retryRefunded(data.id);
+        } else if(obj.event === 'dealapply'){
+            WeAdminShow("处理退款申请", "./hotel_DealApply.html?id=" + data.id,600,300);
+        }else if(obj.event === 'refunded'){
+            WeAdminShow("退款", "./hotelRefundedDetail.html?op=refunded&id=" + data.id);
         }
     });
     $(function () {

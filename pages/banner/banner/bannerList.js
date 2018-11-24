@@ -4,10 +4,11 @@ layui.extend({
 var TableHeader = [[ //表头
     // {type:'checkbox',align:'center'},
     // {field: 'id', align: 'center', title: 'ID'}
-    {field: 'banner_title', align: 'center', title: '横幅标题'}
-    , {field: 'images', align: 'center', title: '展示照片', templet: '#imgTpl', style:"height:100px;", unresize: true,}
-    , {field: 'is_show', align: 'center', title: '是否显示', templet: '#switchTpl', unresize: true}
-    , {title: '操作', align: 'center', toolbar: '#barDemo'}
+    {field: 'banner_title', align: 'center',width:'20%', title: '横幅标题'}
+    , {field: 'images', align: 'center',width:'20%', title: '展示照片', templet: '#imgTpl', style:"height:100px;", unresize: true,}
+    , {field: 'is_show', align: 'center',width:'15%', title: '是否显示', templet: '#switchTpl', unresize: true}
+    , {field: 'update_time', align: 'center',width:'20%', title: '更新时间'}
+    , {title: '操作', align: 'center',width:'25%', toolbar: '#barDemo'}
 
 ]];
 var Config = {

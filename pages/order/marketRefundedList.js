@@ -71,7 +71,7 @@ layui.use(['layer', 'jquery', 'request', 'form', 'table', 'laydate', 'laypage'],
         }
         else if (obj.event === 'refunded') { //处理退款申请
             WeAdminShow("退款", "./markDealRefunded.html?op=refunded&id=" + data.id,600,600);
-        }else if (obj.event === 'retry') { //处理退款申请
+        }else if (obj.event === 'retry') { //重试
             retryRefunded(data.id);
         }
     });

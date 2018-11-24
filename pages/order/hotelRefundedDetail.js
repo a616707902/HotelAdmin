@@ -77,7 +77,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             });
             money = response.order_pay.money;
             var status = response.order_status;
-            if (status != 46) {
+            if (status != 50) {
                 $("#refunded_button").addClass("layui-hide");
                 $("#refunded_money").attr("readonly","readonly");
                 $("#operator_remark").attr("readonly","readonly");

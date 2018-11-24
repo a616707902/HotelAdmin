@@ -41,9 +41,9 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
                 $('#' + key).val(value);
             });
             var status = response.order_status;
-            if (status == 60) {
-                $("#span_refunded").removeClass("layui-hide")
-            }
+            // if (status == 60) {
+            //     $("#span_refunded").removeClass("layui-hide")
+            // }
             var market_order_contact = response.market_order_contact;
             var order_pay = response.order_pay;
             $.each(market_order_contact, function (key, value) {
@@ -62,6 +62,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
 
             }
             if (user_refunded_info){
+                $("#refunded_info_div").removeClass("layui-hide");
                 $.each(user_refunded_info, function (key, value) {
                     $('#user_refunded_info_' + key).val(value);
                 });

@@ -180,6 +180,34 @@
             </div>
         </div>
 </span>
+        <span id="refunded_info_div" class="layui-hide">
+        <div class="site-title">
+            <fieldset>
+                <legend><a name="ignore">退货信息</a></legend>
+            </fieldset>
+        </div>
+        <div class="layui-form-item">
+           <div class="layui-inline">
+            <label class="layui-form-label">快递</label>
+            <div class="layui-input-inline">
+                <input id="user_refunded_info_user_express" type="text" class="layui-input " readonly>
+            </div>
+        </div>
+
+            <div class="layui-inline">
+            <label class="layui-form-label">快递单号</label>
+            <div class="layui-input-inline">
+                <input id="user_refunded_info_user_express_id" type="text" class="layui-input " readonly>
+            </div>
+        </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">退货备注</label>
+            <div class="layui-input-block">
+                <input id="user_refunded_info_remark" class="layui-input " readonly>
+            </div>
+        </div>
+            </span>
         <span id="refunded_span" class="layui-hide">
         <div class="site-title">
             <fieldset>
@@ -231,59 +259,32 @@
         </div>
 
         </span>
-        <span id="refunded_info_div">
-        <div class="site-title">
-            <fieldset>
-                <legend><a name="ignore">退货信息</a></legend>
-            </fieldset>
-        </div>
-        <div class="layui-form-item">
-           <div class="layui-inline">
-            <label class="layui-form-label">快递</label>
-            <div class="layui-input-inline">
-                <input id="user_refunded_info_user_express" type="text" class="layui-input " readonly>
-            </div>
-        </div>
 
-            <div class="layui-inline">
-            <label class="layui-form-label">快递单号</label>
-            <div class="layui-input-inline">
-                <input id="user_refunded_info_user_express_id" type="text" class="layui-input " readonly>
-            </div>
-        </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">退货备注</label>
-            <div class="layui-input-block">
-                <input id="user_refunded_info_remark" class="layui-input " readonly>
-            </div>
-        </div>
-            </span>
-        <span id="span_refunded" class="layui-hide">
-        <div class="site-title">
-            <fieldset>
-                <legend><a name="ignore">退款</a></legend>
-            </fieldset>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">退款金额</label>
-            <div class="layui-input-inline">
-                <input id="refunded_money" type="number" step="0.01" value="0" class="layui-input ">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">退还积分</label>
-            <div class="layui-input-inline">
-                <input id="refunded_integral" type="number" value="0" class="layui-input ">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">店家备注</label>
-            <div class="layui-input-block">
-                <input id="operator_remark" class="layui-input ">
-            </div>
-        </div>
-            </span>
+        <!--<span id="span_refunded" class="layui-hide">-->
+        <!--<div class="site-title">-->
+            <!--<fieldset>-->
+                <!--<legend><a name="ignore">退款</a></legend>-->
+            <!--</fieldset>-->
+        <!--</div>-->
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">退款金额</label>-->
+            <!--<div class="layui-input-inline">-->
+                <!--<input id="refunded_money" type="number" step="0.01" value="0" class="layui-input ">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">退还积分</label>-->
+            <!--<div class="layui-input-inline">-->
+                <!--<input id="refunded_integral" type="number" value="0" class="layui-input ">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">店家备注</label>-->
+            <!--<div class="layui-input-block">-->
+                <!--<input id="operator_remark" class="layui-input ">-->
+            <!--</div>-->
+        <!--</div>-->
+            <!--</span>-->
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <!--<button class="layui-btn" lay-submit="" id="refunded_button" lay-filter="add">确认退款</button>-->

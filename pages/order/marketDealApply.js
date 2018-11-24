@@ -15,11 +15,13 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
 
 
     form.on('radio(order_status)', function (data) {
-        if (data.value == 61) {
+        if (data.value == 61) {//拒绝退款
             $('#span_rufund').addClass("layui-hide");
+            $('#fail_reason_div').removeClass("layui-hide");
 
-        } else {
+        } else {//同意退款
             $('#span_rufund').removeClass("layui-hide");
+            $('#fail_reason_div').addClass("layui-hide");
         }
         return false;
     });
@@ -27,6 +29,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
         //发异步，把数据提交给php
         var id = request.getQueryString("id");
         if (data.field.order_status==48){
+
             if(data.field.refunded_name==undefined||data.field.refunded_name==''){
                 layer.msg("收货人未填写",{icon:5});
                 return false;
@@ -43,9 +46,11 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
                 layer.msg("退货地址未填写",{icon:5});
                 return false;
             }
+            data.field.fail_reason="";
         }
         request.doPost("/admin/market_refunded/" + id + "/deal_apply/", {
             order_status: data.field.order_status,
+            fail_reason: data.field.fail_reason,
             admin_refunded_info: {
                 refunded_address: data.field.refunded_address,
                 refunded_name: data.field.refunded_name,
