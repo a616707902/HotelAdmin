@@ -18,9 +18,11 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
     form.on('submit(add)', function (data) {
         //发异步，把数据提交给php
         var id = request.getQueryString("id");
-        var refunded = parseInt($("#refunded_money").val());
-        var refunded_integral = parseInt($("#refunded_integral").val());
-        if (refunded < 0 || refunded > money) {
+        var refunded = parseFloat($("#refunded_money").val());
+        var refunded_integral = parseFloat($("#refunded_integral").val());
+        var moneyFloat=parseFloat(money);
+
+        if (refunded < 0 || refunded > moneyFloat) {
             layer.msg("退款金额应在0~" + money + "范围内!", {icon: 5});
             return false;
         }

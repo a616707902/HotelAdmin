@@ -80,9 +80,9 @@
     {{#  } else if(d.belong_order_type==10){ }}
         {{# layui.each(d.belong_order.market_order_detail,function(index,market){ }}
             {{# if (index==d.belong_order.market_order_detail.length-1){}}
-                {{mark.goods}}
+                {{market.goods_name}}
             {{#  } else{ }}
-                 {{mark.goods}}{{','}}
+                 {{market.goods_name}}{{','}}
             {{#  } }}
         {{# });}}
     {{#  } }}
