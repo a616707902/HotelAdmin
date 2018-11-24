@@ -50,24 +50,44 @@
             </div>
         </div>
         <div class="layui-form-item" id="room_count_div">
-            <label class="layui-form-label">房间总数</label>
-            <div class="layui-input-inline">
-                <input id="room_count" lay-verType="tips" type="number" name="room_count"  placeholder="房间总数"
-                       value="0" autocomplete="off" class="layui-input ">
+            <div class="layui-inline">
+                <label class="layui-form-label">房间总数</label>
+                <div class="layui-input-inline">
+                    <input id="room_count" lay-verType="tips" type="number" name="room_count"  placeholder="房间总数"
+                           value="0" autocomplete="off" class="layui-input ">
+                </div>
             </div>
-        </div>
-        <div class="layui-form-item layui-hide" id="left_room_count_div">
-            <label class="layui-form-label">剩余房间数</label>
-            <div class="layui-input-inline">
-                <input id="left_room_count" lay-verType="tips" type="number" name="left_room_count"  placeholder="剩余房间数"
-                       value="0" autocomplete="off" class="layui-input ">
+            <div class="layui-inline">
+                <label class="layui-form-label">价格</label>
+                <div class="layui-input-inline">
+                    <input id="price" lay-verType="tips" type="number" name="price" lay-verify="required" placeholder="价格"
+                           value="0" autocomplete="off" class="layui-input ">
+                </div>
             </div>
+            <div class="layui-inline layui-hide" id="left_room_count_div">
+                <label class="layui-form-label">剩余房间数</label>
+                <div class="layui-input-inline">
+                    <input id="left_room_count" lay-verType="tips" type="number" name="left_room_count"  placeholder="剩余房间数"
+                           value="0" autocomplete="off" class="layui-input ">
+                </div>
+            </div>
+
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">价格</label>
-            <div class="layui-input-inline">
-                <input id="price" lay-verType="tips" type="number" name="price" lay-verify="required" placeholder="价格"
-                       value="0" autocomplete="off" class="layui-input ">
+        <div class="layui-form-item" >
+            <div class="layui-inline">
+                <label class="layui-form-label">分销方式</label>
+                <div class="layui-input-block">
+                    <input  type="radio" name="distribution_method"  lay-filter="distribution_method" title="不分销" value="no" checked/>
+                    <input  type="radio" name="distribution_method" lay-filter="distribution_method" title="固定金额" value="fixed"/>
+                    <input  type="radio" name="distribution_method" lay-filter="distribution_method" title="比例分销" value="ratio"/>
+                </div>
+            </div>
+            <div class="layui-inline layui-hide" id="distribution_input_div">
+                <label class="layui-form-label" id="distribution_input_lable">分销金额</label>
+                <div class="layui-input-inline">
+                    <input id="distribution_calc" lay-verType="tips" type="number" name="distribution_calc" lay-verify="required" placeholder="输入分销金额"
+                           value="0" autocomplete="off" class="layui-input ">
+                </div>
             </div>
         </div>
         <div class="layui-form-item">
@@ -108,7 +128,7 @@
             <div class="layui-input-block">
                 <button class="layui-btn" lay-submit="" lay-filter="add">立即提交</button>
                 <!--<button id="reset" type="reset" class="layui-btn layui-btn-primary">重置</button>-->
-                <button id="close" class="layui-btn layui-btn-primary">关闭</button>
+
             </div>
         </div>
         <input type="hidden" name="hotelnum" value="0"/>

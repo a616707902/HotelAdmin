@@ -14,27 +14,51 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     var form = layui.form;
     var request = layui.request;
     var upload = layui.upload;
-    form.on('submit(add)', function (data) {
-        //发异步，把数据提交给php
-        var op = request.getQueryString("op");
-        var id = request.getQueryString("id");
-
-        if ("edit" == op) {
-            editRoomStyle(data, id);
-        } else {
-            addRoomStyle(data);
-        }
-
-        return false;
-    });
+    // form.on('submit(add)', function (data) {
+    //     //发异步，把数据提交给php
+    //     var op = request.getQueryString("op");
+    //     var id = request.getQueryString("id");
+    //
+    //     if ("edit" == op) {
+    //         editRoomStyle(data, id);
+    //     } else {
+    //         addRoomStyle(data);
+    //     }
+    //
+    //     return false;
+    // });
     $("#close").click(function () {
         var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
         parent.layer.close(index); //再执行关闭
         return false;
     });
+    form.on('radio(distribution_method)', function (data) {
+        if (data.value == 'no') {
+            $('#distribution_input_div').addClass("layui-hide");
+
+        } else if (data.value == 'fixed') {
+            $('#distribution_input_div').removeClass("layui-hide");
+            $('#distribution_input_lable').html("分销金额");
+            $('#distribution_calc').attr("placeholder", "输入分销金额");
+
+        } else {
+            $('#distribution_input_div').removeClass("layui-hide");
+            $('#distribution_input_lable').html("分销比例");
+            $('#distribution_calc').attr("placeholder", "输入分销比例");
+        }
+        return false;
+    });
     var uploadData = null;
     form.on('submit(add)', function (data) {
         //发异步，把数据提交给php
+        // distribution_calc:data.field.distribution_calc,
+        // distribution_method:data.field.distribution_method,
+        if (data.field.distribution_method=='ratio'){
+            if (data.field.distribution_calc<0||data.field.distribution_calc>1){
+                layer.msg("分销比例在0~1之间，请重新输入",{icon:5})
+                return false;
+            }
+        }
         uploadData = data;
         if (getJsonLength(Instfiles) > 0) {
             uploadInst.upload();
@@ -47,6 +71,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
 
         return false;
     });
+
     function loadData() {
         var op = request.getQueryString("op");
         var id = request.getQueryString("id");
@@ -58,14 +83,16 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
         }
 
     }
+
     $(function () {
         var op = request.getQueryString("op");
         var id = request.getQueryString("id");
-        getAllTag(hotel,op,id)
+        getAllTag(hotel, op, id)
 
 
     });
-    function getAllTag(hotel,op,id) {
+
+    function getAllTag(hotel, op, id) {
         request.doGet("/admin/tags/", {}, function (data) {
             var alltag = data.results;
             if (alltag != null) {
@@ -76,18 +103,19 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
                 $("#tag_div").html(html);
                 form.render();
             }
-            getHotelSelect(hotel,op,id);
+            getHotelSelect(hotel, op, id);
 
         });
     }
+
     var Instfiles;
-    var uploadInst =upload.render({
+    var uploadInst = upload.render({
         elem: '#test1'
         , url: 'http://api.gaoshiwang.cn/admin/image/'
         , field: 'image'
         , multiple: true
         , headers: {"Authorization": layui.data('token').token}
-         ,auto: false
+        , auto: false
         // ,bindAction: '#add'
         , choose: function (obj) {
             //预读本地文件示例，不支持ie8
@@ -123,7 +151,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
      * 获取当前账号下能管理的所有酒店
      * @param hotel
      */
-    function getHotelSelect(hotel,op,id) {
+    function getHotelSelect(hotel, op, id) {
         var url = "/admin/hotel/"
         if (hotel != null && hotel != '') {
             url = "/admin/hotel/" + hotel + "/";
@@ -143,7 +171,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             }
             $('#hotel-select').html(htmlselect);
             form.render('select'); //刷新select选择框渲染
-            if ( "edit" == op) {
+            if ("edit" == op) {
                 getRoomStyleDetail(id)
             }
         });
@@ -151,14 +179,16 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
 
     function editRoomStyle(data, id) {
         request.doPut("/admin/room_style/" + id + "/", {
-            tags:getTags(),
+            tags: getTags(),
             price: data.field.price,
             belong_hotel: data.field.hotel,
-            cover_image:$("#cover_image").val(),
+            cover_image: $("#cover_image").val(),
             is_active: data.field.is_active == '1' ? true : false,
-            room_count:data.field.room_count,
+            room_count: data.field.room_count,
             style_name: data.field.style_name,
             room_profile: data.field.room_profile,
+            distribution_calc:data.field.distribution_calc,
+            distribution_method:data.field.distribution_method,
             images: getImages()
         }, function (data) {
             layer.alert("修改成功", {
@@ -188,14 +218,16 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
         // ],
         //     "belong_hotel": "string"
         request.doPost("/admin/room_style/", {
-            tags:getTags(),
+            tags: getTags(),
             price: data.field.price,
             belong_hotel: data.field.hotel,
-            cover_image:$("#cover_image").val(),
+            cover_image: $("#cover_image").val(),
             is_active: data.field.is_active == '1' ? true : false,
-            room_count:data.field.room_count,
+            room_count: data.field.room_count,
             style_name: data.field.style_name,
             room_profile: data.field.room_profile,
+            distribution_calc:data.field.distribution_calc,
+            distribution_method:data.field.distribution_method,
             images: getImages()
         }, function (data) {
             layer.alert("增加成功", {
@@ -224,33 +256,50 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
                     $(this).attr('checked', true);
                 }
             });
-            var cover_image=response.cover_image;
+            var cover_image = response.cover_image;
             $('#demo1').attr('src', cover_image); //图片链接（base64）
+            $("#hotel-select").val(response.belong_hotel);
             // $("#room_count_div").removeClass("layui-hide");
             // $("#left_room_count_div").removeClass("layui-hide");
             var images = response.images;
             for (var i = 0; i < images.length; i++) {
-                    var tr = $([' <div class="layui-upload-list2 ">\n' +
-                    '<span class="con_img" >' +
-                    '                    <img id="image_' + i + '" imageUrl="'+images[i]+'" style="width: 200px;height: 200px" layer-src=' + images[i] + ' src=' + images[i] + ' class="layui-upload-img image_path" >\n' +
-                    '</span>' +
-                    '                    <span >' +
-                    '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>' +
-                    '</span>\n' +
-                    '                </div>'
-                    ].join(''));
-                    //删除
-                    tr.find('.demo-delete').on('click', function () {
-                        // delete files[index]; //删除对应的文件
-                        $(this).parent("span").parent(".layui-upload-list2").remove();
-                    });
-                    demoListView.append(tr);
+                var tr = $([' <div class="layui-upload-list2 ">\n' +
+                '<span class="con_img" >' +
+                '                    <img id="image_' + i + '" imageUrl="' + images[i] + '" style="width: 200px;height: 200px" layer-src=' + images[i] + ' src=' + images[i] + ' class="layui-upload-img image_path" >\n' +
+                '</span>' +
+                '                    <span >' +
+                '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>' +
+                '</span>\n' +
+                '                </div>'
+                ].join(''));
+                //删除
+                tr.find('.demo-delete').on('click', function () {
+                    // delete files[index]; //删除对应的文件
+                    $(this).parent("span").parent(".layui-upload-list2").remove();
+                });
+                demoListView.append(tr);
             }
             $("input[name=is_active]").each(function () {
                 if ($(this).val() == response.is_active) {
                     $(this).attr('checked', true);
                 }
             });
+            $("input[name=distribution_method]").each(function () {
+                if ($(this).val() == response.distribution_method) {
+                    $(this).attr('checked', true);
+                }
+            });
+            if (response.distribution_method == 'no') {
+                $('#distribution_input_div').addClass("layui-hide");
+
+            } else if (response.distribution_method == 'fixed') {
+                $('#distribution_input_div').removeClass("layui-hide");
+                $('#distribution_input_lable').html("分销金额");
+
+            } else if (response.distribution_method == 'ratio'){
+                $('#distribution_input_div').removeClass("layui-hide");
+                $('#distribution_input_lable').html("分销比例");
+            }
             var tags = response.tags;
             var checks = document.getElementsByName("tags")
             if (tags != null && checks != null) {
@@ -278,7 +327,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
         , auto: false
 
         , choose: function (obj) {
-             files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+            files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
             //读取本地文件
             obj.preview(function (index, file, result) {
 
@@ -336,16 +385,16 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             tds.eq(2).find('.demo-reload').removeClass('layui-hide'); //显示重传
         },
         allDone: function (obj) { //当文件全部被提交后，才触发
-        console.log(obj.total); //得到总文件数
-        console.log(obj.successful); //请求成功的文件数
-        console.log(obj.aborted); //请求失败的文件数
-        if (obj.total == obj.successful) {
-            loadData();
-        } else {
-            layer.msg("有文件未上传成功，请重新上传", {icon: 5});
-        }
+            console.log(obj.total); //得到总文件数
+            console.log(obj.successful); //请求成功的文件数
+            console.log(obj.aborted); //请求失败的文件数
+            if (obj.total == obj.successful) {
+                loadData();
+            } else {
+                layer.msg("有文件未上传成功，请重新上传", {icon: 5});
+            }
 
-    }
+        }
     });
 
     var getImages = function () {
@@ -368,6 +417,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
         }
         return jsonLength;
     }
+
     function getTags() {
         var tags = new Array();
         var checks = document.getElementsByName("tags")

@@ -87,8 +87,6 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
             //success(result,status,xhr)
             success: function (response, status, xhr) {
                 top.layer.close(index);
-                console.log(status);//success
-                console.log(xhr.status);//200
                 if (300 < xhr.status || xhr.status < 200) {
                     top.layer.msg(response.detail, {icon: 5});
                     return false;
@@ -99,15 +97,12 @@ layui.define(['jquery', 'layer'], function (exports) { //提示：模块也可�
             },
             beforeSend: function (xhr) {
             },
-            //complete(xhr,status)
             complete: function () {
                 top.layer.close(index);
             },
             error: function (XMLHttpRequest, textStatus, error) {
                 top.layer.close(index);
                 if (XMLHttpRequest.status == 400) {
-                    // layer.msg(XMLHttpRequest.responseText, {icon: 5})
-                    // errorCallBack();
                     var msg="";
                     $.each(XMLHttpRequest.responseJSON,function (key,value) {
                       var lable=  $("#"+key).parent().parent().children(".layui-form-label").html();

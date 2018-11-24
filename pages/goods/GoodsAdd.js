@@ -9,8 +9,29 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     var upload = layui.upload;
     var demoListView = $('#layer-photos-demo');
     var uploadData = null;
+    form.on('radio(distribution_method)', function (data) {
+        if (data.value == 'no') {
+            $('#distribution_input_div').addClass("layui-hide");
+
+        } else if (data.value == 'fixed') {
+            $('#distribution_input_div').removeClass("layui-hide");
+            $('#distribution_input_lable').html("分销金额");
+            $('#distribution_calc').attr("placeholder", "输入分销金额");
+        } else {
+            $('#distribution_input_div').removeClass("layui-hide");
+            $('#distribution_input_lable').html("分销比例");
+            $('#distribution_calc').attr("placeholder", "输入分销比例");
+        }
+        return false;
+    });
     form.on('submit(add)', function (data) {
         //发异步，把数据提交给php
+        if (data.field.distribution_method=='ratio'){
+            if (data.field.distribution_calc<0||data.field.distribution_calc>1){
+                layer.msg("分销比例在0~1之间，请重新输入",{icon:5})
+                return false;
+            }
+        }
         uploadData = data;
         if (getJsonLength(Instfiles) > 0) {
             uploadInst.upload();
@@ -19,7 +40,6 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
         } else {
             loadData();
         }
-
         return false;
     });
     $("#close").click(function () {
@@ -40,8 +60,6 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
     }
 
     form.on('radio(is_integral)', function (data) {
-        // console.log(data.elem); //得到radio原始DOM对象
-        // console.log(data.value); //被点击的radio的value值
         if (data.value == 0) {
             $('#need_div').addClass("layui-hide");
             $('#price_div').removeClass("layui-hide");
@@ -126,6 +144,8 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             images: getImages(),
             is_promotion: data.field.is_promotion == '1' ? true : false,
             cover_image: $("#cover_image").val(),
+            distribution_calc:data.field.distribution_calc,
+            distribution_method:data.field.distribution_method,
             goods_price: data.field.goods_price
         }, function (data) {
             layer.alert("修改成功", {
@@ -152,6 +172,8 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
             images: getImages(),
             is_promotion: data.field.is_promotion == '1' ? true : false,
             cover_image: $("#cover_image").val(),
+            distribution_calc:data.field.distribution_calc,
+            distribution_method:data.field.distribution_method,
             goods_price: data.field.goods_price
         }, function (data) {
             layer.alert("增加成功", {
@@ -315,6 +337,22 @@ layui.use(['layer', 'request', 'jquery', 'form', 'upload'], function () {
                     $(this).attr('checked', true);
                 }
             });
+            $("input[name=distribution_method]").each(function () {
+                if ($(this).val() == response.distribution_method) {
+                    $(this).attr('checked', true);
+                }
+            });
+            if (response.distribution_method == 'no') {
+                $('#distribution_input_div').addClass("layui-hide");
+
+            } else if (response.distribution_method == 'fixed') {
+                $('#distribution_input_div').removeClass("layui-hide");
+                $('#distribution_input_lable').html("分销金额");
+
+            } else if (response.distribution_method == 'ratio'){
+                $('#distribution_input_div').removeClass("layui-hide");
+                $('#distribution_input_lable').html("分销比例");
+            }
             if (response.is_special) {
                 $('#special_div').removeClass("layui-hide");
             } else {

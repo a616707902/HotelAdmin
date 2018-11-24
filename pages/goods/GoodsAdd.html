@@ -87,6 +87,23 @@
                 <input  type="radio" name="is_promotion" title="否" value="0" checked/>
             </div>
         </div>
+        <div class="layui-form-item" >
+            <div class="layui-inline">
+                <label class="layui-form-label">分销方式</label>
+                <div class="layui-input-block">
+                    <input  type="radio" name="distribution_method"  lay-filter="distribution_method" title="不分销" value="no" checked/>
+                    <input  type="radio" name="distribution_method" lay-filter="distribution_method" title="固定金额" value="fixed"/>
+                    <input  type="radio" name="distribution_method" lay-filter="distribution_method" title="比例分销" value="ratio"/>
+                </div>
+            </div>
+            <div class="layui-inline layui-hide" id="distribution_input_div">
+                <label class="layui-form-label" id="distribution_input_lable">分销金额</label>
+                <div class="layui-input-inline">
+                    <input id="distribution_calc" lay-verType="tips" type="number" name="distribution_calc" lay-verify="required" placeholder="输入分销金额"
+                           value="0" autocomplete="off" class="layui-input ">
+                </div>
+            </div>
+        </div>
         <div class="layui-form-item">
             <label class="layui-form-label">展示照片</label>
             <div class="layui-input-block layui-upload">

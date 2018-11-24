@@ -25,7 +25,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
             return false;
         }
         if (refunded_integral < 0 || refunded_integral > integral) {
-            layer.msg("退还金额应在0~" + integral + "范围内!", {icon: 5});
+            layer.msg("退还积分应在0~" + integral + "范围内!", {icon: 5});
             return false;
         }
         request.doPut("/admin/market_refunded/" + id + "/", {
@@ -57,9 +57,7 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
                 $('#' + key).val(value);
             });
             var order_pay = response.order_pay;
-            // $.each(market_order_contact, function (key, value) {
-            //     $("#market_order_contact_" + key).val(value);
-            // })
+
             var user_refunded_info=response.user_refunded_info;
             if (user_refunded_info){
                 $.each(user_refunded_info, function (key, value) {
@@ -69,6 +67,8 @@ layui.use(['layer', 'request', 'jquery', 'form', 'table', 'upload'], function ()
             }
             money = response.order_pay.money;
             integral = response.order_pay.integral;
+            $("#refunded_money").val(money);
+            $("#refunded_integral").val(integral);
             $.each(order_pay, function (key, value) {
                 $("#order_pay_" + key).val(value);
             })
