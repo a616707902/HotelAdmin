@@ -5,6 +5,9 @@ layui.extend({
 layui.use(['form', 'request'], function () {
     var form = layui.form;
     var requset = layui.request;
+   /* var daxiao = "/HotelAdmin/static/images/newMessage.mp3";
+    var daxiao = new Audio(daxiao);
+    daxiao .play(); //播放*/
     //监听提交
     form.on('submit(login)', function (data) {
         // alert(888)
